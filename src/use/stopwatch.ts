@@ -1,7 +1,7 @@
 import { ref, computed } from 'vue';
 import { getDataFromDuration, formatDuration } from '../util/duration';
 
-export default function useStopwatch() {
+export default function useStopwatch(timerDuration = 0) {
   const minutes = ref(0);
   const seconds = ref(0);
   const milliseconds = ref(0);
@@ -48,6 +48,9 @@ export default function useStopwatch() {
       end.value = new Date();
       currentDuration.value = end.value.getTime() - start.value!.getTime();
       let totalDurationMs = currentDuration.value + lastDuration.value;
+      if (timerDuration > 0) {
+        totalDurationMs = timerDuration - totalDurationMs;
+      }
       const data = getDataFromDuration(totalDurationMs);
 
       minutes.value = data.minutes;

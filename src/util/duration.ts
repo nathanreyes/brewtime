@@ -24,3 +24,7 @@ export function formatDuration(duration: number) {
   const data = getDataFromDuration(duration);
   return `${padNum(data.minutes)}:${padNum(data.seconds)}`;
 }
+
+export function formatTimerDuration(duration: number, timerDuration: number) {
+  return formatDuration(timerDuration - duration + 1000);
+}

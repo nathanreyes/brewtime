@@ -3,6 +3,7 @@ export default [
     name: 'Stagg X',
     type: 'percolation',
     author: 'Nathan Reyes',
+    notes: 'These are my notes.',
     grindSize: 'Fine',
     waterAmount: '350g',
     waterTemp: 'Boil',

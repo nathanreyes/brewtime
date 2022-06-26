@@ -100,7 +100,7 @@ useDarkMode(toRef(state, 'isDarkMode'));
   <div class="h-screen mx-auto flex flex-col font-mono dark:bg-black dark:text-white">
     <!--App header-->
     <header class="flex-shrink-0">
-      <div class="flex items-center w-full h-14 sm:h-16 sm:max-w-xl px-2 sm:px-0 mx-auto">
+      <div class="flex items-center w-full h-16 sm:max-w-xl px-2 sm:px-0 mx-auto">
         <!--Menu button-->
         <IconButton @click="reset">
           <IconMenu />
@@ -125,11 +125,11 @@ useDarkMode(toRef(state, 'isDarkMode'));
     <main class="flex-grow h-full">
       <div class="flex flex-col w-full h-full sm:max-w-xl mx-auto">
         <!--Recipe name/author-->
-        <div class="flex-shrink-0 border-b">
+        <div class="flex-shrink-0 pb-4 border-b">
           <h3 class="text-xl text-center dark:text-gray-200">{{ activeRecipe.name }}</h3>
-          <p v-if="activeRecipe.author" class="text-xs text-gray-500 dark:text-gray-400 text-center pt-2 pb-4">
+          <!-- <p v-if="activeRecipe.author" class="text-xs text-gray-500 dark:text-gray-400 text-center pt-2 pb-4">
             by {{ activeRecipe.author }}
-          </p>
+          </p> -->
         </div>
         <div class="flex-grow flex-shrink relative">
           <div class="absolute inset-0 h-full overflow-y-auto">
@@ -157,7 +157,7 @@ useDarkMode(toRef(state, 'isDarkMode'));
           </div>
         </div>
         <!--Recipe buttons-->
-        <div class="flex-shrink-0 flex justify-center items-end py-6 px-4 sm:px-0 space-x-14">
+        <div class="flex-shrink-0 flex justify-center items-end py-6 space-x-14">
           <!--Edit button-->
           <div class="w-12">
             <IconButton v-if="!running">

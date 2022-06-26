@@ -99,8 +99,8 @@ useDarkMode(toRef(state, 'isDarkMode'));
 <template>
   <div class="h-screen mx-auto flex flex-col font-mono dark:bg-black dark:text-white">
     <!--App header-->
-    <header class="flex-shrink-0 px-4">
-      <div class="flex items-center w-full h-16 sm:max-w-xl sm:px-0 mx-auto">
+    <header class="flex-shrink-0">
+      <div class="flex items-center w-full h-14 sm:h-16 sm:max-w-xl px-2 sm:px-0 mx-auto">
         <!--Menu button-->
         <IconButton @click="reset">
           <IconMenu />
@@ -127,7 +127,7 @@ useDarkMode(toRef(state, 'isDarkMode'));
         <!--Recipe name/author-->
         <div class="flex-shrink-0 border-b">
           <h3 class="text-xl text-center dark:text-gray-200">{{ activeRecipe.name }}</h3>
-          <p v-if="activeRecipe.author" class="text-xs text-gray-400 dark:text-gray-500 text-center pt-2 pb-4">
+          <p v-if="activeRecipe.author" class="text-xs text-gray-500 dark:text-gray-400 text-center pt-2 pb-4">
             by {{ activeRecipe.author }}
           </p>
         </div>

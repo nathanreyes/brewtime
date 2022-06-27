@@ -7,7 +7,7 @@ defineProps<{
 }>();
 </script>
 <template>
-  <header class="flex-shrink-0 border-b">
+  <header class="flex-shrink-0">
     <div class="w-full sm:max-w-xl mx-auto">
       <div class="flex items-center h-16 px-2 sm:px-0 mx-auto">
         <!--Left slot-->

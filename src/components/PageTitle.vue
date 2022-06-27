@@ -1,3 +1,3 @@
 <template>
-  <h2 class="text-xl text-center text-black dark:text-white pb-4"><slot /></h2>
+  <h2 class="text-xl text-center text-black dark:text-white"><slot /></h2>
 </template>

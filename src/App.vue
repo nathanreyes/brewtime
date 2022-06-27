@@ -59,6 +59,8 @@ interface Recipe {
 
 const { running, totalDuration, toggleRunning, durationLabel, reset } = useStopwatch();
 
+const hasStarted = computed(() => totalDuration.value > 0);
+
 function processRecipe(recipe: RecipeConfig): Recipe {
   let totalDuration = 0;
   const steps = recipe.steps.map((step) => {
@@ -97,7 +99,7 @@ useDarkMode(toRef(state, 'isDarkMode'));
 </script>
 
 <template>
-  <div class="h-screen mx-auto flex flex-col font-mono dark:bg-black dark:text-white">
+  <div class="h-screen flex flex-col mx-auto font-mono dark:bg-black dark:text-white -z-10">
     <!--App header-->
     <header class="flex-shrink-0">
       <div class="flex items-center w-full h-16 sm:max-w-xl px-2 sm:px-0 mx-auto">
@@ -122,8 +124,8 @@ useDarkMode(toRef(state, 'isDarkMode'));
       </div>
     </header>
     <!--App content-->
-    <main class="flex-grow h-full">
-      <div class="flex flex-col w-full h-full sm:max-w-xl mx-auto">
+    <main class="flex-grow relative">
+      <div class="absolute inset-0 flex flex-col w-full sm:max-w-xl mx-auto">
         <!--Recipe name/author-->
         <div class="flex-shrink-0 pb-4 border-b">
           <h3 class="text-xl text-center dark:text-gray-200">{{ activeRecipe.name }}</h3>
@@ -131,9 +133,10 @@ useDarkMode(toRef(state, 'isDarkMode'));
             by {{ activeRecipe.author }}
           </p> -->
         </div>
-        <div class="flex-grow flex-shrink relative">
-          <div class="absolute inset-0 h-full overflow-y-auto">
-            <!--Recipe prep data-->
+        <!--Recipe content-->
+        <div class="flex-grow flex-shrink overflow-y-auto">
+          <template v-if="!(running || hasStarted)">
+            <!--Recipe metadata-->
             <div class="flex flex-wrap justify-around border-b text-sm">
               <DataDisplay label="Water Amt" :data="activeRecipe.waterAmount" />
               <DataDisplay label="Coffee Amt" :data="activeRecipe.coffeeAmount" />
@@ -142,52 +145,57 @@ useDarkMode(toRef(state, 'isDarkMode'));
               <DataDisplay label="Grind Size" :data="activeRecipe.grindSize" />
             </div>
             <!--Recipe notes-->
-            <p v-if="activeRecipe.notes" class="text-sm text-gray-500 p-4 border-b">
+            <p v-if="activeRecipe.notes" class="text-sm text-gray-500 dark:text-gray-00 p-4 border-b">
               {{ activeRecipe.notes }}
             </p>
-            <!--Recipe steps-->
-            <RecipeStep
-              v-for="(step, i) in activeRecipe.steps"
-              :key="i"
-              :position="i + 1"
-              :step="step"
-              :running="running"
-              :current="totalDuration"
-            />
-          </div>
+          </template>
+          <!--Recipe steps-->
+          <RecipeStep
+            v-for="(step, i) in activeRecipe.steps"
+            :key="i"
+            :position="i + 1"
+            :step="step"
+            :running="running"
+            :current="totalDuration"
+          />
         </div>
         <!--Recipe buttons-->
-        <div class="flex-shrink-0 flex justify-center items-end py-6 space-x-14">
+        <div class="flex-shrink-0 flex justify-center items-stretch border-y border-gray-700 h-16">
           <!--Edit button-->
-          <div class="w-12">
-            <IconButton v-if="!running">
-              <IconEdit />
-            </IconButton>
+          <div class="w-1/3">
+            <button class="flex justify-center items-center w-full h-full space-x-4" v-if="!running">
+              <IconEdit /><span>Edit</span>
+            </button>
           </div>
           <!--Play/pause button-->
-          <button
-            class="inline-flex flex-col justify-center items-center w-32 h-32 space-y-2 border-2 border-black dark:border-gray-400 rounded-full"
-            :class="[
-              running
-                ? 'bg-black hover:bg-gray-900 text-white shadow-lg dark:bg-gray-600 dark:hover:bg-gray-700'
-                : 'hover:bg-gray-50 dark:hover:bg-gray-700',
-            ]"
-            @click="toggleRunning"
-          >
-            <IconPause v-if="running" />
-            <IconPlay v-else />
-            <div
-              class="flex items-center text-lg font-semibold"
-              :class="[running ? 'text-white' : 'text-gray-900 dark:text-gray-200']"
+          <div class="w-1/3">
+            <button
+              class="flex justify-center items-center w-full h-full space-x-4 border-x border-gray-700"
+              :class="[
+                running
+                  ? 'bg-black hover:bg-gray-900 text-white shadow-lg dark:bg-gray-600 dark:hover:bg-gray-700'
+                  : 'hover:bg-gray-50 dark:hover:bg-gray-700',
+              ]"
+              @click="toggleRunning"
             >
-              {{ durationLabel }}
-            </div>
-          </button>
-          <!--Reset button-->
-          <div class="w-12">
-            <IconButton v-if="!running && totalDuration > 0" @click="reset">
-              <IconRefreshCw />
-            </IconButton>
+              <template v-if="running"> <IconPause /> <span>Pause</span> </template>
+              <template v-else>
+                <IconPlay />
+                <p class="text-lg font-semibold" :class="[running ? 'text-white' : 'text-gray-900 dark:text-gray-200']">
+                  {{ durationLabel }}
+                </p>
+              </template>
+            </button>
+          </div>
+          <div class="w-1/3">
+            <!--Reset button-->
+            <button
+              class="flex justify-center items-center w-full h-full space-x-4"
+              v-if="!running && totalDuration > 0"
+              @click="reset"
+            >
+              <IconRefreshCw /><span>Reset</span>
+            </button>
           </div>
         </div>
       </div>

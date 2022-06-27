@@ -67,7 +67,7 @@ watch(
     </div>
     <div
       v-if="active"
-      class="absolute h-full left-0 top-0 border-b-4 border-black bg-gray-50 dark:border-white dark:bg-gray-700 -z-10"
+      class="absolute h-full left-0 top-0 border-b-4 border-black bg-gray-100 dark:border-white dark:bg-gray-700 -z-10"
       :style="progressStyle"
     ></div>
   </div>

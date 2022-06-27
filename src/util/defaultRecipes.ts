@@ -4,7 +4,7 @@ export default [
     type: 'percolation',
     author: 'Nathan Reyes',
     notes:
-      'Inspired by James Hoffman and his epic AeroPress miniseries. He dispels some long-held myths and produces a great brew. Enjoy!',
+      'Inspired by James Hoffman and his epic AeroPress miniseries, in which he dispels some long-held myths and produces a great brew. Enjoy!',
     grind: 'Fine',
     roast: 'Light',
     waterAmount: '350g',

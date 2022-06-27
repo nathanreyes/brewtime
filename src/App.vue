@@ -162,13 +162,13 @@ useDarkMode(toRef(state, 'isDarkMode'));
         <!--Recipe buttons-->
         <div class="flex-shrink-0 flex justify-center items-stretch border-y border-gray-700 h-16">
           <!--Edit button-->
-          <div class="w-1/3">
-            <button class="flex justify-center items-center w-full h-full space-x-4" v-if="!running">
+          <div class="w-1/3" v-if="!running">
+            <button class="flex justify-center items-center w-full h-full space-x-4">
               <IconEdit /><span>Edit</span>
             </button>
           </div>
           <!--Play/pause button-->
-          <div class="w-1/3">
+          <div :class="[running ? 'w-full' : 'w-1/3']">
             <button
               class="flex justify-center items-center w-full h-full space-x-4 border-x border-gray-700"
               :class="[
@@ -178,20 +178,20 @@ useDarkMode(toRef(state, 'isDarkMode'));
               ]"
               @click="toggleRunning"
             >
-              <template v-if="running"> <IconPause /> <span>Pause</span> </template>
+              <template v-if="running"> <IconPause /> </template>
               <template v-else>
                 <IconPlay />
-                <p class="text-lg font-semibold" :class="[running ? 'text-white' : 'text-gray-900 dark:text-gray-200']">
-                  {{ durationLabel }}
-                </p>
               </template>
+              <p class="text-lg font-semibold" :class="[running ? 'text-white' : 'text-gray-900 dark:text-gray-200']">
+                {{ durationLabel }}
+              </p>
             </button>
           </div>
-          <div class="w-1/3">
+          <div class="w-1/3" v-if="!running">
             <!--Reset button-->
             <button
               class="flex justify-center items-center w-full h-full space-x-4"
-              v-if="!running && totalDuration > 0"
+              v-if="totalDuration > 0"
               @click="reset"
             >
               <IconRefreshCw /><span>Reset</span>

@@ -3,6 +3,37 @@ export default [
     name: 'Stagg X',
     type: 'percolation',
     author: 'Nathan Reyes',
+    notes: 'This is the best pourover recipe of all time.',
+    grind: 'Fine',
+    roast: 'Light',
+    waterAmount: '350g',
+    waterTemp: '202',
+    coffeeAmount: '20g',
+    ratio: '16:1',
+    steps: [
+      {
+        summary: 'Prepare Brew',
+        type: 'start',
+        description: 'Load coffee into the aeropress. No need to rinse paper filter.',
+        seconds: 3,
+      },
+      {
+        summary: 'Pour 200 grams of water',
+        type: 'pour',
+        description: 'Get coffee wet as quickly as you can.',
+        seconds: 3,
+      },
+      {
+        summary: 'Enjoy your coffee!',
+        type: 'complete',
+        gifUrl: 'https://media.giphy.com/media/vJiurtzDcjUGxJqXCs/giphy.gif',
+      },
+    ],
+  },
+  {
+    name: 'AeroPress',
+    type: 'percolation',
+    author: 'Nathan Reyes',
     notes:
       'Inspired by James Hoffman and his epic AeroPress miniseries, in which he dispels some long-held myths and produces a great brew. Enjoy!',
     grind: 'Fine',
@@ -13,7 +44,7 @@ export default [
     ratio: '16:1',
     steps: [
       {
-        summary: 'Prepare AeroPress',
+        summary: 'Prepare Brew',
         description: 'Load coffee into the aeropress. No need to rinse paper filter.',
         seconds: 5,
       },

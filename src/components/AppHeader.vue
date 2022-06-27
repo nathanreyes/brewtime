@@ -26,7 +26,9 @@ defineProps<{
           <div class="w-12"></div>
         </slot>
       </div>
-      <PageTitle v-if="title">{{ title }}</PageTitle>
+      <slot name="title">
+        <PageTitle v-if="title">{{ title }}</PageTitle>
+      </slot>
     </div>
   </header>
 </template>

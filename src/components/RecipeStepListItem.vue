@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { computed, watch } from 'vue';
-import IconCheck from '../components/icons/IconCheck.vue';
+import { computed } from 'vue';
+import ListItem from './ListItem.vue';
+import IconCheckCircle from '../components/icons/IconCheckCircle.vue';
 import { formatDuration, formatTimerDuration } from '../util/duration';
 
 interface RecipeStep {
   summary: string;
+  type: string;
   description?: string;
+  gifUrl?: string;
   start: number;
   end: number;
 }
@@ -27,36 +30,22 @@ const started = computed(() => props.current > props.step.start);
 const completed = computed(() => props.current > props.step.end);
 const active = computed(() => started.value && !completed.value);
 
-const progressStyle = computed(() => {
-  return {
-    width: `${(currentDuration.value / totalDuration.value) * 100}%`,
-  };
+const progress = computed(() => {
+  return currentDuration.value / totalDuration.value;
 });
 
 const showDetails = computed(() => active.value || (!completed.value && (props.position === 1 || !props.running)));
-
-const showDescription = computed(() => {
-  return props.step.description && showDetails.value;
-});
-
-watch(
-  () => completed.value,
-  (val) => {
-    if (val) {
-      console.log('!done');
-    }
-  }
-);
 </script>
 <template>
-  <div class="relative w-full border-b py-4 px-4">
-    <div class="flex justify-between items-start">
-      <div class="flex-grow">
-        <h3 class="text-lg" :class="[showDetails ? '' : 'text-gray-300 dark:text-gray-600']">{{ step.summary }}</h3>
-        <p v-if="showDescription" class="text-sm text-gray-500 dark:text-gray-400 mt-2">{{ step.description }}</p>
-      </div>
+  <ListItem
+    :summary="step.summary"
+    :summary-class="[showDetails ? '' : 'text-gray-300 dark:text-gray-600']"
+    :description="step.description"
+    :progress="progress"
+  >
+    <template #right>
       <div v-if="completed">
-        <IconCheck />
+        <IconCheckCircle />
       </div>
       <div v-else-if="active" class="text-lg font-medium">
         {{ currentDurationLabel }}
@@ -64,11 +53,9 @@ watch(
       <div v-else class="text-lg font-medium" :class="[showDetails ? '' : 'text-gray-300 dark:text-gray-600']">
         {{ totalDurationLabel }}
       </div>
-    </div>
-    <div
-      v-if="active"
-      class="absolute h-full left-0 top-0 border-b-4 border-black bg-gray-100 dark:border-white dark:bg-gray-700 -z-10"
-      :style="progressStyle"
-    ></div>
-  </div>
+    </template>
+    <template v-if="step.gifUrl && showDetails" #details>
+      <img :src="step.gifUrl" :alt="step.summary" class="block w-full mt-4" />
+    </template>
+  </ListItem>
 </template>

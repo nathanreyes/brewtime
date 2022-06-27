@@ -1,18 +1,18 @@
 import { ref, computed } from 'vue';
 import { getDataFromDuration, formatDuration } from '../util/duration';
 
-export default function useStopwatch(timerDuration = 0) {
+export function useStopwatch() {
   const minutes = ref(0);
   const seconds = ref(0);
   const milliseconds = ref(0);
   const start = ref<Date | null>(null);
   const end = ref<Date | null>(null);
-  const hasStarted = ref(false);
   const running = ref(false);
   const currentDuration = ref(0);
   const lastDuration = ref(0);
-  const totalDuration = computed(() => lastDuration.value + currentDuration.value);
-  const durationLabel = computed(() => formatDuration(totalDuration.value));
+  const duration = computed(() => lastDuration.value + currentDuration.value);
+  const durationLabel = computed(() => formatDuration(duration.value));
+  const hasStarted = computed(() => duration.value > 0);
 
   function startRunning() {
     start.value = new Date();
@@ -35,7 +35,6 @@ export default function useStopwatch(timerDuration = 0) {
   }
 
   function reset() {
-    hasStarted.value = false;
     minutes.value = 0;
     seconds.value = 0;
     milliseconds.value = 0;
@@ -48,9 +47,6 @@ export default function useStopwatch(timerDuration = 0) {
       end.value = new Date();
       currentDuration.value = end.value.getTime() - start.value!.getTime();
       let totalDurationMs = currentDuration.value + lastDuration.value;
-      if (timerDuration > 0) {
-        totalDurationMs = timerDuration - totalDurationMs;
-      }
       const data = getDataFromDuration(totalDurationMs);
 
       minutes.value = data.minutes;
@@ -65,10 +61,11 @@ export default function useStopwatch(timerDuration = 0) {
     toggleRunning,
     reset,
     running: computed(() => running.value),
-    totalDuration,
+    duration,
+    durationLabel,
+    hasStarted,
     minutes,
     seconds,
     milliseconds,
-    durationLabel,
   };
 }

@@ -36,7 +36,8 @@ interface RecipeConfig {
   type: string;
   author: string;
   notes: string;
-  grindSize: string;
+  grind: string;
+  roast: string;
   waterAmount: string;
   waterTemp: string;
   coffeeAmount: string;
@@ -49,7 +50,8 @@ interface Recipe {
   type: string;
   author: string;
   notes: string;
-  grindSize: string;
+  grind: string;
+  roast: string;
   waterAmount: string;
   waterTemp: string;
   coffeeAmount: string;
@@ -137,27 +139,32 @@ useDarkMode(toRef(state, 'isDarkMode'));
     <main class="flex-grow relative">
       <div class="absolute inset-0 flex flex-col w-full sm:max-w-xl mx-auto">
         <!--Recipe name/author-->
-        <div class="flex-shrink-0 pb-4 border-b">
+        <div class="flex-shrink-0 pb-4">
           <h3 class="text-xl text-center dark:text-gray-200">{{ activeRecipe.name }}</h3>
           <!-- <p v-if="activeRecipe.author" class="text-xs text-gray-500 dark:text-gray-400 text-center pt-2 pb-4">
             by {{ activeRecipe.author }}
           </p> -->
         </div>
         <!--Recipe content-->
-        <div class="flex-grow flex-shrink overflow-y-auto">
+        <div class="flex-grow flex-shrink overflow-y-auto border-y">
           <template v-if="!(running || hasStarted)">
             <!--Recipe metadata-->
-            <div class="flex flex-wrap justify-around border-b text-sm">
-              <DataDisplay label="Water Amt" :data="activeRecipe.waterAmount" />
-              <DataDisplay label="Coffee Amt" :data="activeRecipe.coffeeAmount" />
-              <DataDisplay label="Ratio" :data="activeRecipe.ratio" />
-              <DataDisplay label="Water Temp" :data="activeRecipe.waterTemp" />
-              <DataDisplay label="Grind Size" :data="activeRecipe.grindSize" />
+            <div class="border-b text-sm divide-y">
+              <!--Recipe notes-->
+              <p v-if="activeRecipe.notes" class="text-sm text-gray-600 dark:text-gray-400 p-4">
+                {{ activeRecipe.notes }}
+              </p>
+              <div class="flex divide-x">
+                <DataDisplay class="flex-grow" label="Water Amt" :data="activeRecipe.waterAmount" />
+                <DataDisplay class="flex-grow" label="Coffee Amt" :data="activeRecipe.coffeeAmount" />
+                <DataDisplay class="flex-grow" label="Ratio" :data="activeRecipe.ratio" />
+              </div>
+              <div class="flex divide-x">
+                <DataDisplay class="flex-grow" label="Water Temp" :data="activeRecipe.waterTemp" />
+                <DataDisplay class="flex-grow" label="Grind" :data="activeRecipe.grind" />
+                <DataDisplay class="flex-grow" label="Roast" :data="activeRecipe.roast" />
+              </div>
             </div>
-            <!--Recipe notes-->
-            <p v-if="activeRecipe.notes" class="text-sm text-gray-500 dark:text-gray-00 p-4 border-b">
-              {{ activeRecipe.notes }}
-            </p>
           </template>
           <!--Recipe steps-->
           <RecipeStep
@@ -170,7 +177,7 @@ useDarkMode(toRef(state, 'isDarkMode'));
           />
         </div>
         <!--Recipe buttons-->
-        <div class="flex-shrink-0 border border-gray-700 sm:flex">
+        <div class="flex-shrink-0 border border-gray-700 sm:flex sm:mb-8 sm:mt-4 sm:border-t">
           <!--Reset button-->
           <button
             class="flex justify-center items-center w-full h-16 space-x-4 hover:bg-gray-50 dark:hover:bg-gray-700"

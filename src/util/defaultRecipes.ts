@@ -3,8 +3,10 @@ export default [
     name: 'Stagg X',
     type: 'percolation',
     author: 'Nathan Reyes',
-    notes: 'These are my notes.',
-    grindSize: 'Fine',
+    notes:
+      'Inspired by James Hoffman and his epic AeroPress miniseries. He dispels some long-held myths and produces a great brew. Enjoy!',
+    grind: 'Fine',
+    roast: 'Light',
     waterAmount: '350g',
     waterTemp: 'Boil',
     coffeeAmount: '16g',
@@ -22,8 +24,7 @@ export default [
       },
       {
         summary: 'Wait for 2 minutes',
-        description:
-          "Remove cup from scale, insert plunger slightly, and wait... Hey, while you're here, don't forget to check out James Hoffman's video on this exact recipe.",
+        description: 'Remove cup from scale, insert plunger slightly, and wait...patiently.',
         minutes: 2,
       },
       {

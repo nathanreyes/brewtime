@@ -61,6 +61,8 @@ const { running, totalDuration, toggleRunning, durationLabel, reset } = useStopw
 
 const hasStarted = computed(() => totalDuration.value > 0);
 
+const showResetButton = computed(() => !running.value && totalDuration.value > 0);
+
 function processRecipe(recipe: RecipeConfig): Recipe {
   let totalDuration = 0;
   const steps = recipe.steps.map((step) => {
@@ -95,6 +97,10 @@ function setLightMode() {
   state.isDarkMode = false;
 }
 
+function edit() {
+  console.log('edit');
+}
+
 useDarkMode(toRef(state, 'isDarkMode'));
 </script>
 
@@ -114,13 +120,17 @@ useDarkMode(toRef(state, 'isDarkMode'));
             Brewtime
           </h2>
         </div>
+        <!--Edit button-->
+        <IconButton @click="edit">
+          <IconEdit />
+        </IconButton>
         <!--Light/dark mode-->
-        <IconButton v-if="state.isDarkMode" @click="setLightMode">
+        <!-- <IconButton v-if="state.isDarkMode" @click="setLightMode">
           <IconSun />
         </IconButton>
         <IconButton v-else @click="setDarkMode">
           <IconMoon />
-        </IconButton>
+        </IconButton> -->
       </div>
     </header>
     <!--App content-->
@@ -160,43 +170,34 @@ useDarkMode(toRef(state, 'isDarkMode'));
           />
         </div>
         <!--Recipe buttons-->
-        <div class="flex-shrink-0 flex justify-center items-stretch border-y border-gray-700 h-16">
-          <!--Edit button-->
-          <div class="w-1/3" v-if="!running">
-            <button class="flex justify-center items-center w-full h-full space-x-4">
-              <IconEdit /><span>Edit</span>
-            </button>
-          </div>
+        <div class="flex-shrink-0 border border-gray-700 sm:flex">
+          <!--Reset button-->
+          <button
+            class="flex justify-center items-center w-full h-16 space-x-4 hover:bg-gray-50 dark:hover:bg-gray-700"
+            v-if="showResetButton"
+            @click="reset"
+          >
+            <IconRefreshCw /><span>Reset</span>
+          </button>
           <!--Play/pause button-->
-          <div :class="[running ? 'w-full' : 'w-1/3']">
-            <button
-              class="flex justify-center items-center w-full h-full space-x-4 border-x border-gray-700"
-              :class="[
-                running
-                  ? 'bg-black hover:bg-gray-900 text-white shadow-lg dark:bg-gray-600 dark:hover:bg-gray-700'
-                  : 'hover:bg-gray-50 dark:hover:bg-gray-700',
-              ]"
-              @click="toggleRunning"
-            >
-              <template v-if="running"> <IconPause /> </template>
-              <template v-else>
-                <IconPlay />
-              </template>
-              <p class="text-lg font-semibold" :class="[running ? 'text-white' : 'text-gray-900 dark:text-gray-200']">
-                {{ durationLabel }}
-              </p>
-            </button>
-          </div>
-          <div class="w-1/3" v-if="!running">
-            <!--Reset button-->
-            <button
-              class="flex justify-center items-center w-full h-full space-x-4"
-              v-if="totalDuration > 0"
-              @click="reset"
-            >
-              <IconRefreshCw /><span>Reset</span>
-            </button>
-          </div>
+          <button
+            class="flex justify-center items-center w-full h-16 space-x-4 sm:border-t-0 border-gray-700"
+            :class="[
+              running
+                ? 'bg-black hover:bg-gray-900 text-white dark:bg-gray-600 dark:hover:bg-gray-700'
+                : 'hover:bg-gray-50 dark:hover:bg-gray-700',
+              { 'border-t sm:border-l': showResetButton },
+            ]"
+            @click="toggleRunning"
+          >
+            <template v-if="running"> <IconPause /> </template>
+            <template v-else>
+              <IconPlay />
+            </template>
+            <p class="text-lg font-semibold" :class="[running ? 'text-white' : 'text-gray-900 dark:text-gray-200']">
+              {{ durationLabel }}
+            </p>
+          </button>
         </div>
       </div>
     </main>

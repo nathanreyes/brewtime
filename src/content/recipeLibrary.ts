@@ -52,7 +52,6 @@ const recipeLibrary: RecipeConfig[] = [
         summary: 'Prepare Brew',
         type: 'setup',
         description: 'Load coffee into the aeropress. No need to rinse paper filter.',
-        seconds: 5,
       },
       {
         summary: 'Pour 200 grams of water',
@@ -84,6 +83,11 @@ const recipeLibrary: RecipeConfig[] = [
         type: 'other',
         description: 'This should be a comfortable motion. Pull back a bit when you are done to help prevent drips.',
         seconds: 20,
+      },
+      {
+        summary: 'Drink it up!',
+        type: 'complete',
+        gifUrl: 'https://media.giphy.com/media/DrJm6F9poo4aA/giphy.gif',
       },
     ],
   },

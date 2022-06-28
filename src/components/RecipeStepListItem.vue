@@ -36,17 +36,11 @@ const progress = computed(() => {
 });
 
 const active = computed(() => {
-  if (!props.running) return true;
   if (inProcess.value) return true;
   if (props.step.type === 'setup' && !started) return true;
   if (props.step.type === 'complete' && completed.value) return true;
+  if (!props.running && !completed.value) return true;
   return false;
-});
-
-const showGif = computed(() => {
-  if (!props.step.gifUrl) return false;
-  if (props.step.type === 'complete' && !completed.value) return false;
-  return active.value;
 });
 
 function updateProgress(progress: number) {
@@ -65,15 +59,18 @@ function updateProgress(progress: number) {
       <div v-if="completed">
         <IconCheckCircle />
       </div>
-      <div v-else-if="running" class="text-lg font-medium">
-        {{ currentDurationLabel }}
-      </div>
-      <div v-else class="text-lg font-medium" :class="[active ? '' : 'text-gray-300 dark:text-gray-600']">
-        {{ totalDurationLabel }}
-      </div>
+      <template v-else-if="totalDuration > 0">
+        <div v-if="active" class="text-lg font-medium">
+          {{ currentDurationLabel }}
+        </div>
+        <div v-else class="text-lg font-medium" :class="[active ? '' : 'text-gray-300 dark:text-gray-600']">
+          {{ totalDurationLabel }}
+        </div>
+      </template>
     </template>
-    <template v-if="showGif" #details>
-      <img :src="step.gifUrl" :alt="step.summary" class="block w-full mt-4" />
+    <template v-if="step.gifUrl" #details>
+      <p v-if="step.type === 'complete' && !completed" class="text-sm text-gray-700 mt-2">A tasty gif awaits you...</p>
+      <img v-else :src="step.gifUrl" :alt="step.summary" class="block w-full mt-4" />
     </template>
   </ListItem>
 </template>

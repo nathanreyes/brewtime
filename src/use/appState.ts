@@ -1,22 +1,38 @@
-import { ref, computed } from 'vue';
-import defaultRecipes from '@/util/defaultRecipes';
-import { useDarkMode } from '@/use/darkMode';
-import { useRecipe } from '@/use/recipe';
+import { ref, watchEffect } from 'vue';
+import recipeLibrary from '@/content/recipeLibrary';
+import { useDisplayMode } from '@/use/displayMode';
 import { useBrewer } from '@/use/brewer';
-import type { RecipeConfig } from '@/use/recipe';
+import type { Recipe } from '@/use/recipe';
+import type { DisplayMode } from '@/use/displayMode';
 
-export interface AppState {
-  recipes: RecipeConfig[];
-  isDarkMode: boolean;
-}
+type MenuMode = 'favorites' | 'library' | 'settings';
 
-const isDarkMode = ref(false);
-const recipes = computed(() => defaultRecipes.map((r) => useRecipe(r)));
-const activeRecipe = computed(() => recipes.value[0]);
+const activeRecipe = ref<Recipe>(recipeLibrary[0]);
+const menuVisible = ref(false);
+const menuMode = ref<MenuMode>('library');
+const displayMode = ref<DisplayMode>('light');
 const brewer = useBrewer(activeRecipe);
 
-useDarkMode(isDarkMode);
+useDisplayMode(displayMode);
+
+const state = JSON.parse(localStorage.getItem('state') || '{}');
+if (state.hasOwnProperty('displayMode')) displayMode.value = state.displayMode;
+if (state.hasOwnProperty('menuVisible')) menuVisible.value = state.menuVisible;
+if (state.hasOwnProperty('menuMode')) menuMode.value = state.menuMode;
+if (state.hasOwnProperty('activeRecipeId')) {
+  activeRecipe.value = recipeLibrary.find((r) => r.id === state.activeRecipeId) || recipeLibrary[0];
+}
+
+watchEffect(() => {
+  const state = {
+    displayMode: displayMode.value,
+    menuVisible: menuVisible.value,
+    menuMode: menuMode.value,
+    activeRecipeId: activeRecipe.value.id,
+  };
+  localStorage.setItem('state', JSON.stringify(state));
+});
 
 export function useAppState() {
-  return { isDarkMode, recipes, activeRecipe, brewer };
+  return { menuVisible, menuMode, displayMode, recipeLibrary, activeRecipe, brewer };
 }

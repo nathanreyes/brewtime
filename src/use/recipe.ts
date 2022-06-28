@@ -10,9 +10,15 @@ interface RecipeStepConfig {
   minutes?: number;
 }
 
+interface RecipeStep extends RecipeStepConfig {
+  start: number;
+  end: number;
+}
+
 export interface RecipeConfig {
+  id: string;
   name: string;
-  type: string;
+  brewId: string;
   author: string;
   notes: string;
   grind: string;
@@ -24,18 +30,10 @@ export interface RecipeConfig {
   steps: RecipeStepConfig[];
 }
 
-interface RecipeStep {
-  summary: string;
-  type: string;
-  description?: string;
-  gifUrl?: string;
-  start: number;
-  end: number;
-}
-
 export interface Recipe {
+  id: string;
   name: string;
-  type: string;
+  brewId: string;
   author: string;
   notes: string;
   grind: string;
@@ -48,25 +46,29 @@ export interface Recipe {
   duration: number;
 }
 
-export function useRecipe(recipe: RecipeConfig): Recipe {
-  let totalDuration = 0;
-  const steps = recipe.steps.map((step) => {
-    const start = totalDuration;
-    totalDuration += getDurationFromData(step);
-    const end = totalDuration;
+export function serializeRecipe(recipe: Recipe) {
+  return recipe;
+}
+
+export function deserializeRecipe(recipeConfig: RecipeConfig) {
+  let duration = 0;
+  const steps = recipeConfig.steps.map((step) => {
+    const start = duration;
+    duration += getDurationFromData(step);
+    const end = duration;
     return {
       ...step,
       start,
       end,
     };
   });
-  const duration = computed(() => {
-    if (!steps?.length) return 0;
-    return steps[steps.length - 1].end;
-  });
-  return reactive<Recipe>({
-    ...recipe,
+  return {
+    ...recipeConfig,
     steps,
     duration,
-  });
+  };
+}
+
+export function useRecipe(recipeConfig: RecipeConfig): Recipe {
+  return deserializeRecipe(recipeConfig);
 }

@@ -1,21 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-
 import BrewPage from './pages/BrewPage.vue';
-import SettingsPage from './pages/SettingsPage.vue';
+import MenuPage from './pages/MenuPage.vue';
+import { useAppState } from './use/appState';
 
-const settingsVisible = ref(false);
-
-function showSettings() {
-  settingsVisible.value = true;
-}
-
-function closeSettings() {
-  settingsVisible.value = false;
-}
+const { menuVisible } = useAppState();
 </script>
 
 <template>
-  <SettingsPage v-if="settingsVisible" @close="closeSettings" />
-  <BrewPage v-else @menu-click="showSettings" />
+  <MenuPage v-if="menuVisible" @close="menuVisible = false" />
+  <BrewPage v-else @menu-click="menuVisible = true" />
 </template>

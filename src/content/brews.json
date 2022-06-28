@@ -1,0 +1,16 @@
+[
+  {
+    "id": "stagg-x",
+    "name": "Stagg X",
+    "category": "percolation",
+    "imgUrl": "/stagg-x.webp",
+    "capacity": 350
+  },
+  {
+    "id": "aeropress",
+    "name": "AeroPress",
+    "category": "immersion",
+    "imgUrl": "https://media.giphy.com/media/nAphi5srQfHvSCUsi7/giphy.gif",
+    "capacity": 250
+  }
+]

@@ -13,7 +13,7 @@ defineProps<{
 defineEmits();
 </script>
 <template>
-  <div class="flex border border-black divide-x divide-black">
+  <div class="flex border border-black dark:border-white divide-x divide-black dark:divide-white">
     <BaseButton
       v-for="button in buttons"
       :key="button.label"

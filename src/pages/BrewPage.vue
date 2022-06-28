@@ -53,14 +53,14 @@ function edit() {
               </p>
               <!--Recipe parameters-->
               <div class="flex divide-x">
-                <DataDisplay class="flex-grow" label="Water Amt" :data="recipe.waterAmount" />
-                <DataDisplay class="flex-grow" label="Coffee Amt" :data="recipe.coffeeAmount" />
-                <DataDisplay class="flex-grow" label="Ratio" :data="recipe.ratio" />
+                <DataDisplay class="w-1/3" label="Water Amt" :data="recipe.waterAmount" />
+                <DataDisplay class="w-1/3" label="Coffee Amt" :data="recipe.coffeeAmount" />
+                <DataDisplay class="w-1/3" label="Ratio" :data="recipe.ratio" />
               </div>
               <div class="flex divide-x">
-                <DataDisplay class="flex-grow" label="Water Temp" :data="recipe.waterTemp" />
-                <DataDisplay class="flex-grow" label="Grind" :data="recipe.grind" />
-                <DataDisplay class="flex-grow" label="Roast" :data="recipe.roast" />
+                <DataDisplay class="w-1/3" label="Water Temp" :data="recipe.waterTemp" />
+                <DataDisplay class="w-1/3" label="Grind" :data="recipe.grind" />
+                <DataDisplay class="w-1/3" label="Roast" :data="recipe.roast" />
               </div>
             </div>
           </template>

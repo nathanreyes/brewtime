@@ -6,7 +6,7 @@ defineProps<{
 </script>
 <template>
   <button
-    class="flex justify-center items-center w-full space-x-3 border-gray-700"
+    class="flex justify-center items-center w-full space-x-3"
     :class="[
       active
         ? 'bg-black hover:bg-gray-900 text-white dark:bg-gray-600 dark:hover:bg-gray-700'

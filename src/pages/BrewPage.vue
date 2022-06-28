@@ -11,7 +11,6 @@ import IconRefreshCw from '@/components/icons/IconRefreshCw.vue';
 import RecipeStepListItem from '@/components/RecipeStepListItem.vue';
 import AppHeader from '@/components/AppHeader.vue';
 import BaseButton from '@/components/BaseButton.vue';
-import BaseBgImage from '../components/BaseBgImage.vue';
 import { useAppState } from '@/use/appState';
 
 const { brewer, displayMode } = useAppState();

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, watch, ref, type ComponentPublicInstance } from 'vue';
 import ListItem from './ListItem.vue';
 import IconCheckCircle from '../components/icons/IconCheckCircle.vue';
 import { formatDuration, formatTimerDuration } from '@/util/duration';
@@ -45,6 +45,16 @@ const active = computed(() => {
   return false;
 });
 
+const listItem = ref<ComponentPublicInstance | null>(null);
+watch(
+  () => started.value,
+  (val) => {
+    if (!val || !listItem.value) return;
+    const el = listItem.value.$el;
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+);
+
 function updateProgress(progress: number) {
   emit('update:current', props.step.start + totalDuration.value * progress);
 }
@@ -56,6 +66,7 @@ function updateProgress(progress: number) {
     :progress="progress"
     :class="[active ? '' : 'opacity-25']"
     @update:progress="updateProgress"
+    ref="listItem"
   >
     <template #right>
       <div v-if="completed">

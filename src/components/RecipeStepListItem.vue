@@ -2,7 +2,8 @@
 import { computed } from 'vue';
 import ListItem from './ListItem.vue';
 import IconCheckCircle from '../components/icons/IconCheckCircle.vue';
-import { formatDuration, formatTimerDuration } from '../util/duration';
+import { formatDuration, formatTimerDuration } from '@/util/duration';
+import { useAppState } from '@/use/appState';
 
 interface RecipeStep {
   summary: string;
@@ -21,6 +22,8 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:current']);
 
+const { brewer } = useAppState();
+
 const currentDuration = computed(() => props.current - props.step.start);
 const totalDuration = computed(() => props.step.end - props.step.start);
 
@@ -37,9 +40,8 @@ const progress = computed(() => {
 
 const active = computed(() => {
   if (inProcess.value) return true;
-  if (props.step.type === 'setup' && !started) return true;
-  if (props.step.type === 'complete' && completed.value) return true;
-  if (!props.running && !completed.value) return true;
+  if (!brewer.hasStarted.value) return true;
+  if (props.step.type === 'complete' && brewer.hasCompleted.value) return true;
   return false;
 });
 
@@ -68,7 +70,7 @@ function updateProgress(progress: number) {
         </div>
       </template>
     </template>
-    <template v-if="step.gifUrl" #details>
+    <template v-if="step.gifUrl && active" #details>
       <p v-if="step.type === 'complete' && !completed" class="text-sm text-gray-700 dark:text-gray-300 mt-2">
         A tasty gif awaits you...
       </p>

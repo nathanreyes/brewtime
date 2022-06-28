@@ -3,7 +3,8 @@ import { computed } from 'vue';
 import DataDisplay from '@/components/DataDisplay.vue';
 import IconButton from '@/components/IconButton.vue';
 import IconMenu from '@/components/icons/IconMenu.vue';
-import IconEdit from '@/components/icons/IconEdit.vue';
+import IconSun from '../components/icons/IconSun.vue';
+import IconMoon from '../components/icons/IconMoon.vue';
 import IconPlay from '@/components/icons/IconPlay.vue';
 import IconPause from '@/components/icons/IconPause.vue';
 import IconRefreshCw from '@/components/icons/IconRefreshCw.vue';
@@ -13,15 +14,10 @@ import BaseButton from '@/components/BaseButton.vue';
 import BaseBgImage from '../components/BaseBgImage.vue';
 import { useAppState } from '@/use/appState';
 
-const { brewer } = useAppState();
+const { brewer, displayMode } = useAppState();
 const { recipe, brew, hasStarted, hasCompleted, running, duration, toggleRunning, durationLabel, reset } = brewer;
-
 const showReset = computed(() => !running.value && (duration.value > 0 || hasCompleted.value));
 const showPlayPause = computed(() => !hasCompleted.value);
-
-function edit() {
-  console.log('edit');
-}
 </script>
 
 <template>
@@ -34,9 +30,10 @@ function edit() {
         </IconButton>
       </template>
       <template #right>
-        <!--Edit button-->
-        <IconButton @click="edit">
-          <IconEdit />
+        <!--Light/dark mode button-->
+        <IconButton @click="displayMode = displayMode === 'light' ? 'dark' : 'light'">
+          <IconSun v-if="displayMode === 'dark'" />
+          <IconMoon v-else />
         </IconButton>
       </template>
     </AppHeader>

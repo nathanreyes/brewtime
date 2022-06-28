@@ -43,10 +43,10 @@ const recipeLibrary: RecipeConfig[] = [
       'Inspired by James Hoffmann and his epic AeroPress miniseries, in which he dispels some long-held myths and produces a great brew. Enjoy!',
     grind: 'Fine',
     roast: 'Light',
-    waterAmount: '350g',
+    waterAmount: '200g',
     waterTemp: 'Boil',
-    coffeeAmount: '16g',
-    ratio: '16:1',
+    coffeeAmount: '11g',
+    ratio: '18:1',
     steps: [
       {
         summary: 'Prepare Brew',

@@ -21,8 +21,12 @@ const progressStyle = computed(() => {
   <div class="relative w-full py-4 px-4" :class="{ 'cursor-pointer hover:bg-gray-100': selectable }">
     <div class="flex justify-between items-start">
       <div class="flex-grow">
-        <h3 class="text-lg" :class="summaryClass">{{ summary }}</h3>
-        <p v-if="description" class="text-sm text-gray-600 dark:text-gray-300 mt-2">{{ description }}</p>
+        <slot>
+          <h3 class="text-lg">{{ summary }}</h3>
+        </slot>
+        <slot name="description">
+          <p v-if="description" class="text-sm text-gray-600 dark:text-gray-300 mt-2">{{ description }}</p>
+        </slot>
       </div>
       <slot name="right">
         <IconChevronRight v-if="selectable" />
@@ -31,7 +35,7 @@ const progressStyle = computed(() => {
     <slot name="details" />
     <div
       v-if="progress && progress < 1"
-      class="absolute h-full left-0 top-0 border-b-4 border-black dark:border-white z-10"
+      class="absolute h-full left-0 top-0 border-b-4 border-black dark:border-white mx-4 z-10"
       :style="progressStyle"
     ></div>
   </div>

@@ -41,7 +41,7 @@ const showPlayPause = computed(() => !hasCompleted.value);
     <main class="flex-grow relative">
       <div class="absolute inset-0 flex flex-col w-full sm:max-w-xl mx-auto">
         <!--Recipe content-->
-        <div class="flex-grow flex-shrink overflow-y-auto border-b">
+        <div class="flex-grow flex-shrink overflow-y-auto">
           <template v-if="!(running || hasStarted)">
             <!--Recipe metadata-->
             <div class="border-b text-sm divide-y">
@@ -65,20 +65,21 @@ const showPlayPause = computed(() => !hasCompleted.value);
               </div>
             </div>
           </template>
-          <div class="mt-2">
+          <div>
             <!--Recipe steps-->
             <RecipeStepListItem
               v-for="(step, i) in recipe.steps"
               :key="i"
-              :position="i + 1"
               :step="step"
-              :running="running"
               :current="duration"
+              :running="running"
             />
           </div>
         </div>
         <!--Recipe buttons-->
-        <div class="flex-shrink-0 border-t divide-y divide-black border-gray-700 sm:mb-8 sm:mt-4 sm:border">
+        <div
+          class="flex-shrink-0 divide-y divide-black dark:divide-white border-gray-700 sm:mb-8 sm:mt-4 sm:border sm:border-black dark:sm:border-white"
+        >
           <!--Reset button-->
           <BaseButton v-if="showReset" is-lg @click="reset"> <IconRefreshCw /><span>Reset</span> </BaseButton>
           <!--Play/pause button-->

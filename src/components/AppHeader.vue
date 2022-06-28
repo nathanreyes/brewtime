@@ -18,7 +18,7 @@ defineProps<{
         <div class="flex-grow flex justify-center items-center space-x-3">
           <IconCoffee class="text-gray-400 mb-1 dark:text-gray-500" />
           <h2 class="font-bold text-sm tracking-widest text-gray-600 dark:text-gray-400 text-center uppercase">
-            Brewtime
+            Gif-My-Coffee
           </h2>
         </div>
         <!--Right slot-->

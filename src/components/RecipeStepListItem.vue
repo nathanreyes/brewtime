@@ -19,6 +19,8 @@ const props = defineProps<{
   running: boolean;
 }>();
 
+const emit = defineEmits(['update:current']);
+
 const currentDuration = computed(() => props.current - props.step.start);
 const totalDuration = computed(() => props.step.end - props.step.start);
 
@@ -46,6 +48,10 @@ const showGif = computed(() => {
   if (props.step.type === 'complete' && !completed.value) return false;
   return active.value;
 });
+
+function updateProgress(progress: number) {
+  emit('update:current', props.step.start + totalDuration.value * progress);
+}
 </script>
 <template>
   <ListItem
@@ -53,6 +59,7 @@ const showGif = computed(() => {
     :description="step.description"
     :progress="progress"
     :class="[active ? '' : 'opacity-25']"
+    @update:progress="updateProgress"
   >
     <template #right>
       <div v-if="completed">

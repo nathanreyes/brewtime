@@ -18,6 +18,10 @@ const { brewer, displayMode } = useAppState();
 const { recipe, brew, hasStarted, hasCompleted, running, duration, toggleRunning, durationLabel, reset } = brewer;
 const showReset = computed(() => !running.value && (duration.value > 0 || hasCompleted.value));
 const showPlayPause = computed(() => !hasCompleted.value);
+
+function updateCurrent(current: number) {
+  console.log('update current', current);
+}
 </script>
 
 <template>
@@ -73,12 +77,13 @@ const showPlayPause = computed(() => !hasCompleted.value);
               :step="step"
               :current="duration"
               :running="running"
+              @update:current="updateCurrent"
             />
           </div>
         </div>
         <!--Recipe buttons-->
         <div
-          class="flex-shrink-0 divide-y divide-black dark:divide-white border-gray-700 sm:mb-8 sm:mt-4 sm:border sm:border-black dark:sm:border-white"
+          class="flex-shrink- sm:mb-8 sm:mt-40 divide-y divide-black dark:divide-white border-t border-black dark:border-white sm:border sm:border-black dark:sm:border-white"
         >
           <!--Reset button-->
           <BaseButton v-if="showReset" is-lg @click="reset"> <IconRefreshCw /><span>Reset</span> </BaseButton>

@@ -10,10 +10,11 @@ import IconRefreshCw from '@/components/icons/IconRefreshCw.vue';
 import RecipeStepListItem from '@/components/RecipeStepListItem.vue';
 import AppHeader from '@/components/AppHeader.vue';
 import BaseButton from '@/components/BaseButton.vue';
+import BaseBgImage from '../components/BaseBgImage.vue';
 import { useAppState } from '@/use/appState';
 
 const { brewer } = useAppState();
-const { recipe, hasStarted, hasCompleted, running, duration, toggleRunning, durationLabel, reset } = brewer;
+const { recipe, brew, hasStarted, hasCompleted, running, duration, toggleRunning, durationLabel, reset } = brewer;
 
 const showReset = computed(() => !running.value && (duration.value > 0 || hasCompleted.value));
 const showPlayPause = computed(() => !hasCompleted.value);
@@ -48,9 +49,12 @@ function edit() {
             <!--Recipe metadata-->
             <div class="border-b text-sm divide-y">
               <!--Recipe notes-->
-              <p v-if="recipe.notes" class="text-sm text-gray-600 dark:text-gray-300 p-4">
-                {{ recipe.notes }}
-              </p>
+              <div class="flex">
+                <BaseBgImage v-if="brew" class="flex-shrink-0 flex-grow-0 w-20 h-20" :img-url="brew.imgUrl" />
+                <p v-if="recipe.notes" class="flex-grow text-sm text-gray-600 dark:text-gray-300 p-4">
+                  {{ recipe.notes }}
+                </p>
+              </div>
               <!--Recipe parameters-->
               <div class="flex divide-x">
                 <DataDisplay class="w-1/3" label="Water Amt" :data="recipe.waterAmount" />
@@ -77,11 +81,11 @@ function edit() {
           </div>
         </div>
         <!--Recipe buttons-->
-        <div class="flex-shrink-0 border-t divide-y border-gray-700 sm:mb-8 sm:mt-4 sm:border">
+        <div class="flex-shrink-0 border-t divide-y divide-black border-gray-700 sm:mb-8 sm:mt-4 sm:border">
           <!--Reset button-->
-          <BaseButton v-if="showReset" @click="reset"> <IconRefreshCw /><span>Reset</span> </BaseButton>
+          <BaseButton v-if="showReset" is-lg @click="reset"> <IconRefreshCw /><span>Reset</span> </BaseButton>
           <!--Play/pause button-->
-          <BaseButton v-if="showPlayPause" :active="running" @click="toggleRunning">
+          <BaseButton v-if="showPlayPause" is-lg :active="running" @click="toggleRunning">
             <template v-if="running"> <IconPause /> </template>
             <template v-else>
               <IconPlay />

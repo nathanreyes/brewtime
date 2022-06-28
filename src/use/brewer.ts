@@ -1,7 +1,16 @@
 import { computed, watch } from 'vue';
-import { useStopwatch } from './stopwatch';
 import type { Ref } from 'vue';
+import brews from '@/content/brews.json';
+import { useStopwatch } from './stopwatch';
 import type { Recipe } from './recipe';
+
+export interface Brew {
+  id: string;
+  name: string;
+  category: string;
+  imgUrl: string;
+  capacity: number;
+}
 
 export function useBrewer(recipe: Ref<Recipe>) {
   const _recipe = recipe;
@@ -9,6 +18,7 @@ export function useBrewer(recipe: Ref<Recipe>) {
   const stopwatch = useStopwatch();
   const { hasStarted, running, duration, startRunning, stopRunning, toggleRunning, durationLabel, reset } = stopwatch;
   const hasCompleted = computed(() => duration.value >= _recipe.value.duration);
+  const brew = computed(() => brews.find((b) => b.id === _recipe.value.brewId));
 
   watch(
     () => hasCompleted.value,
@@ -19,6 +29,7 @@ export function useBrewer(recipe: Ref<Recipe>) {
 
   return {
     recipe: _recipe,
+    brew,
     hasStarted,
     hasCompleted,
     running,

@@ -60,16 +60,18 @@ function updateProgress(progress: number) {
         <IconCheckCircle />
       </div>
       <template v-else-if="totalDuration > 0">
-        <div v-if="active" class="text-lg font-medium">
+        <div v-if="active" class="text-lg">
           {{ currentDurationLabel }}
         </div>
-        <div v-else class="text-lg font-medium" :class="[active ? '' : 'text-gray-300 dark:text-gray-600']">
+        <div v-else class="text-lg">
           {{ totalDurationLabel }}
         </div>
       </template>
     </template>
     <template v-if="step.gifUrl" #details>
-      <p v-if="step.type === 'complete' && !completed" class="text-sm text-gray-700 mt-2">A tasty gif awaits you...</p>
+      <p v-if="step.type === 'complete' && !completed" class="text-sm text-gray-700 dark:text-gray-300 mt-2">
+        A tasty gif awaits you...
+      </p>
       <img v-else :src="step.gifUrl" :alt="step.summary" class="block w-full mt-4" />
     </template>
   </ListItem>

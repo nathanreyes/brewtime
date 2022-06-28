@@ -18,7 +18,7 @@ function updateBrewRecipe(brewId: string) {
 </script>
 <template>
   <div v-if="!selectedBrew">
-    <div class="grid grid-flow-col auto-cols-max gap-4">
+    <div class="grid grid-flow-col auto-cols-max gap-4 m-4 mt-2 sm:m-0">
       <BrewItem v-for="brew in brews" :key="brew.name" :brew="brew" @click="updateBrewRecipe(brew.id)" />
     </div>
   </div>

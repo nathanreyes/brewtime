@@ -49,10 +49,10 @@ function updateCurrent(current: number) {
           <template v-if="!(running || hasStarted)">
             <!--Recipe metadata-->
             <div class="border-b text-sm divide-y">
-              <!--Recipe notes-->
-              <div class="flex">
-                <BaseBgImage v-if="brew" class="flex-shrink-0 flex-grow-0 w-20 h-20" :img-url="brew.imgUrl" />
-                <p v-if="recipe.notes" class="flex-grow text-sm text-gray-600 dark:text-gray-300 p-4">
+              <!--Recipe image/notes-->
+              <div class="flex items-start mb-4 mt-2 mx-4 space-x-4">
+                <img v-if="brew" :src="brew.imgUrl" class="flex-shrink-0 flex-grow-0 h-20" :img-url="brew.imgUrl" />
+                <p v-if="recipe.notes" class="flex-grow text-sm text-gray-600 dark:text-gray-300">
                   {{ recipe.notes }}
                 </p>
               </div>

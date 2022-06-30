@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import AppHeader from '@/components/AppHeader.vue';
-import IconButton from '@/components/IconButton.vue';
-import IconX from '@/components/icons/IconX.vue';
-import LibraryMenu from '@/components/menu/LibraryMenu.vue';
-import SettingsMenu from '@/components/menu/SettingsMenu.vue';
 import { useAppState } from '@/use/appState';
 
 const { menuMode } = useAppState();

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import BrewPage from './pages/BrewPage.vue';
-import MenuPage from './pages/MenuPage.vue';
 import { useAppState } from './use/appState';
 
 const { menuVisible } = useAppState();

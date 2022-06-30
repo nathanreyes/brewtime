@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { computed, watch, ref, type ComponentPublicInstance } from 'vue';
-import ListItem from './ListItem.vue';
-import IconCheckCircle from '../components/icons/IconCheckCircle.vue';
 import { formatDuration, formatTimerDuration } from '@/util/duration';
 import { useAppState } from '@/use/appState';
 

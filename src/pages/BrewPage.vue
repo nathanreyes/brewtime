@@ -1,16 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import DataDisplay from '@/components/DataDisplay.vue';
-import IconButton from '@/components/IconButton.vue';
-import IconMenu from '@/components/icons/IconMenu.vue';
-import IconSun from '../components/icons/IconSun.vue';
-import IconMoon from '../components/icons/IconMoon.vue';
-import IconPlay from '@/components/icons/IconPlay.vue';
-import IconPause from '@/components/icons/IconPause.vue';
-import IconRefreshCw from '@/components/icons/IconRefreshCw.vue';
-import RecipeStepListItem from '@/components/RecipeStepListItem.vue';
-import AppHeader from '@/components/AppHeader.vue';
-import BaseButton from '@/components/BaseButton.vue';
 import { useAppState } from '@/use/appState';
 
 const { brewer, displayMode } = useAppState();

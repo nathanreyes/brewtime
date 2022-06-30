@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import BaseButton from './BaseButton.vue';
-
 interface Button {
   label: string;
   icon?: any;

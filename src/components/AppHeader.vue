@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import IconCoffee from '../components/icons/IconCoffee.vue';
-import PageTitle from './PageTitle.vue';
-
 defineProps<{
   title?: string;
 }>();

@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import ListItem from '../ListItem.vue';
-import BrewGrid from './BrewGrid.vue';
-
 const mode = ref('brew');
 </script>
 

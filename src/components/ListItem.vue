@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import IconChevronRight from './icons/IconChevronRight.vue';
 
 const props = defineProps<{
   summary: string;

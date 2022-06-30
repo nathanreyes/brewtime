@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import brews from '@/content/brews.json';
-import BrewItem from '@/components/menu/BrewGridItem.vue';
-import DataDisplay from '../DataDisplay.vue';
 import { useAppState } from '@/use/appState';
 
 const { brewer, recipeLibrary, menuVisible } = useAppState();

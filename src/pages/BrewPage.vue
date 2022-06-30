@@ -1,11 +1,19 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useAppState } from '@/use/appState';
 
 const { brewer, displayMode } = useAppState();
 const { recipe, brew, hasStarted, hasCompleted, running, duration, toggleRunning, durationLabel, reset } = brewer;
 const showReset = computed(() => !running.value && (duration.value > 0 || hasCompleted.value));
 const showPlayPause = computed(() => !hasCompleted.value);
+
+const contentEl = ref<HTMLElement | null>(null);
+function resetBrew() {
+  reset();
+  if (contentEl.value) {
+    contentEl.value.scrollTop = 0;
+  }
+}
 
 function updateCurrent(current: number) {
   console.log('update current', current);
@@ -33,7 +41,7 @@ function updateCurrent(current: number) {
     <main class="flex-grow relative">
       <div class="absolute inset-0 flex flex-col w-full sm:max-w-xl mx-auto">
         <!--Recipe content-->
-        <div class="flex-grow flex-shrink overflow-y-auto px-4 sm:-mx-4">
+        <div class="flex-grow flex-shrink overflow-y-auto px-4 sm:-mx-4" ref="contentEl">
           <template v-if="!(running || hasStarted)">
             <!--Recipe image/notes-->
             <div class="flex items-start mb-4 mt-2 space-x-4">
@@ -89,7 +97,7 @@ function updateCurrent(current: number) {
           class="flex-shrink-0 mt-4 mb-4 sm:mb-6 mx-4 sm:mx-0 border border-black dark:border-white divide-y divide-black dark:divide-white"
         >
           <!--Reset button-->
-          <BaseButton v-if="showReset" is-lg @click="reset"> <IconRefreshCw /><span>Reset</span> </BaseButton>
+          <BaseButton v-if="showReset" is-lg @click="resetBrew"> <IconRefreshCw /><span>Reset</span> </BaseButton>
           <!--Play/pause button-->
           <BaseButton v-if="showPlayPause" is-lg :active="running" @click="toggleRunning">
             <template v-if="running"> <IconPause /> </template>

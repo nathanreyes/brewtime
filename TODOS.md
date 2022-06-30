@@ -1,0 +1,3 @@
+- [x] Scroll to current step after the play button is pressed
+- [x] Scroll to top after the reset button is pressed
+- [] Disable double tap to zoom on mobile safari

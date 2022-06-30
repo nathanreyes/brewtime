@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watch, ref, type ComponentPublicInstance, nextTick } from 'vue';
+import { computed, watch, ref, toRef, type ComponentPublicInstance } from 'vue';
 import { formatDuration, formatTimerDuration } from '@/util/duration';
 import { useAppState } from '@/use/appState';
 
@@ -44,17 +44,19 @@ const active = computed(() => {
 });
 
 const listItem = ref<ComponentPublicInstance | null>(null);
-watch(
-  () => started.value,
-  (val) => {
-    if (!val) return;
-    nextTick(() => {
-      if (!listItem.value) return;
-      const el = listItem.value.$el;
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    });
+function scrollToView() {
+  setTimeout(() => {
+    if (!listItem.value) return;
+    const el = listItem.value.$el;
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, 20);
+}
+
+watch([inProcess, toRef(props, 'running')], () => {
+  if (inProcess.value && props.running) {
+    scrollToView();
   }
-);
+});
 
 function updateProgress(progress: number) {
   emit('update:current', props.step.start + totalDuration.value * progress);

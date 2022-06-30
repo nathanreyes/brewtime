@@ -33,17 +33,17 @@ function updateCurrent(current: number) {
     <main class="flex-grow relative">
       <div class="absolute inset-0 flex flex-col w-full sm:max-w-xl mx-auto">
         <!--Recipe content-->
-        <div class="flex-grow flex-shrink overflow-y-auto">
+        <div class="flex-grow flex-shrink overflow-y-auto px-4 sm:-mx-4">
           <template v-if="!(running || hasStarted)">
             <!--Recipe image/notes-->
-            <div class="flex items-start mb-4 mt-2 mx-4 space-x-4">
+            <div class="flex items-start mb-4 mt-2 space-x-4">
               <img v-if="brew" :src="brew.imgUrl" class="flex-shrink-0 flex-grow-0 h-20" :img-url="brew.imgUrl" />
               <p v-if="recipe.notes" class="flex-grow text-sm text-gray-600 dark:text-gray-300">
                 {{ recipe.notes }}
               </p>
             </div>
             <!--Recipe metadata-->
-            <div class="mx-4 border-y text-sm">
+            <div class="border-y text-sm">
               <div class="sm:hidden divide-y">
                 <div class="flex divide-x">
                   <DataDisplay class="w-1/2" label="Water Amt" :data="recipe.waterAmount" />

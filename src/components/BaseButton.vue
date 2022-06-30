@@ -11,7 +11,7 @@ defineProps<{
       active
         ? 'bg-black hover:bg-gray-900 text-white dark:bg-gray-800 dark:hover:bg-gray-900'
         : 'hover:bg-gray-50 dark:hover:bg-gray-700',
-      isLg ? 'h-16 text-lg' : 'h-10',
+      isLg ? 'h-14 text-lg' : 'h-10',
     ]"
   >
     <slot />

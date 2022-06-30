@@ -35,25 +35,40 @@ function updateCurrent(current: number) {
         <!--Recipe content-->
         <div class="flex-grow flex-shrink overflow-y-auto">
           <template v-if="!(running || hasStarted)">
+            <!--Recipe image/notes-->
+            <div class="flex items-start mb-4 mt-2 mx-4 space-x-4">
+              <img v-if="brew" :src="brew.imgUrl" class="flex-shrink-0 flex-grow-0 h-20" :img-url="brew.imgUrl" />
+              <p v-if="recipe.notes" class="flex-grow text-sm text-gray-600 dark:text-gray-300">
+                {{ recipe.notes }}
+              </p>
+            </div>
             <!--Recipe metadata-->
-            <div class="border-b text-sm divide-y">
-              <!--Recipe image/notes-->
-              <div class="flex items-start mb-4 mt-2 mx-4 space-x-4">
-                <img v-if="brew" :src="brew.imgUrl" class="flex-shrink-0 flex-grow-0 h-20" :img-url="brew.imgUrl" />
-                <p v-if="recipe.notes" class="flex-grow text-sm text-gray-600 dark:text-gray-300">
-                  {{ recipe.notes }}
-                </p>
+            <div class="mx-4 border-y text-sm">
+              <div class="sm:hidden divide-y">
+                <div class="flex divide-x">
+                  <DataDisplay class="w-1/2" label="Water Amt" :data="recipe.waterAmount" />
+                  <DataDisplay class="w-1/2" label="Water Temp" :data="recipe.waterTemp" />
+                </div>
+                <div class="flex divide-x">
+                  <DataDisplay class="w-1/2" label="Coffee Amt" :data="recipe.coffeeAmount" />
+                  <DataDisplay class="w-1/2" label="Grind" :data="recipe.grind" />
+                </div>
+                <div class="flex divide-x">
+                  <DataDisplay class="w-1/2" label="Ratio" :data="recipe.ratio" />
+                  <DataDisplay class="w-1/2" label="Roast" :data="recipe.roast" />
+                </div>
               </div>
-              <!--Recipe parameters-->
-              <div class="flex divide-x">
-                <DataDisplay class="w-1/3" label="Water Amt" :data="recipe.waterAmount" />
-                <DataDisplay class="w-1/3" label="Coffee Amt" :data="recipe.coffeeAmount" />
-                <DataDisplay class="w-1/3" label="Ratio" :data="recipe.ratio" />
-              </div>
-              <div class="flex divide-x">
-                <DataDisplay class="w-1/3" label="Water Temp" :data="recipe.waterTemp" />
-                <DataDisplay class="w-1/3" label="Grind" :data="recipe.grind" />
-                <DataDisplay class="w-1/3" label="Roast" :data="recipe.roast" />
+              <div class="hidden sm:block divide-y">
+                <div class="flex divide-x">
+                  <DataDisplay class="w-1/3" label="Water Amt" :data="recipe.waterAmount" />
+                  <DataDisplay class="w-1/3" label="Coffee Amt" :data="recipe.coffeeAmount" />
+                  <DataDisplay class="w-1/3" label="Ratio" :data="recipe.ratio" />
+                </div>
+                <div class="flex divide-x">
+                  <DataDisplay class="w-1/3" label="Water Temp" :data="recipe.waterTemp" />
+                  <DataDisplay class="w-1/3" label="Grind" :data="recipe.grind" />
+                  <DataDisplay class="w-1/3" label="Roast" :data="recipe.roast" />
+                </div>
               </div>
             </div>
           </template>

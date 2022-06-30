@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watch, ref, type ComponentPublicInstance } from 'vue';
+import { computed, watch, ref, type ComponentPublicInstance, nextTick } from 'vue';
 import { formatDuration, formatTimerDuration } from '@/util/duration';
 import { useAppState } from '@/use/appState';
 
@@ -47,9 +47,12 @@ const listItem = ref<ComponentPublicInstance | null>(null);
 watch(
   () => started.value,
   (val) => {
-    if (!val || !listItem.value) return;
-    const el = listItem.value.$el;
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (!val) return;
+    nextTick(() => {
+      if (!listItem.value) return;
+      const el = listItem.value.$el;
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    });
   }
 );
 

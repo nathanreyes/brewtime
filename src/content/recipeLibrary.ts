@@ -25,7 +25,8 @@ const recipeLibrary: RecipeConfig[] = [
       {
         summary: 'Pour 200 grams of water',
         type: 'pour',
-        description: 'Get coffee wet as quickly as you can.',
+        description: 'Try and get coffee wet as quickly as you can.',
+        gifUrl: '/2-pour.gif',
         seconds: 15,
       },
       {

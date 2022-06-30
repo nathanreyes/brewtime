@@ -9,9 +9,9 @@ defineProps<{
     class="flex justify-center items-center w-full space-x-3"
     :class="[
       active
-        ? 'bg-black hover:bg-gray-900 text-white dark:bg-gray-600 dark:hover:bg-gray-700'
+        ? 'bg-black hover:bg-gray-900 text-white dark:bg-gray-800 dark:hover:bg-gray-900'
         : 'hover:bg-gray-50 dark:hover:bg-gray-700',
-      isLg ? 'h-16' : 'h-10',
+      isLg ? 'h-16 text-lg' : 'h-10',
     ]"
   >
     <slot />

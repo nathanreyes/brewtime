@@ -71,7 +71,7 @@ function updateCurrent(current: number) {
         </div>
         <!--Recipe buttons-->
         <div
-          class="flex-shrink-0 sm:mb-8 sm:mt-4 divide-y divide-black dark:divide-white border-t border-black dark:border-white sm:border sm:border-black dark:sm:border-white"
+          class="flex-shrink-0 mt-4 mb-4 sm:mb-6 mx-4 sm:mx-0 border border-black dark:border-white divide-y divide-black dark:divide-white"
         >
           <!--Reset button-->
           <BaseButton v-if="showReset" is-lg @click="reset"> <IconRefreshCw /><span>Reset</span> </BaseButton>

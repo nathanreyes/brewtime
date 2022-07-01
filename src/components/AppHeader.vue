@@ -5,8 +5,8 @@ defineProps<{
 </script>
 <template>
   <header class="flex-shrink-0">
-    <div class="w-full sm:max-w-xl mx-auto pb-4">
-      <div class="flex items-center h-16 px-2 sm:px-0 mx-auto">
+    <div class="w-full sm:max-w-xl mx-auto pb-2">
+      <div class="flex items-center h-16 px-2 sm:px-0 sm:-mx-2 mx-auto">
         <!--Left slot-->
         <slot name="left">
           <div class="w-12"></div>

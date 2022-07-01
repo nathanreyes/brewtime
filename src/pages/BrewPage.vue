@@ -17,6 +17,7 @@ function resetBrew() {
 
 function updateCurrent(current: number) {
   console.log('update current', current);
+  duration.value = current;
 }
 </script>
 

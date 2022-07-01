@@ -57,9 +57,9 @@ const recipeLibrary: RecipeConfig[] = [
         seconds: 20,
       },
       {
-        summary: 'Drink it up!',
+        summary: 'Enjoy your brew!',
         type: 'complete',
-        gifUrl: 'https://media.giphy.com/media/DrJm6F9poo4aA/giphy.gif',
+        gifUrl: '/2-enjoy.gif',
       },
     ],
   },

@@ -10,7 +10,17 @@ export function useStopwatch() {
   const running = ref(false);
   const currentDuration = ref(0);
   const lastDuration = ref(0);
-  const duration = computed(() => lastDuration.value + currentDuration.value);
+  const duration = computed({
+    get() {
+      return lastDuration.value + currentDuration.value;
+    },
+    set(value) {
+      lastDuration.value = value;
+      currentDuration.value = 0;
+      start.value = new Date();
+      end.value = start.value;
+    },
+  });
   const durationLabel = computed(() => formatDuration(duration.value));
   const hasStarted = computed(() => duration.value > 0);
 

@@ -76,10 +76,10 @@ function updateProgress(progress: number) {
         <IconCheckCircle />
       </div>
       <template v-else-if="totalDuration > 0">
-        <div v-if="inProcess" class="text-lg">
+        <div v-if="inProcess" class="text-lg select-none">
           {{ currentDurationLabel }}
         </div>
-        <div v-else class="text-lg">
+        <div v-else class="text-lg select-none">
           {{ totalDurationLabel }}
         </div>
       </template>

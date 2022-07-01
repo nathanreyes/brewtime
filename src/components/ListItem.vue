@@ -40,7 +40,7 @@ function progressClick(e: MouseEvent) {
       </slot>
     </div>
     <slot name="details" />
-    <div v-if="progress && progress >= 0 && progress <= 1" class="absolute inset-0 z-10">
+    <div v-if="progress && progress >= 0 && progress <= 1" class="absolute left-0 right-0 bottom-0 h-4 z-10">
       <div class="relative w-full h-full">
         <div
           class="absolute inset-0 border-b-4 border-gray-200 dark:border-gray-800 hover:cursor-pointer"

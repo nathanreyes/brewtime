@@ -22,7 +22,7 @@ function updateCurrent(current: number) {
   duration.value = current;
 }
 
-const editField = ref<RecipeField | null>('waterAmount');
+const editField = ref<RecipeField | null>(null);
 const dataFields = computed(() => ({
   waterAmount: {
     id: 'waterAmount',

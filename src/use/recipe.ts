@@ -1,6 +1,8 @@
-import { computed, reactive } from 'vue';
+import { computed, reactive, toRefs } from 'vue';
 import { getDurationFromData } from '@/util/duration';
+import { roundTenth } from '@/util/math';
 
+export type RecipeField = 'waterAmount' | 'waterTemp' | 'coffeeAmount' | 'coffeeGrind' | 'ratio' | 'roast';
 interface RecipeStepConfig {
   summary: string;
   type: string;
@@ -21,12 +23,12 @@ export interface RecipeConfig {
   brewId: string;
   author: string;
   notes: string;
-  grind: string;
   roast: string;
-  waterAmount: string;
-  waterTemp: string;
-  coffeeAmount: string;
-  ratio: string;
+  waterAmount: number;
+  waterTemp: number;
+  coffeeAmount: number;
+  coffeeGrind: string;
+  ratio: number;
   steps: RecipeStepConfig[];
 }
 
@@ -36,12 +38,18 @@ export interface Recipe {
   brewId: string;
   author: string;
   notes: string;
-  grind: string;
+  waterAmount: number;
+  waterAmountLabel: string;
+  waterTemp: number;
+  waterTempLabel: string;
+  coffeeAmount: number;
+  coffeeAmountLabel: string;
+  coffeeGrind: string;
+  coffeeGrindLabel: string;
+  ratio: number;
+  ratioLabel: string;
   roast: string;
-  waterAmount: string;
-  waterTemp: string;
-  coffeeAmount: string;
-  ratio: string;
+  roastLabel: string;
   steps: RecipeStep[];
   duration: number;
 }
@@ -62,13 +70,40 @@ export function deserializeRecipe(recipeConfig: RecipeConfig) {
       end,
     };
   });
-  return {
+
+  const recipe = reactive({
     ...recipeConfig,
     steps,
     duration,
+  });
+
+  const waterAmountLabel = computed(() => `${roundTenth(recipe.waterAmount)}g`);
+  const waterTempLabel = computed(() => `${roundTenth(recipe.waterTemp)}F`);
+  const coffeeAmountLabel = computed(() => `${roundTenth(recipe.coffeeAmount)}g`);
+  const coffeeGrindLabel = computed(() => recipe.coffeeGrind);
+  const ratioLabel = computed(() => roundTenth(recipe.ratio).toString());
+  const roastLabel = computed(() => recipe.roast);
+
+  const result = {
+    ...toRefs(recipe),
+    waterAmountLabel,
+    waterTempLabel,
+    coffeeAmountLabel,
+    coffeeGrindLabel,
+    ratioLabel,
+    roastLabel,
   };
+  return result;
 }
 
-export function useRecipe(recipeConfig: RecipeConfig): Recipe {
-  return deserializeRecipe(recipeConfig);
+export function formatFieldValue(field: RecipeField, value: number | string) {
+  switch (field) {
+    default:
+      return value.toString();
+  }
 }
+
+// export function useRecipe(recipeConfig: RecipeConfig): Recipe {
+//   const recipe = deserializeRecipe(recipeConfig);
+//   return recipe;
+// }

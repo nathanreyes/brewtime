@@ -9,12 +9,12 @@ const recipeLibrary: RecipeConfig[] = [
     author: 'Nathan Reyes',
     notes:
       'Inspired by James Hoffmann and his epic AeroPress miniseries, in which he dispels some long-held myths and produces a great brew. Enjoy!',
-    grind: 'Fine',
     roast: 'Light',
-    waterAmount: '200g',
-    waterTemp: 'Boil',
-    coffeeAmount: '11g',
-    ratio: '18:1',
+    waterAmount: 200,
+    waterTemp: 212,
+    coffeeAmount: 11,
+    coffeeGrind: 'Fine',
+    ratio: 18,
     steps: [
       {
         summary: 'Prepare Brew',

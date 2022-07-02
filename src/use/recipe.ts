@@ -93,7 +93,7 @@ export function deserializeRecipe(recipeConfig: RecipeConfig) {
     ratioLabel,
     roastLabel,
   };
-  return result;
+  return reactive(result);
 }
 
 export function formatFieldValue(field: RecipeField, value: number | string) {

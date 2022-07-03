@@ -197,7 +197,7 @@ const ratioOptions = computed(() => {
     <!--Coffee grind-->
     <template v-else-if="editField === 'coffeeGrind'">
       <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-2">
-        <label>Coffee Grind:</label>
+        <label>Grind:</label>
         <select :class="selectClass" v-model="recipe.coffeeGrind">
           <option v-for="option in coffeeGrindOptions" :key="option.value" :value="option.value">
             {{ option.label }}

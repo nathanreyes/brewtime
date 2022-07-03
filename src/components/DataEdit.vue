@@ -133,7 +133,7 @@ const ratioOptions = computed(() => {
 </script>
 
 <template>
-  <div class="relative font-medium text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 border-b">
+  <div class="relative font-medium text-sm text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 border-b">
     <!--Water amount-->
     <template v-if="editField === 'waterAmount'">
       <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-2">
@@ -230,14 +230,14 @@ const ratioOptions = computed(() => {
     </template>
     <!--Roast-->
     <template v-else-if="editField === 'roast'">
-      <div class="flex justify-center items-center text-xs px-4 py-4 space-x-2">
+      <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Roast:</label>
         <label>{{ recipe.roast }}</label>
       </div>
     </template>
     <!--Close button-->
     <button
-      class="absolute top-0 right-1 p-1 text-gray-400 dark:text-gray-400 hover:opacity-50"
+      class="absolute top-1 right-1 p-1 text-gray-400 dark:text-gray-400 hover:opacity-50"
       @click="$emit('close')"
     >
       <IconX class="w-5 h-5" />

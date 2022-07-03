@@ -19,7 +19,7 @@ function toggleValue() {
 
 <template>
   <div
-    class="flex justify-between items-baseline py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+    class="flex justify-between items-baseline py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer"
     :class="{ 'bg-gray-100 dark:bg-gray-700': id && id === modelValue }"
     @click="toggleValue"
   >

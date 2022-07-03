@@ -148,7 +148,7 @@ const ratioOptions = computed(() => {
         </div>
       </div>
       <!--Water amount update setting-->
-      <div class="flex justify-center items-center text-xs px-4 pt-2 pb-4 space-x-2">
+      <div class="flex justify-center items-center px-4 pb-4 space-x-2">
         <span>Adjust</span>
         <input type="radio" id="coffee" value="coffee" v-model="waterAmountUpdate" />
         <label for="coffee" :class="{ 'opacity-50': waterAmountUpdate !== 'coffee' }">coffee</label>
@@ -185,7 +185,7 @@ const ratioOptions = computed(() => {
         </div>
       </div>
       <!--Coffee amount update setting-->
-      <div class="flex justify-center items-center text-xs px-4 pt-2 pb-4 space-x-2">
+      <div class="flex justify-center items-center px-4 pb-4 space-x-2">
         <span>Adjust</span>
         <input type="radio" id="water" value="water" v-model="coffeeAmountUpdate" />
         <label for="water" :class="{ 'opacity-50': coffeeAmountUpdate !== 'water' }">water</label>
@@ -219,7 +219,7 @@ const ratioOptions = computed(() => {
         </div>
       </div>
       <!--Ratio update setting-->
-      <div class="flex justify-center items-center text-xs px-4 pt-2 pb-4 space-x-2">
+      <div class="flex justify-center items-center px-4 pb-4 space-x-2">
         <span>Adjust</span>
         <input type="radio" id="water" value="water" v-model="ratioUpdate" />
         <label for="water" :class="{ 'opacity-50': ratioUpdate !== 'water' }">water</label>

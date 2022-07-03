@@ -221,8 +221,8 @@ const ratioOptions = computed(() => {
       <!--Ratio update setting-->
       <div class="flex justify-center items-center text-xs px-4 pt-2 pb-4 space-x-2">
         <span>Adjust</span>
-        <input type="radio" id="coffee" value="water" v-model="ratioUpdate" />
-        <label for="coffee" :class="{ 'opacity-50': ratioUpdate !== 'water' }">water</label>
+        <input type="radio" id="water" value="water" v-model="ratioUpdate" />
+        <label for="water" :class="{ 'opacity-50': ratioUpdate !== 'water' }">water</label>
         <input type="radio" id="coffee" value="coffee" class="" v-model="ratioUpdate" />
         <label for="coffee" :class="{ 'opacity-50': ratioUpdate !== 'coffee' }">coffee</label>
         <span>when updated</span>

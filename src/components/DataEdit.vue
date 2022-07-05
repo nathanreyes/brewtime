@@ -136,7 +136,7 @@ const ratioOptions = computed(() => {
   <div class="relative font-medium text-sm text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 border-b">
     <!--Water amount-->
     <template v-if="editField === 'waterAmount'">
-      <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-2">
+      <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Water Amount:</label>
         <div class="flex items-baseline space-x-2">
           <select :class="selectClass" v-model="recipe.waterAmount">
@@ -148,7 +148,7 @@ const ratioOptions = computed(() => {
         </div>
       </div>
       <!--Water amount update setting-->
-      <div class="flex justify-center items-center px-4 pb-4 space-x-2">
+      <div class="flex justify-center items-center space-x-2 px-4 pb-4">
         <span>Adjust</span>
         <input type="radio" id="coffee" value="coffee" v-model="waterAmountUpdate" />
         <label for="coffee" :class="{ 'opacity-50': waterAmountUpdate !== 'coffee' }">coffee</label>
@@ -159,7 +159,7 @@ const ratioOptions = computed(() => {
     </template>
     <!--Water temp-->
     <template v-else-if="editField === 'waterTemp'">
-      <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-2">
+      <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Water Temp:</label>
         <div class="flex items-baseline space-x-2">
           <select :class="selectClass" v-model="recipe.waterTemp">
@@ -173,7 +173,7 @@ const ratioOptions = computed(() => {
     </template>
     <!--Coffee amount-->
     <template v-else-if="editField === 'coffeeAmount'">
-      <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-2">
+      <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Coffee Amount:</label>
         <div class="flex items-baseline space-x-2">
           <select :class="selectClass" v-model="recipe.coffeeAmount">
@@ -185,7 +185,7 @@ const ratioOptions = computed(() => {
         </div>
       </div>
       <!--Coffee amount update setting-->
-      <div class="flex justify-center items-center px-4 pb-4 space-x-2">
+      <div class="flex justify-center items-center space-x-2 px-4 pb-4">
         <span>Adjust</span>
         <input type="radio" id="water" value="water" v-model="coffeeAmountUpdate" />
         <label for="water" :class="{ 'opacity-50': coffeeAmountUpdate !== 'water' }">water</label>
@@ -196,7 +196,7 @@ const ratioOptions = computed(() => {
     </template>
     <!--Coffee grind-->
     <template v-else-if="editField === 'coffeeGrind'">
-      <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-2">
+      <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Grind:</label>
         <select :class="selectClass" v-model="recipe.coffeeGrind">
           <option v-for="option in coffeeGrindOptions" :key="option.value" :value="option.value">
@@ -207,7 +207,7 @@ const ratioOptions = computed(() => {
     </template>
     <!--Ratio-->
     <template v-else-if="editField === 'ratio'">
-      <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-2">
+      <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Ratio:</label>
         <div class="flex items-baseline space-x-2">
           <select :class="selectClass" v-model="recipe.ratio">
@@ -219,7 +219,7 @@ const ratioOptions = computed(() => {
         </div>
       </div>
       <!--Ratio update setting-->
-      <div class="flex justify-center items-center px-4 pb-4 space-x-2">
+      <div class="flex justify-center items-center space-x-2 px-4 pb-4">
         <span>Adjust</span>
         <input type="radio" id="water" value="water" v-model="ratioUpdate" />
         <label for="water" :class="{ 'opacity-50': ratioUpdate !== 'water' }">water</label>

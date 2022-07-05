@@ -19,27 +19,28 @@ const recipeLibrary: RecipeConfig[] = [
       {
         summary: 'Prepare Brew',
         type: 'setup',
-        description: 'Load coffee into the aeropress. No need to rinse paper filter.',
+        description:
+          'Insert filter into the AeroPress (no need to rinse). Grind and load coffee into AeroPress and place onto scale with cup.',
         gifUrl: '/2-prep.gif',
       },
       {
-        summary: 'Pour 200 grams of water',
+        summary: 'Pour water',
         type: 'pour',
-        description: 'Try and get coffee wet as quickly as you can.',
+        description: 'Pour water evenly into AeroPress.',
         gifUrl: '/2-pour.gif',
         seconds: 15,
       },
       {
         summary: 'Wait for 2 minutes',
         type: 'wait',
-        description: 'Remove cup from scale, insert plunger slightly, and wait...patiently.',
+        description: 'Remove AeroPress and cup from scale. Insert plunger slightly, and wait...patiently.',
         gifUrl: '/2-wait.gif',
         minutes: 2,
       },
       {
         summary: 'Gentle swirl',
         type: 'wait',
-        description: `Remember, we're not trying to create a vortex in there. Just trying to settle the coffee a bit.`,
+        description: `Gently swirl the AeroPress and cup. Remember, we're not trying to create a vortex in there. Just trying to settle the coffee a bit.`,
         gifUrl: '/2-swirl.gif',
         seconds: 10,
       },
@@ -58,6 +59,7 @@ const recipeLibrary: RecipeConfig[] = [
       },
       {
         summary: 'Enjoy your brew!',
+        description: 'Add hot water to taste if needed.',
         type: 'complete',
         gifUrl: '/2-enjoy.gif',
       },

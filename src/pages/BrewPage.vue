@@ -170,7 +170,9 @@ const dataFields = computed(() => ({
         <!--Recipe buttons-->
         <div class="w-full border border-black dark:border-white divide-y divide-black dark:divide-white">
           <!--Reset button-->
-          <BaseButton v-if="showReset" is-lg @click="resetBrew"> <IconRefreshCw /><span>Reset</span> </BaseButton>
+          <BaseButton v-if="showReset" is-lg @click="resetBrew">
+            <IconRefreshCw class="w-5 h-5 sm:w-6 sm:h-6" /><span class="text-sm sm:text-base">Reset</span>
+          </BaseButton>
           <!--Play/pause button-->
           <BaseButton v-if="showPlayPause" is-lg :active="running" @click="toggleRunning">
             <div class="flex justify-between items-center w-full px-4 text-sm">
@@ -179,7 +181,7 @@ const dataFields = computed(() => ({
               </p>
               <template v-if="running"> <IconPause /> </template>
               <template v-else>
-                <IconPlay />
+                <IconPlay class="w-5 h-5 sm:w-6 sm:h-6" />
               </template>
               <p :class="[running ? 'text-white' : 'text-gray-500 dark:text-gray-400']">
                 {{ formatDuration(recipe.duration) }}

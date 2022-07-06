@@ -4,6 +4,7 @@ import { useAppState } from '@/use/appState';
 import DataDisplay from '@/components/DataDisplay.vue';
 import { formatDuration } from '@/util/duration';
 import type { RecipeField } from '@/use/recipe';
+import IconExternalLink from '../components/icons/IconExternalLink.vue';
 
 const { brewer, displayMode } = useAppState();
 const { recipe, brew, hasStarted, hasCompleted, running, duration, toggleRunning, durationLabel, reset } = brewer;
@@ -87,14 +88,30 @@ const dataFields = computed(() => ({
         <div class="flex-grow flex-shrink overflow-y-auto px-4 sm:-mx-4" ref="contentEl">
           <template v-if="!(running || hasStarted)">
             <!--Recipe image/notes/brew time-->
-            <div class="relative flex items-start mb-4 mt-2 space-x-4">
+            <div class="flex items-stretch mb-4 mt-2 space-x-4">
               <img v-if="brew" :src="brew.imgUrl" class="flex-shrink-0 flex-grow-0 h-20" :img-url="brew.imgUrl" />
-              <p v-if="recipe.notes" class="flex-grow text-sm text-gray-600 dark:text-gray-300 mb-3">
-                {{ recipe.notes }}
-              </p>
-              <p class="absolute right-0 bottom-0 text-xs text-right text-gray-400 dark:text-gray-400 -mb-2">
-                Brew Time: {{ formatDuration(recipe.duration) }}
-              </p>
+              <div class="relative flex-grow min-h-full">
+                <p v-if="recipe.notes" class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                  {{ recipe.notes }}
+                </p>
+                <p v-else class="text-xs text-gray-400 dark:text-gray-600">No notes provided</p>
+                <div
+                  class="absolute bottom-0 w-full flex justify-end items-center -mb-3 space-x-6 text-gray-400 dark:text-gray-400"
+                >
+                  <!--Brew time-->
+                  <p class="text-xs py-1">Brew Time: {{ formatDuration(recipe.duration) }}</p>
+                  <!--External link-->
+                  <a
+                    v-if="recipe.urlHostname"
+                    :href="recipe.url"
+                    target="_blank"
+                    class="flex items-center text-xs space-x-1 py-1"
+                  >
+                    <IconExternalLink class="w-4 h-4" />
+                    <span class="hover:underline">{{ recipe.urlHostname }}</span>
+                  </a>
+                </div>
+              </div>
             </div>
             <!--Recipe metadata-->
             <div class="border-y text-sm">

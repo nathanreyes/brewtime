@@ -40,6 +40,7 @@ export interface Recipe {
   author: string;
   notes: string;
   url: string;
+  urlHostname: string;
   waterAmount: number;
   waterAmountLabel: string;
   waterTemp: number;
@@ -85,6 +86,11 @@ export function deserializeRecipe(recipeConfig: RecipeConfig) {
   const coffeeGrindLabel = computed(() => recipe.coffeeGrind);
   const ratioLabel = computed(() => roundTenth(recipe.ratio).toString());
   const roastLabel = computed(() => recipe.roast);
+  const urlHostname = computed(() => {
+    if (!recipe.url) return '';
+    const url = new URL(recipe.url);
+    return url.hostname;
+  });
 
   const result = {
     ...toRefs(recipe),
@@ -94,6 +100,7 @@ export function deserializeRecipe(recipeConfig: RecipeConfig) {
     coffeeGrindLabel,
     ratioLabel,
     roastLabel,
+    urlHostname,
   };
   return reactive(result);
 }

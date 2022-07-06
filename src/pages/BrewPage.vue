@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useAppState } from '@/use/appState';
-import DataDisplay from '@/components/DataDisplay.vue';
 import { formatDuration } from '@/util/duration';
+import { useScrollPosition } from '@/use/scrollPosition';
 import type { RecipeField } from '@/use/recipe';
-import IconExternalLink from '../components/icons/IconExternalLink.vue';
 
 const { brewer, displayMode } = useAppState();
 const { recipe, brew, hasStarted, hasCompleted, running, duration, toggleRunning, durationLabel, reset } = brewer;
@@ -12,6 +11,8 @@ const showReset = computed(() => !running.value && (duration.value > 0 || hasCom
 const showPlayPause = computed(() => !hasCompleted.value);
 
 const contentEl = ref<HTMLElement | null>(null);
+const { isTop, isBottom } = useScrollPosition(contentEl);
+
 function resetBrew() {
   reset();
   if (contentEl.value) {
@@ -66,7 +67,7 @@ const dataFields = computed(() => ({
 
 <template>
   <div class="h-screen flex flex-col">
-    <AppHeader :title="recipe.name">
+    <AppHeader :class="{ 'transition duration-300 shadow-md': !isTop }" :title="recipe.name">
       <template #left>
         <!--Menu button-->
         <IconButton @click="$emit('menu-click')">
@@ -161,10 +162,13 @@ const dataFields = computed(() => ({
             />
           </div>
         </div>
+      </div>
+    </main>
+    <!--App footer-->
+    <div class="flex-shrink-0 pt-4 mb-4 sm:mb-6 mx-4 sm:mx-0">
+      <div class="w-full sm:max-w-xl mx-auto">
         <!--Recipe buttons-->
-        <div
-          class="flex-shrink-0 mt-4 mb-4 sm:mb-6 mx-4 sm:mx-0 border border-black dark:border-white divide-y divide-black dark:divide-white"
-        >
+        <div class="w-full border border-black dark:border-white divide-y divide-black dark:divide-white">
           <!--Reset button-->
           <BaseButton v-if="showReset" is-lg @click="resetBrew"> <IconRefreshCw /><span>Reset</span> </BaseButton>
           <!--Play/pause button-->
@@ -184,6 +188,6 @@ const dataFields = computed(() => ({
           </BaseButton>
         </div>
       </div>
-    </main>
+    </div>
   </div>
 </template>

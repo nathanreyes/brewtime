@@ -23,6 +23,7 @@ export interface RecipeConfig {
   brewId: string;
   author: string;
   notes: string;
+  url: string;
   roast: string;
   waterAmount: number;
   waterTemp: number;
@@ -38,6 +39,7 @@ export interface Recipe {
   brewId: string;
   author: string;
   notes: string;
+  url: string;
   waterAmount: number;
   waterAmountLabel: string;
   waterTemp: number;

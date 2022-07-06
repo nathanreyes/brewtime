@@ -3,12 +3,28 @@ import { deserializeRecipe } from '@/use/recipe';
 
 const recipeLibrary: RecipeConfig[] = [
   {
-    id: '2',
+    id: 'eff3b12e-a38c-48c8-a014-c759da4cd64f',
+    name: 'Stagg X',
+    brewId: 'stagg-x',
+    author: 'Nathan Reyes',
+    notes: '',
+    url: 'https://coffeeadastra.com/2020/12/09/brewing-with-the-fellow-stagg-x-dripper/',
+    roast: 'light',
+    waterAmount: 425,
+    waterTemp: 202,
+    coffeeAmount: 25,
+    coffeeGrind: 'Medium',
+    ratio: 17,
+    steps: [],
+  },
+  {
+    id: '7fea1fb7-2c56-448a-9ea1-43e3eb48af95',
     name: 'AeroPress',
     brewId: 'aeropress',
     author: 'Nathan Reyes',
     notes:
       'Inspired by James Hoffmann and his epic AeroPress miniseries, in which he dispels some long-held myths and produces a great brew. Enjoy!',
+    url: 'https://www.youtube.com/watch?v=j6VlT_jUVPc',
     roast: 'Light',
     waterAmount: 200,
     waterTemp: 212,

@@ -77,7 +77,7 @@ const recipeLibrary: RecipeConfig[] = [
     waterAmount: 425,
     waterTemp: 210,
     coffeeAmount: 25,
-    coffeeGrind: 'Medium',
+    coffeeGrind: 'Medium Fine',
     ratio: 17,
     steps: [
       {
@@ -90,7 +90,7 @@ const recipeLibrary: RecipeConfig[] = [
         summary: 'Pour wwater',
         type: 'pour',
         description:
-          'Pour about 2.5 to 3.5 grams of water per gram of dry coffee dose for the bloom step. You want to have enough water that you can immediately give the dripper a good swirl to make the surface of the coffee bed even before all water has dripped out.',
+          'Pour about 2.5 to 3.5 grams of water per gram of dry coffee dose for the bloom. You want to have enough water that you can immediately give the dripper a good swirl to make the surface of the coffee bed even before all water has dripped out.',
       },
     ],
   },

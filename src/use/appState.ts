@@ -11,6 +11,7 @@ const displayMode = ref<DisplayMode>('light');
 const temperatureUnit = ref<TemperatureUnit>('f');
 const isFahrenheit = computed(() => temperatureUnit.value === 'f');
 const isCelcius = computed(() => temperatureUnit.value === 'c');
+const menuVisible = ref(false);
 const menuMode = ref<MenuMode>('library');
 const waterAmountUpdate = ref<'coffee' | 'ratio'>('coffee');
 const coffeeAmountUpdate = ref<'water' | 'ratio'>('ratio');
@@ -46,6 +47,7 @@ watchEffect(() => {
 
 export function useAppState() {
   return {
+    menuVisible,
     menuMode,
     displayMode,
     temperatureUnit,

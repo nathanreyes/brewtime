@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { useAppState } from './use/appState';
 
-const menuVisible = ref(false);
+const { menuVisible } = useAppState();
 </script>
 
 <template>

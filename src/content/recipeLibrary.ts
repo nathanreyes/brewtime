@@ -3,21 +3,6 @@ import { deserializeRecipe } from '@/use/recipe';
 
 const recipeLibrary: RecipeConfig[] = [
   {
-    id: 'eff3b12e-a38c-48c8-a014-c759da4cd64f',
-    name: 'Stagg X',
-    brewId: 'stagg-x',
-    author: 'Nathan Reyes',
-    notes: '',
-    url: 'https://coffeeadastra.com/2020/12/09/brewing-with-the-fellow-stagg-x-dripper/',
-    roast: 'light',
-    waterAmount: 425,
-    waterTemp: 202,
-    coffeeAmount: 25,
-    coffeeGrind: 'Medium',
-    ratio: 17,
-    steps: [],
-  },
-  {
     id: '7fea1fb7-2c56-448a-9ea1-43e3eb48af95',
     name: 'AeroPress',
     brewId: 'aeropress',
@@ -80,6 +65,21 @@ const recipeLibrary: RecipeConfig[] = [
         gifUrl: '/2-enjoy.gif',
       },
     ],
+  },
+  {
+    id: 'eff3b12e-a38c-48c8-a014-c759da4cd64f',
+    name: 'Stagg X',
+    brewId: 'stagg-x',
+    author: 'Nathan Reyes',
+    notes: '',
+    url: 'https://coffeeadastra.com/2020/12/09/brewing-with-the-fellow-stagg-x-dripper/',
+    roast: 'light',
+    waterAmount: 425,
+    waterTemp: 202,
+    coffeeAmount: 25,
+    coffeeGrind: 'Medium',
+    ratio: 17,
+    steps: [],
   },
 ];
 

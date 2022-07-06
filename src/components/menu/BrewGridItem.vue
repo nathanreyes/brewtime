@@ -1,17 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue';
 interface Brew {
   name: string;
   imgUrl?: string;
 }
-const props = defineProps<{ brew: Brew }>();
-
-const imageStyle = computed(() => {
-  if (!props.brew.imgUrl) return undefined;
-  return {
-    backgroundImage: `url('${new URL(props.brew.imgUrl, import.meta.url).href}')`,
-  };
-});
+defineProps<{ brew: Brew }>();
 </script>
 <template>
   <div class="flex flex-col items-stretch w-44 h-44 border cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700">

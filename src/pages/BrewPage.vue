@@ -96,10 +96,10 @@ const dataFields = computed(() => ({
                 </p>
                 <p v-else class="text-xs text-gray-400 dark:text-gray-600">No notes provided</p>
                 <div
-                  class="absolute bottom-0 w-full flex justify-end items-center -mb-3 space-x-6 text-gray-400 dark:text-gray-400"
+                  class="absolute bottom-0 w-full flex justify-end items-end -mb-4 space-x-6 text-gray-400 dark:text-gray-400"
                 >
                   <!--Brew time-->
-                  <p class="text-xs py-1">Brew Time: {{ formatDuration(recipe.duration) }}</p>
+                  <!-- <p class="text-xs py-1">Brew Time: {{ formatDuration(recipe.duration) }}</p> -->
                   <!--External link-->
                   <a
                     v-if="recipe.urlHostname"
@@ -114,7 +114,7 @@ const dataFields = computed(() => ({
               </div>
             </div>
             <!--Recipe metadata-->
-            <div class="border-y text-sm">
+            <div class="border-y text-sm -mx-4">
               <div class="sm:hidden divide-y">
                 <div class="flex divide-x">
                   <DataDisplay class="w-1/2" v-bind="dataFields.waterAmount" v-model="editField" />
@@ -170,13 +170,18 @@ const dataFields = computed(() => ({
           <BaseButton v-if="showReset" is-lg @click="resetBrew"> <IconRefreshCw /><span>Reset</span> </BaseButton>
           <!--Play/pause button-->
           <BaseButton v-if="showPlayPause" is-lg :active="running" @click="toggleRunning">
-            <template v-if="running"> <IconPause /> </template>
-            <template v-else>
-              <IconPlay />
-            </template>
-            <p class="text-lg" :class="[running ? 'text-white' : 'text-gray-900 dark:text-gray-200']">
-              {{ durationLabel }}
-            </p>
+            <div class="flex justify-between items-center w-full px-4 text-sm">
+              <p :class="[running ? 'text-white' : 'text-gray-900 dark:text-gray-200']">
+                {{ durationLabel }}
+              </p>
+              <template v-if="running"> <IconPause /> </template>
+              <template v-else>
+                <IconPlay />
+              </template>
+              <p :class="[running ? 'text-white' : 'text-gray-500 dark:text-gray-400']">
+                {{ formatDuration(recipe.duration) }}
+              </p>
+            </div>
           </BaseButton>
         </div>
       </div>

@@ -67,7 +67,10 @@ const dataFields = computed(() => ({
 
 <template>
   <div class="h-screen flex flex-col">
-    <AppHeader :class="{ 'transition duration-300 shadow-md': !isTop }" :title="recipe.name">
+    <AppHeader
+      :class="{ 'bg-gray-50 dark:bg-gray-900 dark:border-b transition duration-300 shadow-md': !isTop }"
+      :title="recipe.name"
+    >
       <template #left>
         <!--Menu button-->
         <IconButton @click="$emit('menu-click')">

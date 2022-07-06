@@ -9,7 +9,7 @@ const props = defineProps<{ brew: Brew }>();
 const imageStyle = computed(() => {
   if (!props.brew.imgUrl) return undefined;
   return {
-    backgroundImage: `url('${new URL(props.brew.imgUrl, import.meta.url).href}')`,
+    backgroundImage: `url(${new URL(props.brew.imgUrl, import.meta.url).href})`,
   };
 });
 </script>

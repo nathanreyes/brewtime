@@ -75,11 +75,24 @@ const recipeLibrary: RecipeConfig[] = [
     url: 'https://coffeeadastra.com/2020/12/09/brewing-with-the-fellow-stagg-x-dripper/',
     roast: 'light',
     waterAmount: 425,
-    waterTemp: 202,
+    waterTemp: 210,
     coffeeAmount: 25,
     coffeeGrind: 'Medium',
     ratio: 17,
-    steps: [],
+    steps: [
+      {
+        summary: 'Prepare brew',
+        type: 'setup',
+        description:
+          'Make a nest shape in the dry coffee bed, and start pouring in the hole during the bloom step. This may seem counterintuitive, but I think this helps getting water through the bottom layers of the coffee bed a bit faster even with flat-bottom drippers.',
+      },
+      {
+        summary: 'Pour wwater',
+        type: 'pour',
+        description:
+          'Pour about 2.5 to 3.5 grams of water per gram of dry coffee dose for the bloom step. You want to have enough water that you can immediately give the dripper a good swirl to make the surface of the coffee bed even before all water has dripped out.',
+      },
+    ],
   },
 ];
 

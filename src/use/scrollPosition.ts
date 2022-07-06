@@ -15,7 +15,7 @@ export function useScrollPosition(target: Ref<ComponentPublicInstance | HTMLElem
     if (!targetEl.value) return;
     const { scrollTop, scrollHeight, offsetHeight } = targetEl.value;
     state.position = scrollTop;
-    state.isTop = scrollTop === 0;
+    state.isTop = scrollTop <= 0;
     state.isBottom = scrollTop + offsetHeight >= scrollHeight;
   };
 

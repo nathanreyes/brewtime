@@ -116,7 +116,7 @@ const coffeeAmountOptions = computed(() => {
 
 // Coffee grinds
 const coffeeGrindOptions = computed(() => {
-  return ['Extra Fine', 'Fine', 'Medium', 'Med Coarse', 'Coarse'].map((g) => ({
+  return ['Fine', 'Med Fine', 'Medium', 'Med Coarse', 'Coarse'].map((g) => ({
     label: g,
     value: g,
   }));

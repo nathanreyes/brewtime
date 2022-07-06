@@ -77,7 +77,7 @@ const recipeLibrary: RecipeConfig[] = [
     waterAmount: 425,
     waterTemp: 210,
     coffeeAmount: 25,
-    coffeeGrind: 'Medium Fine',
+    coffeeGrind: 'Med Fine',
     ratio: 17,
     steps: [
       {

@@ -98,8 +98,6 @@ const dataFields = computed(() => ({
                 <div
                   class="absolute bottom-0 w-full flex justify-end items-end -mb-4 space-x-6 text-gray-400 dark:text-gray-400"
                 >
-                  <!--Brew time-->
-                  <!-- <p class="text-xs py-1">Brew Time: {{ formatDuration(recipe.duration) }}</p> -->
                   <!--External link-->
                   <a
                     v-if="recipe.urlHostname"
@@ -144,6 +142,7 @@ const dataFields = computed(() => ({
             </div>
             <DataEdit
               v-if="editField"
+              class="-mx-4"
               :recipe="recipe"
               :brew="brew"
               :edit-field="editField"

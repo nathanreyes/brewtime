@@ -2,13 +2,9 @@
 import { computed, watch, ref, toRef } from 'vue';
 import VRuntimeTemplate from 'vue3-runtime-template';
 
-import { formatDuration, formatTimerDuration } from '@/util/duration';
+import { formatDuration } from '@/util/duration';
 import { useAppState } from '@/use/appState';
 import type { Recipe } from '@/use/recipe';
-import ProgressBar from './ProgressBar.vue';
-import IconSkipBack from './icons/IconSkipBack.vue';
-import IconSkipForward from './icons/IconSkipForward.vue';
-import IconRefreshCw from './icons/IconRefreshCw.vue';
 
 interface RecipeStep {
   summary: string;
@@ -26,28 +22,16 @@ const props = defineProps<{
   running: boolean;
 }>();
 
-const emit = defineEmits(['update:current', 'play', 'pause', 'reset', 'skip-back', 'skip-forward']);
+defineEmits(['update:current', 'play', 'pause', 'reset', 'skip-back', 'skip-forward']);
 
 const { brewer } = useAppState();
 
-const currentDuration = computed(() => props.current - props.step.start);
 const totalDuration = computed(() => props.step.end - props.step.start);
-
-const currentDurationLabel = computed(() => formatTimerDuration(currentDuration.value, totalDuration.value));
-const totalDurationLabel = computed(() => formatDuration(props.step.end - props.step.start));
+const totalDurationLabel = computed(() => formatDuration(totalDuration.value));
 
 const started = computed(() => props.current > props.step.start);
 const completed = computed(() => props.current > props.step.end);
 const inProcess = computed(() => started.value && !completed.value);
-
-const progress = computed({
-  get() {
-    return currentDuration.value / totalDuration.value;
-  },
-  set(val) {
-    emit('update:current', props.step.start + totalDuration.value * val);
-  },
-});
 
 const active = computed(() => {
   if (inProcess.value) return true;
@@ -88,22 +72,19 @@ watch([inProcess, toRef(props, 'running')], () => {
       </div>
     </div>
     <img v-if="step.imgUrl && active" :src="step.imgUrl" :alt="step.summary" class="block w-full mt-4 shadow-md" />
-    <div v-if="inProcess" class="w-full mt-2 z-10">
-      <ProgressBar v-model="progress" />
-      <div class="flex justify-between items-center mt-3">
-        <div class="flex justify-start items-center w-1/3 space-x-4">
-          <button @click="$emit('skip-back')"><IconSkipBack class="w-5 h-5" /></button>
-          <button @click="$emit('skip-forward')"><IconSkipForward class="w-5 h-5" /></button>
-          <button @click="$emit('reset')"><IconRefreshCw class="w-5 h-5" /></button>
-        </div>
-        <div class="flex justify-center items-center w-1/3">
-          <button v-if="running" @click="$emit('pause')"><IconPause class="w-5 h-5" /></button>
-          <button v-else @click="$emit('play')"><IconPlay class="w-5 h-5" /></button>
-        </div>
-        <div class="flex justify-end items-center w-1/3">
-          <p class="text-sm text-center select-none">{{ currentDurationLabel }} / {{ totalDurationLabel }}</p>
-        </div>
-      </div>
-    </div>
+    <PlaybackControls
+      v-if="inProcess"
+      class="mt-2 z-10"
+      :running="running"
+      :current="current"
+      :start="step.start"
+      :end="step.end"
+      @play="$emit('play')"
+      @pause="$emit('pause')"
+      @reset="$emit('reset')"
+      @skip-back="$emit('skip-back')"
+      @skip-forward="$emit('skip-forward')"
+      @update:current="$emit('update:current', $event)"
+    />
   </div>
 </template>

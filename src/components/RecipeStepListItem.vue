@@ -47,11 +47,11 @@ const active = computed(() => {
   return false;
 });
 
-const listItem = ref<ComponentPublicInstance | null>(null);
+const listItem = ref<HTMLElement | null>(null);
 function scrollToView() {
   setTimeout(() => {
     if (!listItem.value) return;
-    const el = listItem.value.$el;
+    const el = listItem.value;
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   }, 20);
 }
@@ -97,7 +97,7 @@ function progressClick(e: MouseEvent) {
         </div>
       </template>
     </div>
-    <img v-if="step.imgUrl" :src="step.imgUrl" :alt="step.summary" class="block w-full mt-4 shadow-md" />
+    <img v-if="step.imgUrl && active" :src="step.imgUrl" :alt="step.summary" class="block w-full mt-4 shadow-md" />
     <div v-if="progress && progress >= 0 && progress <= 1" class="absolute left-0 right-0 bottom-0 h-4 z-10">
       <div class="relative w-full h-full">
         <div

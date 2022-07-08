@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 import { useAppState } from '@/use/appState';
 import { formatDuration } from '@/util/duration';
 import { useScrollPosition } from '@/use/scrollPosition';
@@ -24,14 +24,23 @@ function updateDuration(current: number) {
   duration.value = current;
 }
 
-function skipBack(fromPosition: number) {
-  const step = recipe.value.steps[fromPosition];
+function stepBack(fromPosition: number) {
+  const steps = recipe.value.steps;
+  if (fromPosition <= 0 || fromPosition >= steps.length) return;
+  const step = steps[fromPosition - 1];
   duration.value = step.start + 1;
 }
 
-function skipForward(fromPosition: number) {
+function stepForward(fromPosition: number) {
+  const steps = recipe.value.steps;
+  if (fromPosition >= steps.length - 1) return;
+  const step = recipe.value.steps[fromPosition + 1];
+  duration.value = step.start + 1;
+}
+
+function stepReset(fromPosition: number) {
   const step = recipe.value.steps[fromPosition];
-  duration.value = step.end;
+  duration.value = step.start + 1;
 }
 
 const editField = ref<RecipeField | null>(null);
@@ -169,11 +178,12 @@ const dataFields = computed(() => ({
               :recipe="recipe"
               :current="duration"
               :running="running"
+              @update:current="updateDuration"
+              @skip-back="stepBack(i)"
+              @skip-forward="stepForward(i)"
               @play="toggleRunning"
               @pause="toggleRunning"
-              @update:current="updateDuration"
-              @skip-back="skipBack(i)"
-              @skip-forward="skipForward(i)"
+              @reset="stepReset(i)"
             />
           </div>
         </div>

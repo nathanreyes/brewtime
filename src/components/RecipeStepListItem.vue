@@ -8,6 +8,7 @@ import type { Recipe } from '@/use/recipe';
 import ProgressBar from './ProgressBar.vue';
 import IconSkipBack from './icons/IconSkipBack.vue';
 import IconSkipForward from './icons/IconSkipForward.vue';
+import IconRefreshCw from './icons/IconRefreshCw.vue';
 
 interface RecipeStep {
   summary: string;
@@ -25,7 +26,7 @@ const props = defineProps<{
   running: boolean;
 }>();
 
-const emit = defineEmits(['update:current', 'play', 'pause', 'skip-back', 'skip-forward']);
+const emit = defineEmits(['update:current', 'play', 'pause', 'reset', 'skip-back', 'skip-forward']);
 
 const { brewer } = useAppState();
 
@@ -93,10 +94,11 @@ watch([inProcess, toRef(props, 'running')], () => {
         <div class="flex justify-start items-center w-1/3 space-x-4">
           <button @click="$emit('skip-back')"><IconSkipBack class="w-5 h-5" /></button>
           <button @click="$emit('skip-forward')"><IconSkipForward class="w-5 h-5" /></button>
+          <button @click="$emit('reset')"><IconRefreshCw class="w-5 h-5" /></button>
         </div>
         <div class="flex justify-center items-center w-1/3">
-          <button v-if="running" @click="$emit('pause')"><IconPause class="w-5 h-5 mr-2" /></button>
-          <button v-else @click="$emit('play')"><IconPlay class="w-5 h-5 mr-2" /></button>
+          <button v-if="running" @click="$emit('pause')"><IconPause class="w-5 h-5" /></button>
+          <button v-else @click="$emit('play')"><IconPlay class="w-5 h-5" /></button>
         </div>
         <div class="flex justify-end items-center w-1/3">
           <p class="text-sm text-center select-none">{{ currentDurationLabel }} / {{ totalDurationLabel }}</p>

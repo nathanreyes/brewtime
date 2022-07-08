@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { computed, watch, ref, toRef, type ComponentPublicInstance } from 'vue';
+import { computed, watch, ref, toRef } from 'vue';
 import VRuntimeTemplate from 'vue3-runtime-template';
 
 import { formatDuration, formatTimerDuration } from '@/util/duration';
 import { useAppState } from '@/use/appState';
 import type { Recipe } from '@/use/recipe';
 import ProgressBar from './ProgressBar.vue';
+import IconSkipBack from './icons/IconSkipBack.vue';
+import IconSkipForward from './icons/IconSkipForward.vue';
 
 interface RecipeStep {
   summary: string;
@@ -23,7 +25,7 @@ const props = defineProps<{
   running: boolean;
 }>();
 
-const emit = defineEmits(['update:current']);
+const emit = defineEmits(['update:current', 'play', 'pause', 'skip-back', 'skip-forward']);
 
 const { brewer } = useAppState();
 
@@ -80,18 +82,26 @@ watch([inProcess, toRef(props, 'running')], () => {
       <div v-if="completed">
         <IconCheckCircle />
       </div>
-      <template v-else-if="totalDuration > 0">
-        <div v-if="inProcess" class="text-lg select-none">
-          {{ currentDurationLabel }}
-        </div>
-        <div v-else class="text-lg select-none">
-          {{ totalDurationLabel }}
-        </div>
-      </template>
+      <div v-else-if="!inProcess" class="text-lg select-none">
+        {{ totalDurationLabel }}
+      </div>
     </div>
     <img v-if="step.imgUrl && active" :src="step.imgUrl" :alt="step.summary" class="block w-full mt-4 shadow-md" />
-    <div v-if="progress && progress >= 0 && progress <= 1" class="absolute left-0 right-0 bottom-0 h-4 z-10">
+    <div v-if="inProcess" class="w-full mt-2 z-10">
       <ProgressBar v-model="progress" />
+      <div class="flex justify-between items-center mt-3">
+        <div class="flex justify-start items-center w-1/3 space-x-4">
+          <button @click="$emit('skip-back')"><IconSkipBack class="w-5 h-5" /></button>
+          <button @click="$emit('skip-forward')"><IconSkipForward class="w-5 h-5" /></button>
+        </div>
+        <div class="flex justify-center items-center w-1/3">
+          <button v-if="running" @click="$emit('pause')"><IconPause class="w-5 h-5 mr-2" /></button>
+          <button v-else @click="$emit('play')"><IconPlay class="w-5 h-5 mr-2" /></button>
+        </div>
+        <div class="flex justify-end items-center w-1/3">
+          <p class="text-sm text-center select-none">{{ currentDurationLabel }} / {{ totalDurationLabel }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>

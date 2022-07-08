@@ -24,14 +24,12 @@ function progressClick(e: MouseEvent) {
 
 <template>
   <div class="relative w-full h-full">
-    <div
-      class="absolute inset-0 border-b-4 border-gray-200 dark:border-gray-800 hover:cursor-pointer"
-      @click="progressClick"
-    />
+    <div class="border-b-4 border-gray-200 dark:border-gray-800" />
     <div
       class="absolute inset-0 border-b-4 border-black dark:border-white pointer-events-none"
       :style="progressStyle"
     />
+    <button class="absolute w-full -top-2 -bottom-2" @click="progressClick" />
   </div>
 </template>
 .

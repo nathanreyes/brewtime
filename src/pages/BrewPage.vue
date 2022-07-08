@@ -20,8 +20,18 @@ function resetBrew() {
   }
 }
 
-function updateCurrent(current: number) {
+function updateDuration(current: number) {
   duration.value = current;
+}
+
+function skipBack(fromPosition: number) {
+  const step = recipe.value.steps[fromPosition];
+  duration.value = step.start + 1;
+}
+
+function skipForward(fromPosition: number) {
+  const step = recipe.value.steps[fromPosition];
+  duration.value = step.end;
 }
 
 const editField = ref<RecipeField | null>(null);
@@ -159,7 +169,11 @@ const dataFields = computed(() => ({
               :recipe="recipe"
               :current="duration"
               :running="running"
-              @update:current="updateCurrent"
+              @play="toggleRunning"
+              @pause="toggleRunning"
+              @update:current="updateDuration"
+              @skip-back="skipBack(i)"
+              @skip-forward="skipForward(i)"
             />
           </div>
         </div>

@@ -164,7 +164,6 @@ const dataFields = computed(() => ({
             </div>
             <DataEdit
               v-if="editField"
-              class="-mx-4"
               :recipe="recipe"
               :brew="brew"
               :edit-field="editField"

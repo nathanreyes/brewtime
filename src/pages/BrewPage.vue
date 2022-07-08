@@ -156,6 +156,7 @@ const dataFields = computed(() => ({
               v-for="(step, i) in recipe.steps"
               :key="i"
               :step="step"
+              :recipe="recipe"
               :current="duration"
               :running="running"
               @update:current="updateCurrent"

@@ -9,7 +9,8 @@
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "vue": "^3.2.37"
+    "vue": "^3.2.37",
+    "vue3-runtime-template": "^1.0.2"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.2",

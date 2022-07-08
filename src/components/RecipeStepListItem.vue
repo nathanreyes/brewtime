@@ -1,19 +1,23 @@
 <script setup lang="ts">
 import { computed, watch, ref, toRef, type ComponentPublicInstance } from 'vue';
+import VRuntimeTemplate from 'vue3-runtime-template';
+
 import { formatDuration, formatTimerDuration } from '@/util/duration';
 import { useAppState } from '@/use/appState';
+import type { Recipe } from '@/use/recipe';
 
 interface RecipeStep {
   summary: string;
   type: string;
   description?: string;
-  gifUrl?: string;
+  imgUrl?: string;
   start: number;
   end: number;
 }
 
 const props = defineProps<{
   step: RecipeStep;
+  recipe: Recipe;
   current: number;
   running: boolean;
 }>();
@@ -58,20 +62,29 @@ watch([inProcess, toRef(props, 'running')], () => {
   }
 });
 
-function updateProgress(progress: number) {
-  emit('update:current', props.step.start + totalDuration.value * progress);
+const progressStyle = computed(() => {
+  if (!progress) return {};
+  return {
+    width: `${progress.value * 100}%`,
+  };
+});
+
+function progressClick(e: MouseEvent) {
+  if (e.target == null) return;
+  const target = e.target as HTMLElement;
+  const updatedProgress = (e.offsetX - target.offsetLeft) / target.offsetWidth;
+  emit('update:current', props.step.start + totalDuration.value * updatedProgress);
 }
 </script>
 <template>
-  <ListItem
-    :summary="step.summary"
-    :description="step.description"
-    :progress="progress"
-    :class="[active ? '' : 'opacity-25']"
-    @update:progress="updateProgress"
-    ref="listItem"
-  >
-    <template #right>
+  <div class="relative w-full py-4" :class="[active ? '' : 'opacity-25']" ref="listItem">
+    <div class="flex justify-between items-start">
+      <div class="flex-grow">
+        <h3 class="text-lg"><v-runtime-template :template="step.summary" /></h3>
+        <p v-if="step.description" :inner-html="step.description" class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+          <v-runtime-template :template="step.description" />
+        </p>
+      </div>
       <div v-if="completed">
         <IconCheckCircle />
       </div>
@@ -83,12 +96,24 @@ function updateProgress(progress: number) {
           {{ totalDurationLabel }}
         </div>
       </template>
-    </template>
-    <template v-if="step.gifUrl && active" #details>
+    </div>
+    <template v-if="step.imgUrl && active">
       <p v-if="step.type === 'complete' && !completed" class="text-sm text-gray-700 dark:text-gray-300 mt-2">
         A tasty gif awaits you...
       </p>
-      <img v-else :src="step.gifUrl" :alt="step.summary" class="block w-full mt-4" />
+      <img v-else :src="step.imgUrl" :alt="step.summary" class="block w-full mt-4" />
     </template>
-  </ListItem>
+    <div v-if="progress && progress >= 0 && progress <= 1" class="absolute left-0 right-0 bottom-0 h-4 z-10">
+      <div class="relative w-full h-full">
+        <div
+          class="absolute inset-0 border-b-4 border-gray-200 dark:border-gray-800 hover:cursor-pointer"
+          @click="progressClick"
+        />
+        <div
+          class="absolute inset-0 border-b-4 border-black dark:border-white pointer-events-none"
+          :style="progressStyle"
+        />
+      </div>
+    </div>
+  </div>
 </template>

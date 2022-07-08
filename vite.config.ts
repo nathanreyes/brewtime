@@ -12,9 +12,13 @@ export default defineConfig({
       dirs: ['src/components', 'src/pages'],
     }),
   ],
+  server: {
+    port: 8080,
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      vue: 'vue/dist/vue.esm-bundler.js',
     },
   },
 });

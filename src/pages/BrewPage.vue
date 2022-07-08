@@ -4,9 +4,11 @@ import { useAppState } from '@/use/appState';
 import { formatDuration } from '@/util/duration';
 import { useScrollPosition } from '@/use/scrollPosition';
 import type { RecipeField } from '@/use/recipe';
+import PlaybackControls from '../components/PlaybackControls.vue';
 
 const { brewer, displayMode } = useAppState();
-const { recipe, brew, hasStarted, hasCompleted, running, duration, toggleRunning, durationLabel, reset } = brewer;
+const { recipe, brew, hasStarted, hasCompleted, inProcess, running, duration, toggleRunning, durationLabel, reset } =
+  brewer;
 const showReset = computed(() => !running.value && (duration.value > 0 || hasCompleted.value));
 const showPlayPause = computed(() => !hasCompleted.value);
 
@@ -105,8 +107,8 @@ const dataFields = computed(() => ({
     <main class="flex-grow relative">
       <div class="absolute inset-0 flex flex-col w-full sm:max-w-xl mx-auto">
         <!--Recipe content-->
-        <div class="flex-grow flex-shrink overflow-y-auto px-4 sm:-mx-4" ref="contentEl">
-          <template v-if="!(running || hasStarted)">
+        <div class="flex-grow flex-shrink overflow-y-auto" ref="contentEl">
+          <template v-if="!inProcess">
             <!--Recipe image/notes/brew time-->
             <div class="flex items-stretch mb-4 mt-2 space-x-4">
               <img v-if="brew" :src="brew.imgUrl" class="flex-shrink-0 flex-grow-0 h-20" :img-url="brew.imgUrl" />
@@ -132,7 +134,7 @@ const dataFields = computed(() => ({
               </div>
             </div>
             <!--Recipe metadata-->
-            <div class="border-y text-sm -mx-4">
+            <div class="border-y text-sm">
               <div class="sm:hidden divide-y">
                 <div class="flex divide-x">
                   <DataDisplay class="w-1/2" v-bind="dataFields.waterAmount" v-model="editField" />
@@ -169,7 +171,7 @@ const dataFields = computed(() => ({
               @close="editField = null"
             />
           </template>
-          <div>
+          <div :class="{ 'divide-y': !inProcess }">
             <!--Recipe steps-->
             <RecipeStepListItem
               v-for="(step, i) in recipe.steps"
@@ -178,13 +180,21 @@ const dataFields = computed(() => ({
               :recipe="recipe"
               :current="duration"
               :running="running"
-              @update:current="updateDuration"
-              @skip-back="stepBack(i)"
-              @skip-forward="stepForward(i)"
-              @play="toggleRunning"
-              @pause="toggleRunning"
-              @reset="stepReset(i)"
-            />
+            >
+              <PlaybackControls
+                class="mt-3"
+                :running="running"
+                :current="duration"
+                :start="step.start"
+                :end="step.end"
+                @update:current="updateDuration"
+                @skip-back="stepBack(i)"
+                @skip-forward="stepForward(i)"
+                @play="toggleRunning"
+                @pause="toggleRunning"
+                @reset="stepReset(i)"
+              />
+            </RecipeStepListItem>
           </div>
         </div>
       </div>

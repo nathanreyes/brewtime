@@ -54,7 +54,7 @@ watch([inProcess, toRef(props, 'running')], () => {
 });
 </script>
 <template>
-  <div class="w-full py-4" :class="[active ? '' : 'opacity-25']" ref="listItem">
+  <div class="w-full py-4 px-4" :class="[active ? '' : 'opacity-25']" ref="listItem">
     <div class="flex justify-between items-start">
       <div class="flex-grow">
         <h3 class="text-lg"><v-runtime-template :template="step.summary" /></h3>
@@ -69,15 +69,9 @@ watch([inProcess, toRef(props, 'running')], () => {
         {{ totalDurationLabel }}
       </div>
     </div>
-    <img v-if="step.imgUrl && active" :src="step.imgUrl" :alt="step.summary" class="block w-full mt-2 shadow-md" />
-    <PlaybackControls
-      v-if="inProcess"
-      class="mt-2 z-10"
-      :start="step.start"
-      :end="step.end"
-      :running="running"
-      :current="current"
-      v-bind="$attrs"
-    />
+    <img v-if="step.imgUrl && active" :src="step.imgUrl" :alt="step.summary" class="block w-full mt-3 shadow-md" />
+    <template v-if="inProcess">
+      <slot></slot>
+    </template>
   </div>
 </template>

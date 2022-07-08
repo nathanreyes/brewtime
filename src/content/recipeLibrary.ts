@@ -104,7 +104,7 @@ const recipeLibrary: RecipeConfig[] = [
         summary: 'Second pour to 200g',
         type: 'pour',
         description:
-          'Start in the center. Make four circles moving outward concentrically. The forth circle will rinse some coffee off of the filter. Then, pour three circles moving back towards the center. Three more circles back out. The water should in at just over 200g.',
+          'Start in the center. Make four circles moving outward concentrically. The forth circle will rinse some coffee off of the filter. Then, pour three circles moving back towards the center. Three more circles back out. The water should be at just over 200g.',
         imgUrl: '/eff3b12e-a38c-48c8-a014-c759da4cd64f/second-pour.gif',
         seconds: 25,
       },

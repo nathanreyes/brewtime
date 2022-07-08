@@ -7,6 +7,7 @@ const props = defineProps<{
   current: number;
   start: number;
   end: number;
+  isLg?: boolean;
 }>();
 const emit = defineEmits(['update:current', 'skip-back', 'skip-forward', 'reset', 'play', 'pause']);
 
@@ -23,23 +24,24 @@ const progress = computed({
     emit('update:current', props.start + total.value * val);
   },
 });
+const sizeClass = computed(() => (props.isLg ? 'w-6 h-6' : 'w-5 h-5'));
 </script>
 
 <template>
   <div>
     <ProgressBar v-model="progress" />
-    <div class="flex justify-between items-center mt-3">
+    <div class="flex justify-between items-center" :class="[isLg ? 'mt-4' : 'mt-3']">
       <div class="flex justify-start items-center w-1/3 space-x-4">
-        <button @click="$emit('skip-back')"><IconSkipBack class="w-5 h-5" /></button>
-        <button @click="$emit('skip-forward')"><IconSkipForward class="w-5 h-5" /></button>
-        <button @click="$emit('reset')"><IconRefreshCw class="w-5 h-5" /></button>
+        <button @click="$emit('skip-back')"><IconSkipBack :class="sizeClass" /></button>
+        <button @click="$emit('skip-forward')"><IconSkipForward :class="sizeClass" /></button>
+        <button @click="$emit('reset')"><IconRefreshCw :class="sizeClass" /></button>
       </div>
       <div class="flex justify-center items-center w-1/3">
-        <button v-if="running" @click="$emit('pause')"><IconPause class="w-5 h-5" /></button>
-        <button v-else @click="$emit('play')"><IconPlay class="w-5 h-5" /></button>
+        <button v-if="running" @click="$emit('pause')"><IconPause :class="sizeClass" /></button>
+        <button v-else @click="$emit('play')"><IconPlay :class="sizeClass" /></button>
       </div>
       <div class="flex justify-end items-center w-1/3">
-        <p class="text-sm text-center select-none">{{ durationLabel }} / {{ totalLabel }}</p>
+        <p class="text-center select-none" :class="[isLg ? '' : 'text-sm']">{{ durationLabel }} / {{ totalLabel }}</p>
       </div>
     </div>
   </div>

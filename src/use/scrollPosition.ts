@@ -9,6 +9,7 @@ export function useScrollPosition(target: Ref<ComponentPublicInstance | HTMLElem
     position: NaN,
     isTop: false,
     isBottom: false,
+    scrollVisible: false,
   });
 
   const listener = () => {
@@ -17,6 +18,7 @@ export function useScrollPosition(target: Ref<ComponentPublicInstance | HTMLElem
     state.position = scrollTop;
     state.isTop = scrollTop <= 0;
     state.isBottom = scrollTop + offsetHeight >= scrollHeight;
+    state.scrollVisible = !state.isTop || !state.isBottom;
   };
 
   const targetEl = computed(() => {

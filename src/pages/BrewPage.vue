@@ -5,15 +5,13 @@ import { formatDuration } from '@/util/duration';
 import { useScrollPosition } from '@/use/scrollPosition';
 import type { RecipeField } from '@/use/recipe';
 import PlaybackControls from '../components/PlaybackControls.vue';
+import IconRefreshCw from '../components/icons/IconRefreshCw.vue';
 
 const { brewer, displayMode } = useAppState();
-const { recipe, brew, hasStarted, hasCompleted, inProcess, running, duration, toggleRunning, durationLabel, reset } =
-  brewer;
-const showReset = computed(() => !running.value && (duration.value > 0 || hasCompleted.value));
-const showPlayPause = computed(() => !hasCompleted.value);
+const { recipe, brew, inProcess, hasCompleted, running, duration, toggleRunning, reset } = brewer;
 
 const contentEl = ref<HTMLElement | null>(null);
-const { isTop, isBottom } = useScrollPosition(contentEl);
+const { isTop, scrollVisible } = useScrollPosition(contentEl);
 
 function resetBrew() {
   reset();
@@ -26,21 +24,25 @@ function updateDuration(current: number) {
   duration.value = current;
 }
 
-function stepBack(fromPosition: number) {
+const currentPosition = computed(() => {
+  return recipe.value.steps.findIndex((s) => duration.value >= s.start && duration.value <= s.end);
+});
+
+function stepBack(fromPosition: number = currentPosition.value) {
   const steps = recipe.value.steps;
   if (fromPosition <= 0 || fromPosition >= steps.length) return;
   const step = steps[fromPosition - 1];
   duration.value = step.start + 1;
 }
 
-function stepForward(fromPosition: number) {
+function stepForward(fromPosition: number = currentPosition.value) {
   const steps = recipe.value.steps;
   if (fromPosition >= steps.length - 1) return;
   const step = recipe.value.steps[fromPosition + 1];
   duration.value = step.start + 1;
 }
 
-function stepReset(fromPosition: number) {
+function stepReset(fromPosition: number = currentPosition.value) {
   const step = recipe.value.steps[fromPosition];
   duration.value = step.start + 1;
 }
@@ -110,7 +112,7 @@ const dataFields = computed(() => ({
         <div class="flex-grow flex-shrink overflow-y-auto" ref="contentEl">
           <template v-if="!inProcess">
             <!--Recipe image/notes/brew time-->
-            <div class="flex items-stretch mb-4 mt-2 space-x-4">
+            <div class="flex items-stretch mb-4 mt-2 space-x-4 px-4 sm:pl-0" :class="{ 'sm:pr-0': !scrollVisible }">
               <img v-if="brew" :src="brew.imgUrl" class="flex-shrink-0 flex-grow-0 h-20" :img-url="brew.imgUrl" />
               <div class="relative flex-grow min-h-full">
                 <p v-if="recipe.notes" class="text-sm text-gray-600 dark:text-gray-300 mb-3">
@@ -169,6 +171,12 @@ const dataFields = computed(() => ({
               :edit-field="editField"
               @close="editField = null"
             />
+            <p
+              class="text-xs text-right mt-2 mx-4"
+              :class="[running ? 'text-white' : 'text-gray-500 dark:text-gray-400']"
+            >
+              Brew Time: {{ formatDuration(recipe.duration) }}
+            </p>
           </template>
           <div :class="{ 'divide-y': !inProcess }">
             <!--Recipe steps-->
@@ -179,6 +187,7 @@ const dataFields = computed(() => ({
               :recipe="recipe"
               :current="duration"
               :running="running"
+              :scroll-visible="scrollVisible"
             >
               <PlaybackControls
                 class="mt-3"
@@ -201,26 +210,31 @@ const dataFields = computed(() => ({
     <!--App footer-->
     <div class="flex-shrink-0 pt-4 mb-4 sm:mb-6 mx-4 sm:mx-0">
       <div class="w-full sm:max-w-xl mx-auto">
-        <!--Recipe buttons-->
-        <div class="w-full border border-black dark:border-white divide-y divide-black dark:divide-white">
+        <PlaybackControls
+          v-if="inProcess"
+          class="my-3"
+          is-lg
+          :running="running"
+          :current="duration"
+          :start="0"
+          :end="recipe.duration"
+          @update:current="updateDuration"
+          @skip-back="stepBack"
+          @skip-forward="stepForward"
+          @play="toggleRunning"
+          @pause="toggleRunning"
+          @reset="resetBrew"
+        />
+        <div v-else class="flex justify-center items-center w-full text-sm">
           <!--Reset button-->
-          <BaseButton v-if="showReset" is-lg @click="resetBrew">
-            <IconRefreshCw class="w-5 h-5 sm:w-6 sm:h-6" /><span class="text-sm sm:text-base">Reset</span>
+          <BaseButton v-if="hasCompleted" is-lg class="border" @click="resetBrew">
+            <IconRefreshCw class="w-5 h-5 sm:w-6 sm:h-6" />
+            <span>Reset</span>
           </BaseButton>
-          <!--Play/pause button-->
-          <BaseButton v-if="showPlayPause" is-lg :active="running" @click="toggleRunning">
-            <div class="flex justify-between items-center w-full px-4 text-sm">
-              <p :class="[running ? 'text-white' : 'text-gray-900 dark:text-gray-200']">
-                {{ durationLabel }}
-              </p>
-              <template v-if="running"> <IconPause /> </template>
-              <template v-else>
-                <IconPlay class="w-5 h-5 sm:w-6 sm:h-6" />
-              </template>
-              <p :class="[running ? 'text-white' : 'text-gray-500 dark:text-gray-400']">
-                {{ formatDuration(recipe.duration) }}
-              </p>
-            </div>
+          <!--Play button-->
+          <BaseButton v-else is-lg class="border" @click="toggleRunning">
+            <IconPlay class="w-5 h-5 sm:w-6 sm:h-6" />
+            <span>Let's Brew</span>
           </BaseButton>
         </div>
       </div>

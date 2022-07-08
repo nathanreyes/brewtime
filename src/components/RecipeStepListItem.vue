@@ -5,6 +5,7 @@ import VRuntimeTemplate from 'vue3-runtime-template';
 import { formatDuration, formatTimerDuration } from '@/util/duration';
 import { useAppState } from '@/use/appState';
 import type { Recipe } from '@/use/recipe';
+import ProgressBar from './ProgressBar.vue';
 
 interface RecipeStep {
   summary: string;
@@ -36,8 +37,13 @@ const started = computed(() => props.current > props.step.start);
 const completed = computed(() => props.current > props.step.end);
 const inProcess = computed(() => started.value && !completed.value);
 
-const progress = computed(() => {
-  return currentDuration.value / totalDuration.value;
+const progress = computed({
+  get() {
+    return currentDuration.value / totalDuration.value;
+  },
+  set(val) {
+    emit('update:current', props.step.start + totalDuration.value * val);
+  },
 });
 
 const active = computed(() => {
@@ -61,20 +67,6 @@ watch([inProcess, toRef(props, 'running')], () => {
     scrollToView();
   }
 });
-
-const progressStyle = computed(() => {
-  if (!progress) return {};
-  return {
-    width: `${progress.value * 100}%`,
-  };
-});
-
-function progressClick(e: MouseEvent) {
-  if (e.target == null) return;
-  const target = e.target as HTMLElement;
-  const updatedProgress = (e.offsetX - target.offsetLeft) / target.offsetWidth;
-  emit('update:current', props.step.start + totalDuration.value * updatedProgress);
-}
 </script>
 <template>
   <div class="relative w-full py-4" :class="[active ? '' : 'opacity-25']" ref="listItem">
@@ -99,16 +91,7 @@ function progressClick(e: MouseEvent) {
     </div>
     <img v-if="step.imgUrl && active" :src="step.imgUrl" :alt="step.summary" class="block w-full mt-4 shadow-md" />
     <div v-if="progress && progress >= 0 && progress <= 1" class="absolute left-0 right-0 bottom-0 h-4 z-10">
-      <div class="relative w-full h-full">
-        <div
-          class="absolute inset-0 border-b-4 border-gray-200 dark:border-gray-800 hover:cursor-pointer"
-          @click="progressClick"
-        />
-        <div
-          class="absolute inset-0 border-b-4 border-black dark:border-white pointer-events-none"
-          :style="progressStyle"
-        />
-      </div>
+      <ProgressBar v-model="progress" />
     </div>
   </div>
 </template>

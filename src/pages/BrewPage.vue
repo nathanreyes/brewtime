@@ -171,6 +171,7 @@ const dataFields = computed(() => ({
               :edit-field="editField"
               @close="editField = null"
             />
+            <!--Recipe brew time-->
             <p
               class="text-xs text-right mt-2 mx-4"
               :class="[running ? 'text-white' : 'text-gray-500 dark:text-gray-400']"
@@ -227,12 +228,12 @@ const dataFields = computed(() => ({
         />
         <div v-else class="flex justify-center items-center w-full text-sm">
           <!--Reset button-->
-          <BaseButton v-if="hasCompleted" is-lg class="border" @click="resetBrew">
+          <BaseButton v-if="hasCompleted" is-lg bordered @click="resetBrew">
             <IconRefreshCw class="w-5 h-5 sm:w-6 sm:h-6" />
             <span>Reset</span>
           </BaseButton>
           <!--Play button-->
-          <BaseButton v-else is-lg class="border" @click="toggleRunning">
+          <BaseButton v-else is-lg bordered @click="toggleRunning">
             <IconPlay class="w-5 h-5 sm:w-6 sm:h-6" />
             <span>Let's Brew</span>
           </BaseButton>

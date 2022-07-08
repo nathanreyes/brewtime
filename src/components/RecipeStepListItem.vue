@@ -22,8 +22,6 @@ const props = defineProps<{
   running: boolean;
 }>();
 
-defineEmits(['update:current', 'play', 'pause', 'reset', 'skip-back', 'skip-forward']);
-
 const { brewer } = useAppState();
 
 const totalDuration = computed(() => props.step.end - props.step.start);
@@ -56,11 +54,11 @@ watch([inProcess, toRef(props, 'running')], () => {
 });
 </script>
 <template>
-  <div class="relative w-full py-4" :class="[active ? '' : 'opacity-25']" ref="listItem">
+  <div class="w-full py-4" :class="[active ? '' : 'opacity-25']" ref="listItem">
     <div class="flex justify-between items-start">
       <div class="flex-grow">
         <h3 class="text-lg"><v-runtime-template :template="step.summary" /></h3>
-        <p v-if="step.description" :inner-html="step.description" class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+        <p v-if="step.description" :inner-html="step.description" class="text-sm text-gray-600 dark:text-gray-300 mt-1">
           <v-runtime-template :template="step.description" />
         </p>
       </div>
@@ -71,20 +69,15 @@ watch([inProcess, toRef(props, 'running')], () => {
         {{ totalDurationLabel }}
       </div>
     </div>
-    <img v-if="step.imgUrl && active" :src="step.imgUrl" :alt="step.summary" class="block w-full mt-4 shadow-md" />
+    <img v-if="step.imgUrl && active" :src="step.imgUrl" :alt="step.summary" class="block w-full mt-2 shadow-md" />
     <PlaybackControls
       v-if="inProcess"
       class="mt-2 z-10"
-      :running="running"
-      :current="current"
       :start="step.start"
       :end="step.end"
-      @play="$emit('play')"
-      @pause="$emit('pause')"
-      @reset="$emit('reset')"
-      @skip-back="$emit('skip-back')"
-      @skip-forward="$emit('skip-forward')"
-      @update:current="$emit('update:current', $event)"
+      :running="running"
+      :current="current"
+      v-bind="$attrs"
     />
   </div>
 </template>

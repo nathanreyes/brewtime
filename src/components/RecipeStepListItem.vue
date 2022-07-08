@@ -97,12 +97,7 @@ function progressClick(e: MouseEvent) {
         </div>
       </template>
     </div>
-    <template v-if="step.imgUrl && active">
-      <p v-if="step.type === 'complete' && !completed" class="text-sm text-gray-700 dark:text-gray-300 mt-2">
-        A tasty gif awaits you...
-      </p>
-      <img v-else :src="step.imgUrl" :alt="step.summary" class="block w-full mt-4" />
-    </template>
+    <img v-if="step.imgUrl" :src="step.imgUrl" :alt="step.summary" class="block w-full mt-4" />
     <div v-if="progress && progress >= 0 && progress <= 1" class="absolute left-0 right-0 bottom-0 h-4 z-10">
       <div class="relative w-full h-full">
         <div

@@ -33,7 +33,7 @@ const sizeClass = computed(() => (props.isLg ? 'w-6 h-6' : 'w-5 h-5'));
 <template>
   <div>
     <ProgressBar v-model="progress" />
-    <div class="flex justify-between items-center" :class="[isLg ? 'mt-4' : 'mt-3']">
+    <div class="flex justify-between items-center mt-2">
       <div class="flex justify-start items-center w-2/5">
         <template v-if="!hidePrevNext">
           <IconButton @click="$emit('skip-prev')">
@@ -45,8 +45,8 @@ const sizeClass = computed(() => (props.isLg ? 'w-6 h-6' : 'w-5 h-5'));
       </div>
       <div class="flex justify-center items-center w-1/5">
         <template v-if="!hidePlayPause">
-          <button v-if="running" @click="$emit('pause')"><IconPause :class="sizeClass" /></button>
-          <button v-else @click="$emit('play')"><IconPlay :class="sizeClass" /></button>
+          <IconButton v-if="running" @click="$emit('pause')"><IconPause /></IconButton>
+          <IconButton v-else @click="$emit('play')"><IconPlay /></IconButton>
         </template>
       </div>
       <div class="flex justify-end items-center w-2/5">

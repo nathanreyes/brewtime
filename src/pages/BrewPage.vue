@@ -207,11 +207,11 @@ const dataFields = computed(() => ({
       </div>
     </main>
     <!--App footer-->
-    <div class="flex-shrink-0 pt-4 mb-2 mx-4 sm:mx-0">
+    <div class="flex-shrink-0 pt-4 mx-4 sm:mx-0">
       <div class="w-full sm:max-w-xl mx-auto">
         <PlaybackControls
           v-if="inProcess"
-          class="my-3"
+          class="mb-2"
           is-lg
           :running="running"
           :current="duration"
@@ -224,7 +224,7 @@ const dataFields = computed(() => ({
           @pause="toggleRunning"
           @reset="resetBrew"
         />
-        <div v-else class="flex justify-center items-center w-full text-sm">
+        <div v-else class="flex justify-center items-center w-full text-sm mb-4">
           <!--Reset button-->
           <BaseButton v-if="hasCompleted" is-lg bordered @click="resetBrew">
             <IconRefreshCw class="w-5 h-5 sm:w-6 sm:h-6" />

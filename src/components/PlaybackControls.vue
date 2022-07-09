@@ -8,7 +8,6 @@ const props = defineProps<{
   current: number;
   start: number;
   end: number;
-  isLg?: boolean;
   hidePlayPause?: boolean;
   hidePrevNext?: boolean;
   hideReset?: boolean;
@@ -28,17 +27,16 @@ const progress = computed({
     emit('update:current', props.start + total.value * val);
   },
 });
-const sizeClass = computed(() => (props.isLg ? 'w-6 h-6' : 'w-5 h-5'));
 </script>
 
 <template>
   <div>
     <ProgressBar v-model="progress" />
-    <div class="flex justify-between items-center mt-2">
+    <div class="flex justify-between items-center mt-1">
       <div class="flex justify-start items-center w-2/5">
         <template v-if="!hidePrevNext">
           <IconButton @click="$emit('skip-prev')">
-            <IconSkipBack :class="sizeClass" />
+            <IconSkipBack />
           </IconButton>
           <IconButton @click="$emit('skip-next')"><IconSkipForward /></IconButton>
         </template>
@@ -51,7 +49,7 @@ const sizeClass = computed(() => (props.isLg ? 'w-6 h-6' : 'w-5 h-5'));
         </template>
       </div>
       <div class="flex justify-end items-center w-2/5">
-        <p class="space-x-1 select-none" :class="[isLg ? '' : 'text-sm']">
+        <p class="space-x-1 select-none">
           <span>
             {{ durationLabel }}
           </span>

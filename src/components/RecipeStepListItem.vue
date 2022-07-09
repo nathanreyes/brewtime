@@ -66,7 +66,7 @@ watch([inProcess, toRef(props, 'running')], () => {
       <div v-if="completed">
         <IconCheckCircle />
       </div>
-      <div v-else-if="!inProcess" class="text-lg select-none">
+      <div v-else-if="!inProcess" class="select-none">
         {{ totalDurationLabel }}
       </div>
     </div>

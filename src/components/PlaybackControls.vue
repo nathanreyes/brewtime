@@ -11,6 +11,7 @@ const props = defineProps<{
   isLg?: boolean;
   hidePlayPause?: boolean;
   hidePrevNext?: boolean;
+  hideReset?: boolean;
 }>();
 const emit = defineEmits(['update:current', 'skip-prev', 'skip-next', 'reset', 'play', 'pause']);
 
@@ -41,7 +42,7 @@ const sizeClass = computed(() => (props.isLg ? 'w-6 h-6' : 'w-5 h-5'));
           </IconButton>
           <IconButton @click="$emit('skip-next')"><IconSkipForward /></IconButton>
         </template>
-        <IconButton @click="$emit('reset')"><IconRefreshCw /></IconButton>
+        <IconButton v-if="!hideReset" @click="$emit('reset')"><IconRefreshCw /></IconButton>
       </div>
       <div class="flex justify-center items-center w-1/5">
         <template v-if="!hidePlayPause">

@@ -217,6 +217,7 @@ const dataFields = computed(() => ({
           :current="duration"
           :start="0"
           :end="recipe.duration"
+          :hide-reset="running"
           @update:current="updateDuration"
           @skip-prev="stepPrev"
           @skip-next="stepNext"

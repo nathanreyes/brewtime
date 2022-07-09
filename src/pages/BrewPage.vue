@@ -28,14 +28,14 @@ const currentPosition = computed(() => {
   return recipe.value.steps.findIndex((s) => duration.value >= s.start && duration.value <= s.end);
 });
 
-function stepBack(fromPosition: number = currentPosition.value) {
+function stepPrev(fromPosition: number = currentPosition.value) {
   const steps = recipe.value.steps;
   if (fromPosition <= 0 || fromPosition >= steps.length) return;
   const step = steps[fromPosition - 1];
   duration.value = step.start + 1;
 }
 
-function stepForward(fromPosition: number = currentPosition.value) {
+function stepNext(fromPosition: number = currentPosition.value) {
   const steps = recipe.value.steps;
   if (fromPosition >= steps.length - 1) return;
   const step = recipe.value.steps[fromPosition + 1];
@@ -196,11 +196,9 @@ const dataFields = computed(() => ({
                 :current="duration"
                 :start="step.start"
                 :end="step.end"
+                hide-play-pause
+                hide-prev-next
                 @update:current="updateDuration"
-                @skip-back="stepBack(i)"
-                @skip-forward="stepForward(i)"
-                @play="toggleRunning"
-                @pause="toggleRunning"
                 @reset="stepReset(i)"
               />
             </RecipeStepListItem>
@@ -209,7 +207,7 @@ const dataFields = computed(() => ({
       </div>
     </main>
     <!--App footer-->
-    <div class="flex-shrink-0 pt-4 mb-4 sm:mb-6 mx-4 sm:mx-0">
+    <div class="flex-shrink-0 pt-4 mb-2 mx-4 sm:mx-0">
       <div class="w-full sm:max-w-xl mx-auto">
         <PlaybackControls
           v-if="inProcess"
@@ -220,8 +218,8 @@ const dataFields = computed(() => ({
           :start="0"
           :end="recipe.duration"
           @update:current="updateDuration"
-          @skip-back="stepBack"
-          @skip-forward="stepForward"
+          @skip-prev="stepPrev"
+          @skip-next="stepNext"
           @play="toggleRunning"
           @pause="toggleRunning"
           @reset="resetBrew"

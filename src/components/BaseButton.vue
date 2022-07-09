@@ -7,7 +7,7 @@ defineProps<{
 </script>
 <template>
   <button
-    class="flex justify-center items-center w-full space-x-3"
+    class="flex justify-center items-center w-full space-x-3 rounded"
     :class="[
       { 'border border-black dark:border-white': bordered },
       active

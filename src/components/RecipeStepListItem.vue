@@ -70,7 +70,12 @@ watch([inProcess, toRef(props, 'running')], () => {
         {{ totalDurationLabel }}
       </div>
     </div>
-    <img v-if="step.imgUrl && active" :src="step.imgUrl" :alt="step.summary" class="block w-full mt-3 shadow-md" />
+    <img
+      v-if="step.imgUrl && active"
+      :src="step.imgUrl"
+      :alt="step.summary"
+      class="block w-full mt-3 shadow-lg rounded"
+    />
     <template v-if="inProcess">
       <slot></slot>
     </template>

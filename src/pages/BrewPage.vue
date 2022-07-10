@@ -122,14 +122,14 @@ const dataFields = computed(() => ({
                     </p>
                     <p v-else class="text-xs text-gray-400 dark:text-gray-600">No notes provided</p>
                     <div
-                      class="absolute bottom-0 w-full flex justify-end items-end -mb-4 space-x-6 text-gray-400 dark:text-gray-400"
+                      class="absolute bottom-0 w-full flex justify-end items-end -mb-2 space-x-6 text-gray-400 dark:text-gray-400"
                     >
                       <!--External link-->
                       <a
                         v-if="recipe.urlHostname"
                         :href="recipe.url"
                         target="_blank"
-                        class="flex items-center text-xs space-x-1 py-1"
+                        class="flex items-center text-xs space-x-1"
                       >
                         <IconExternalLink class="w-4 h-4" />
                         <span class="hover:underline">{{ recipe.urlHostname }}</span>
@@ -176,8 +176,8 @@ const dataFields = computed(() => ({
                 />
                 <!--Recipe brew time-->
                 <p
-                  class="text-xs text-right mt-2 mx-4"
-                  :class="[running ? 'text-white' : 'text-gray-500 dark:text-gray-400']"
+                  class="text-xs text-right mt-2"
+                  :class="[running ? 'text-white' : 'text-gray-400 dark:text-gray-400']"
                 >
                   Brew Time: {{ formatDuration(recipe.duration) }}
                 </p>

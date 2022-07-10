@@ -1,7 +1,17 @@
 <script setup lang="ts">
+import { useAppState } from '@/use/appState';
+
 defineProps<{
   title?: string;
+  hideMenu?: boolean;
+  hideDisplayMode?: boolean;
 }>();
+
+const { displayMode, menuVisible } = useAppState();
+
+function toggleMenu() {
+  menuVisible.value = !menuVisible.value;
+}
 </script>
 <template>
   <header class="flex-shrink-0 z-10">
@@ -9,7 +19,16 @@ defineProps<{
       <div class="flex items-center h-16 px-2 sm:px-0 sm:-mx-2 mx-auto">
         <!--Left slot-->
         <slot name="left">
-          <div class="w-12"></div>
+          <!--Menu button-->
+          <template v-if="!hideMenu">
+            <IconButton v-if="menuVisible" @click="toggleMenu">
+              <IconX />
+            </IconButton>
+            <IconButton v-else @click="toggleMenu">
+              <IconMenu />
+            </IconButton>
+          </template>
+          <div v-else class="w-12"></div>
         </slot>
         <!--App icon/title-->
         <div class="flex-grow flex justify-center items-center space-x-3">
@@ -20,7 +39,12 @@ defineProps<{
         </div>
         <!--Right slot-->
         <slot name="right">
-          <div class="w-12"></div>
+          <!--Light/dark mode button-->
+          <IconButton v-if="!hideDisplayMode" @click="displayMode = displayMode === 'light' ? 'dark' : 'light'">
+            <IconSun v-if="displayMode === 'dark'" />
+            <IconMoon v-else />
+          </IconButton>
+          <div v-else class="w-12"></div>
         </slot>
       </div>
       <slot name="title">

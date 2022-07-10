@@ -1,4 +1,4 @@
-import { ref, watchEffect, computed } from 'vue';
+import { ref, watchEffect, computed, watch } from 'vue';
 import recipeLibrary from '@/content/recipeLibrary';
 import { useDisplayMode } from '@/use/displayMode';
 import { useBrewer } from '@/use/brewer';
@@ -44,6 +44,14 @@ watchEffect(() => {
   };
   localStorage.setItem('state', JSON.stringify(state));
 });
+
+watch(
+  () => activeRecipe.value,
+  (val) => {
+    if (!val) return;
+    brewer.recipe.value = val;
+  }
+);
 
 export function useAppState() {
   return {

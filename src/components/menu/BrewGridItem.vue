@@ -1,12 +1,16 @@
 <script setup lang="ts">
 interface Brew {
+  id: string;
   name: string;
   imgUrl?: string;
 }
 defineProps<{ brew: Brew }>();
 </script>
 <template>
-  <div class="flex flex-col items-stretch w-44 h-44 border cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700">
+  <RouterLink
+    :to="`/${brew.id}`"
+    class="flex flex-col items-stretch w-44 h-44 border cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700"
+  >
     <div class="flex-grow">
       <img :src="brew.imgUrl" class="block w-full h-32 object-contain" />
     </div>
@@ -15,5 +19,5 @@ defineProps<{ brew: Brew }>();
         {{ brew.name }}
       </p>
     </div>
-  </div>
+  </RouterLink>
 </template>

@@ -5,6 +5,6 @@ const { menuVisible } = useAppState();
 </script>
 
 <template>
-  <MenuPage v-if="menuVisible" @close="menuVisible = false" />
-  <BrewPage v-else @menu-click="menuVisible = true" />
+  <BrewPage v-if="menuVisible" />
+  <router-view v-else />
 </template>

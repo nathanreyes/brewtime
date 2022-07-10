@@ -1,3 +1,7 @@
-- [x] Scroll to current step after the play button is pressed
-- [x] Scroll to top after the reset button is pressed
-- [] Disable double tap to zoom on mobile safari
+- [*] Scroll to current step after the play button is pressed
+- [*] Scroll to top after the reset button is pressed
+- [*] Disable double tap to zoom on mobile safari
+- [*] Add upward shadow on footer when scrolled
+- [] Fix scroll to step when active
+- [] Reset brew when switching recipes
+- [] Mouse/touch drag with progress bar

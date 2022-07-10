@@ -11,3 +11,9 @@
     height: -webkit-fill-available;
   }
 }
+
+.dark *,
+.dark::before,
+.dark::after {
+  @apply border-gray-600;
+}

@@ -49,6 +49,8 @@ watch(
   () => activeRecipe.value,
   (val) => {
     if (!val) return;
+    brewer.stopRunning();
+    brewer.reset();
     brewer.recipe.value = val;
   }
 );

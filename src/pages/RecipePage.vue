@@ -159,12 +159,11 @@ const dataFields = computed(() => ({
                   @close="editField = null"
                 />
                 <!--Recipe brew time-->
-                <p
-                  class="text-xs text-right mt-2"
-                  :class="[running ? 'text-white' : 'text-gray-400 dark:text-gray-400']"
-                >
-                  Brew Time: {{ formatDuration(recipe.duration) }}
-                </p>
+                <div class="mt-2 px-4 sm:px-0">
+                  <p class="text-xs text-right" :class="[running ? 'text-white' : 'text-gray-400 dark:text-gray-400']">
+                    Brew Time: {{ formatDuration(recipe.duration) }}
+                  </p>
+                </div>
               </div>
               <!--Recipe steps-->
               <div :class="{ 'divide-y': !inProcess }">

@@ -20,7 +20,6 @@ const props = defineProps<{
   recipe: Recipe;
   current: number;
   running: boolean;
-  scrollVisible: boolean;
 }>();
 
 const { brewer } = useAppState();
@@ -55,7 +54,7 @@ watch([inProcess, toRef(props, 'running')], () => {
 });
 </script>
 <template>
-  <div class="w-full py-4 px-4 sm:pl-0" :class="{ 'opacity-25': !active, 'sm:pr-0': !scrollVisible }" ref="listItem">
+  <div class="w-full py-4 px-4 sm:px-0" :class="{ 'opacity-25': !active }" ref="listItem">
     <div class="flex justify-between items-start">
       <div class="flex-grow">
         <h3 class="text-lg"><v-runtime-template :template="step.summary" /></h3>

@@ -3,5 +3,5 @@
 - [*] Disable double tap to zoom on mobile safari
 - [*] Add upward shadow on footer when scrolled
 - [*] Reset brew when switching recipes
+- [*] Mouse/touch drag with progress bar
 - [] Fix scroll to step when active
-- [] Mouse/touch drag with progress bar

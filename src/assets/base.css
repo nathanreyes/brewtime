@@ -17,3 +17,7 @@
 .dark::after {
   @apply border-gray-600;
 }
+
+a {
+  -webkit-tap-highlight-color: transparent;
+}

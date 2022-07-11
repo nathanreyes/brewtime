@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { ref, computed, watch } from 'vue';
+import { useDragState } from '@/use/dragState';
 
 const props = defineProps<{
   modelValue: number;
@@ -14,12 +15,17 @@ const progressStyle = computed(() => {
   };
 });
 
-function progressClick(e: MouseEvent) {
-  if (e.target == null) return;
-  const target = e.target as HTMLElement;
-  const progress = (e.offsetX - target.offsetLeft) / target.offsetWidth;
-  emit('update:modelValue', progress);
-}
+const progressRef = ref<HTMLElement | null>(null);
+const { offset } = useDragState(progressRef, { fromX: 'start' });
+watch(
+  () => offset.value,
+  (val) => {
+    const el = progressRef.value;
+    if (val == null || el == null) return;
+    const percent = Math.max(0, (el.offsetLeft + val.x) / el.offsetWidth);
+    emit('update:modelValue', percent);
+  }
+);
 </script>
 
 <template>
@@ -29,7 +35,7 @@ function progressClick(e: MouseEvent) {
       class="absolute inset-0 border-b-4 border-black dark:border-white pointer-events-none"
       :style="progressStyle"
     />
-    <button class="absolute w-full -top-2 -bottom-2" @click="progressClick" />
+    <button class="absolute w-full -top-2 -bottom-2" ref="progressRef" />
   </div>
 </template>
 .

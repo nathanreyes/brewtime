@@ -1,4 +1,4 @@
-import { onUnmounted, reactive, ref, watch } from 'vue';
+import { onUnmounted, reactive, watch } from 'vue';
 import isTouchDevice from '@/util/isTouchDevice';
 import type { Ref } from 'vue';
 
@@ -10,6 +10,7 @@ interface DragStateOptions {
   triggerX?: boolean | number;
   triggerY?: boolean | number;
   triggerDuration?: number;
+  maxClickDuration?: number;
 }
 
 type Point = { x: number; y: number };
@@ -18,36 +19,50 @@ interface DragState {
   isTouch: boolean;
   waiting: boolean;
   tracking: boolean;
+  current: Point | null;
   origin: Point | null;
   originRaw: Point | null;
-  current: Point | null;
   originDate: Date | null;
+  offset: Point | null;
+  offsetRaw: Point | null;
 }
 
-export function useDragState(target: Ref<HTMLElement | SVGElement | null | undefined>, opts: DragStateOptions = {}) {
+type DragStateCallback = (state: DragState) => void;
+
+export function useDragState(
+  target: Ref<HTMLElement | SVGElement | null | undefined>,
+  opts: DragStateOptions = {},
+  callback: DragStateCallback
+) {
+  if (!callback) throw 'Invalid callback provided.';
+
   const state = reactive<DragState>({
     isTouch: false,
     waiting: false,
     tracking: false,
+    current: null,
     origin: null,
     originRaw: null,
-    current: null,
     originDate: null,
+    offset: null,
+    offsetRaw: null,
   });
 
-  const offset = ref<{ x: number; y: number } | null>(null);
-
-  function updateOffset() {
-    if (state.current == null || state.origin == null) return;
-    offset.value = {
-      x: state.current.x - state.origin.x,
-      y: state.current.y - state.origin.y,
+  function updateOffsetRaw() {
+    if (state.current == null || state.originRaw == null) return;
+    state.offsetRaw = {
+      x: state.current.x - state.originRaw.x,
+      y: state.current.y - state.originRaw.y,
     };
   }
 
-  function startTracking() {
-    state.waiting = false;
-    state.tracking = true;
+  function updateOffset() {
+    if (state.current == null || state.origin == null) return;
+    state.offset = {
+      x: state.current.x - state.origin.x,
+      y: state.current.y - state.origin.y,
+    };
+    callback(state);
   }
 
   function stopTracking() {
@@ -55,8 +70,10 @@ export function useDragState(target: Ref<HTMLElement | SVGElement | null | undef
     state.tracking = false;
     state.current = null;
     state.origin = null;
+    state.originDate = null;
     state.originRaw = null;
-    offset.value = null;
+    state.offset = null;
+    state.offsetRaw = null;
   }
 
   function getOriginFromEventOrTouch(evt: MouseEvent | Touch) {
@@ -97,14 +114,18 @@ export function useDragState(target: Ref<HTMLElement | SVGElement | null | undef
 
   function onTargetStart(evt: MouseEvent | Touch) {
     if (state.waiting || state.tracking || target.value == null) return;
+    state.current = { x: evt.pageX, y: evt.pageY };
     state.origin = getOriginFromEventOrTouch(evt);
+    state.originDate = new Date();
     state.originRaw = { x: evt.pageX, y: evt.pageY };
+    state.offsetRaw = { x: 0, y: 0 };
     state.waiting = true;
   }
 
   function onDocumentMove(evt: MouseEvent | Touch) {
     if (!(state.waiting || state.tracking) || state.originRaw == null || target.value == null) return;
     state.current = { x: evt.pageX, y: evt.pageY };
+    updateOffsetRaw();
     if (state.tracking) {
       updateOffset();
     } else if (state.waiting) {
@@ -122,7 +143,8 @@ export function useDragState(target: Ref<HTMLElement | SVGElement | null | undef
         start = true;
       }
       if (start) {
-        startTracking();
+        state.waiting = false;
+        state.tracking = true;
         updateOffset();
       } else {
         stopTracking();
@@ -130,9 +152,16 @@ export function useDragState(target: Ref<HTMLElement | SVGElement | null | undef
     }
   }
 
+  function clicked() {
+    if (state.originDate == null || state.offsetRaw == null) return false;
+    if (state.offsetRaw.x > 0 || state.offsetRaw.y > 0) return false;
+    return opts.maxClickDuration == null || Date.now() - state.originDate.getTime() < opts.maxClickDuration;
+  }
+
   function onDocumentEnd() {
-    if (!state.tracking) return;
-    state.tracking = false;
+    if (!(state.tracking || state.waiting)) return;
+    if (clicked()) updateOffset();
+    stopTracking();
   }
 
   // #region Mouse events
@@ -161,9 +190,8 @@ export function useDragState(target: Ref<HTMLElement | SVGElement | null | undef
     onDocumentMove((evt as TouchEvent).touches[0]);
   }
 
-  function onDocumentTouchend(evt: TouchEvent) {
-    if (!state.tracking || target.value == null) return;
-    state.tracking = false;
+  function onDocumentTouchend() {
+    onDocumentEnd();
   }
 
   // #endregion Touch events
@@ -209,7 +237,5 @@ export function useDragState(target: Ref<HTMLElement | SVGElement | null | undef
 
   onUnmounted(() => cleanup());
 
-  return {
-    offset,
-  };
+  return state;
 }

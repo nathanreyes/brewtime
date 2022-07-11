@@ -16,17 +16,17 @@ const progressStyle = computed(() => {
 });
 
 const progressRef = ref<HTMLElement | null>(null);
-const { offset } = useDragState(progressRef, {
-  fromX: 'start',
-  triggerX: 1.5,
-  triggerDuration: 50,
-});
-watch(
-  () => offset.value,
-  (val) => {
+useDragState(
+  progressRef,
+  {
+    fromX: 'start',
+    triggerX: 1.5,
+    triggerDuration: 50,
+  },
+  ({ offset }) => {
     const el = progressRef.value;
-    if (val == null || el == null) return;
-    const percent = Math.max(0, (el.offsetLeft + val.x) / el.offsetWidth);
+    if (el == null || offset == null) return;
+    const percent = Math.max(0, (el.offsetLeft + offset.x) / el.offsetWidth);
     emit('update:modelValue', percent);
   }
 );

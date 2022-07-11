@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { formatDuration, formatTimerDuration } from '@/util/duration';
-import IconSkipForward from './icons/IconSkipForward.vue';
+import { formatDuration } from '@/util/duration';
 
 const props = defineProps<{
   running: boolean;
@@ -36,9 +35,9 @@ const progress = computed({
       <div class="flex justify-start items-center w-2/5">
         <template v-if="!hidePrevNext">
           <IconButton @click="$emit('skip-prev')">
-            <IconSkipBack />
+            <IconArrowUp />
           </IconButton>
-          <IconButton @click="$emit('skip-next')"><IconSkipForward /></IconButton>
+          <IconButton @click="$emit('skip-next')"><IconArrowDown /></IconButton>
         </template>
         <IconButton v-if="!hideReset" @click="$emit('reset')"><IconRefreshCw /></IconButton>
       </div>

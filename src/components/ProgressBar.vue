@@ -16,7 +16,11 @@ const progressStyle = computed(() => {
 });
 
 const progressRef = ref<HTMLElement | null>(null);
-const { offset } = useDragState(progressRef, { fromX: 'start' });
+const { offset } = useDragState(progressRef, {
+  fromX: 'start',
+  triggerX: 1.5,
+  triggerDuration: 50,
+});
 watch(
   () => offset.value,
   (val) => {

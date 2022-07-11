@@ -7,16 +7,57 @@ type RelativePosition = 'start' | 'center' | 'end';
 interface DragStateOptions {
   fromX?: RelativePosition;
   fromY?: RelativePosition;
+  triggerX?: boolean | number;
+  triggerY?: boolean | number;
+  triggerDuration?: number;
+}
+
+type Point = { x: number; y: number };
+
+interface DragState {
+  isTouch: boolean;
+  waiting: boolean;
+  tracking: boolean;
+  origin: Point | null;
+  originRaw: Point | null;
+  current: Point | null;
+  originDate: Date | null;
 }
 
 export function useDragState(target: Ref<HTMLElement | SVGElement | null | undefined>, opts: DragStateOptions = {}) {
-  const state = reactive({
+  const state = reactive<DragState>({
     isTouch: false,
+    waiting: false,
     tracking: false,
-    origin: { x: 0, y: 0 },
+    origin: null,
+    originRaw: null,
+    current: null,
+    originDate: null,
   });
 
   const offset = ref<{ x: number; y: number } | null>(null);
+
+  function updateOffset() {
+    if (state.current == null || state.origin == null) return;
+    offset.value = {
+      x: state.current.x - state.origin.x,
+      y: state.current.y - state.origin.y,
+    };
+  }
+
+  function startTracking() {
+    state.waiting = false;
+    state.tracking = true;
+  }
+
+  function stopTracking() {
+    state.waiting = false;
+    state.tracking = false;
+    state.current = null;
+    state.origin = null;
+    state.originRaw = null;
+    offset.value = null;
+  }
 
   function getOriginFromEventOrTouch(evt: MouseEvent | Touch) {
     const origin = { x: 0, y: 0 };
@@ -54,29 +95,58 @@ export function useDragState(target: Ref<HTMLElement | SVGElement | null | undef
     return origin;
   }
 
+  function onTargetStart(evt: MouseEvent | Touch) {
+    if (state.waiting || state.tracking || target.value == null) return;
+    state.origin = getOriginFromEventOrTouch(evt);
+    state.originRaw = { x: evt.pageX, y: evt.pageY };
+    state.waiting = true;
+  }
+
+  function onDocumentMove(evt: MouseEvent | Touch) {
+    if (!(state.waiting || state.tracking) || state.originRaw == null || target.value == null) return;
+    state.current = { x: evt.pageX, y: evt.pageY };
+    if (state.tracking) {
+      updateOffset();
+    } else if (state.waiting) {
+      if (opts.triggerDuration != null && state.originDate != null) {
+        const duration = Date.now() - state.originDate.getTime();
+        if (duration < opts.triggerDuration) return;
+      }
+      let start = false;
+      const xDelta = state.current.x - state.originRaw.x;
+      const yDelta = state.current.y - state.originRaw.y;
+      if (opts.triggerX != null && (opts.triggerX === true || opts.triggerX < Math.abs(xDelta / yDelta))) {
+        start = true;
+      }
+      if (opts.triggerY != null && (opts.triggerY === true || opts.triggerY < Math.abs(yDelta / xDelta))) {
+        start = true;
+      }
+      if (start) {
+        startTracking();
+        updateOffset();
+      } else {
+        stopTracking();
+      }
+    }
+  }
+
+  function onDocumentEnd() {
+    if (!state.tracking) return;
+    state.tracking = false;
+  }
+
   // #region Mouse events
 
   function onTargetMousedown(evt: Event) {
-    if (state.tracking || target.value == null) return;
-    const e = evt as MouseEvent;
-    state.origin = getOriginFromEventOrTouch(e);
-    state.tracking = true;
-    const x = e.pageX - state.origin.x;
-    const y = e.pageY - state.origin.y;
-    offset.value = { x, y };
-    e.stopPropagation();
+    onTargetStart(evt as MouseEvent);
   }
 
   function onDocumentMousemove(evt: MouseEvent) {
-    if (!state.tracking || target.value == null) return;
-    const x = evt.pageX - state.origin.x;
-    const y = evt.pageY - state.origin.y;
-    offset.value = { x, y };
+    onDocumentMove(evt);
   }
 
   function onDocumentMouseup() {
-    if (!state.tracking) return;
-    state.tracking = false;
+    onDocumentEnd();
   }
 
   // #endregion Mouse events
@@ -84,25 +154,11 @@ export function useDragState(target: Ref<HTMLElement | SVGElement | null | undef
   // #region Touch events
 
   function onTargetTouchstart(evt: Event) {
-    if (state.tracking || target.value == null) return;
-    const touch = (evt as TouchEvent).touches[0];
-    state.origin = getOriginFromEventOrTouch(touch);
-    state.tracking = true;
-    const x = touch.pageX - state.origin.x;
-    const y = touch.pageY - state.origin.y;
-    offset.value = { x, y };
-    evt.preventDefault();
-    evt.stopPropagation();
+    onTargetStart((evt as TouchEvent).touches[0]);
   }
 
   function onDocumentTouchmove(evt: TouchEvent) {
-    if (!state.tracking || target.value == null) return;
-    const touch = (evt as TouchEvent).touches[0];
-    const x = touch.pageX - state.origin.x;
-    const y = touch.pageY - state.origin.y;
-    offset.value = { x, y };
-    evt.preventDefault();
-    evt.stopPropagation();
+    onDocumentMove((evt as TouchEvent).touches[0]);
   }
 
   function onDocumentTouchend(evt: TouchEvent) {

@@ -16,9 +16,9 @@ export function useBrewer(recipe: Recipe) {
 
   const stopwatch = useStopwatch();
   const { hasStarted, running, duration, startRunning, stopRunning, toggleRunning, durationLabel, reset } = stopwatch;
-  const hasCompleted = computed(() => duration.value >= _recipe.duration + 10);
+  const hasCompleted = computed(() => duration.value >= _recipe.value.duration + 10);
   const inProcess = computed(() => hasStarted.value && !hasCompleted.value);
-  const brew = computed(() => brews.find((b) => b.id === _recipe.brewId));
+  const brew = computed(() => brews.find((b) => b.id === _recipe.value.brewId));
 
   function loadRecipe(recipe: Recipe) {
     if (!recipe) return;

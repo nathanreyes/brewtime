@@ -1,4 +1,4 @@
-import { computed, watch } from 'vue';
+import { ref, computed, watch } from 'vue';
 import brews from '@/content/brews.json';
 import { useStopwatch } from './stopwatch';
 import type { Recipe } from './recipe';
@@ -12,7 +12,7 @@ export interface Brew {
 }
 
 export function useBrewer(recipe: Recipe) {
-  let _recipe = recipe;
+  const _recipe = ref(recipe);
 
   const stopwatch = useStopwatch();
   const { hasStarted, running, duration, startRunning, stopRunning, toggleRunning, durationLabel, reset } = stopwatch;
@@ -24,7 +24,7 @@ export function useBrewer(recipe: Recipe) {
     if (!recipe) return;
     stopRunning();
     reset();
-    _recipe = recipe;
+    _recipe.value = recipe;
   }
 
   watch(

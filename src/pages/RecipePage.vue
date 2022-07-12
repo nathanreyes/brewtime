@@ -23,25 +23,25 @@ function updateDuration(current: number) {
 }
 
 const currentPosition = computed(() => {
-  return recipe.steps.findIndex((s) => duration.value >= s.start && duration.value <= s.end);
+  return recipe.value.steps.findIndex((s) => duration.value >= s.start && duration.value <= s.end);
 });
 
 function stepPrev(fromPosition: number = currentPosition.value) {
-  const steps = recipe.steps;
+  const steps = recipe.value.steps;
   if (fromPosition <= 0 || fromPosition >= steps.length) return;
   const step = steps[fromPosition - 1];
   duration.value = step.start + 1;
 }
 
 function stepNext(fromPosition: number = currentPosition.value) {
-  const steps = recipe.steps;
+  const steps = recipe.value.steps;
   if (fromPosition >= steps.length - 1) return;
-  const step = recipe.steps[fromPosition + 1];
+  const step = recipe.value.steps[fromPosition + 1];
   duration.value = step.start + 1;
 }
 
 function stepReset(fromPosition: number = currentPosition.value) {
-  const step = recipe.steps[fromPosition];
+  const step = recipe.value.steps[fromPosition];
   duration.value = step.start + 1;
 }
 
@@ -50,38 +50,38 @@ const dataFields = computed(() => ({
   waterAmount: {
     id: 'waterAmount',
     label: 'Water Amt',
-    data: recipe.waterAmount,
-    dataLabel: recipe.waterAmountLabel,
+    data: recipe.value.waterAmount,
+    dataLabel: recipe.value.waterAmountLabel,
   },
   waterTemp: {
     id: 'waterTemp',
     label: 'Water Temp',
-    data: recipe.waterTemp,
-    dataLabel: recipe.waterTempLabel,
+    data: recipe.value.waterTemp,
+    dataLabel: recipe.value.waterTempLabel,
   },
   coffeeAmount: {
     id: 'coffeeAmount',
     label: 'Coffee Amt',
-    data: recipe.coffeeAmount,
-    dataLabel: recipe.coffeeAmountLabel,
+    data: recipe.value.coffeeAmount,
+    dataLabel: recipe.value.coffeeAmountLabel,
   },
   grind: {
     id: 'grind',
     label: 'Grind',
-    data: recipe.grind,
-    dataLabel: recipe.grindLabel,
+    data: recipe.value.grind,
+    dataLabel: recipe.value.grindLabel,
   },
   ratio: {
     id: 'ratio',
     label: 'Ratio',
-    data: recipe.ratio,
-    dataLabel: recipe.ratioLabel,
+    data: recipe.value.ratio,
+    dataLabel: recipe.value.ratioLabel,
   },
   roast: {
     id: 'roast',
     label: 'Roast',
-    data: recipe.roast,
-    dataLabel: recipe.roastLabel,
+    data: recipe.value.roast,
+    dataLabel: recipe.value.roastLabel,
   },
 }));
 </script>

@@ -114,8 +114,8 @@ const coffeeAmountOptions = computed(() => {
   return options;
 });
 
-// Coffee grinds
-const coffeeGrindOptions = computed(() => {
+// Grinds
+const grindOptions = computed(() => {
   return ['Fine', 'Med Fine', 'Medium', 'Med Coarse', 'Coarse'].map((g) => ({
     label: g,
     value: g,
@@ -129,6 +129,14 @@ const ratioOptions = computed(() => {
     options.push({ label: i.toString(), value: i });
   }
   return options;
+});
+
+// Roasts
+const roastOptions = computed(() => {
+  return ['Light', 'Medium', 'Dark', 'Extra Dark'].map((r) => ({
+    label: r,
+    value: r,
+  }));
 });
 </script>
 
@@ -194,12 +202,12 @@ const ratioOptions = computed(() => {
         <span>when updated</span>
       </div>
     </template>
-    <!--Coffee grind-->
-    <template v-else-if="editField === 'coffeeGrind'">
+    <!--Grind-->
+    <template v-else-if="editField === 'grind'">
       <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Grind:</label>
-        <select :class="selectClass" v-model="recipe.coffeeGrind">
-          <option v-for="option in coffeeGrindOptions" :key="option.value" :value="option.value">
+        <select :class="selectClass" v-model="recipe.grind">
+          <option v-for="option in grindOptions" :key="option.value" :value="option.value">
             {{ option.label }}
           </option>
         </select>
@@ -232,7 +240,11 @@ const ratioOptions = computed(() => {
     <template v-else-if="editField === 'roast'">
       <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Roast:</label>
-        <label>{{ recipe.roast }}</label>
+        <select :class="selectClass" v-model="recipe.roast">
+          <option v-for="option in roastOptions" :key="option.value" :value="option.value">
+            {{ option.label }}
+          </option>
+        </select>
       </div>
     </template>
     <!--Close button-->

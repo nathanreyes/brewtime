@@ -1,5 +1,5 @@
 import type { RecipeConfig } from '@/use/recipe';
-import { deserializeRecipe } from '@/use/recipe';
+import { useRecipe } from '@/use/recipe';
 
 const recipeLibrary: RecipeConfig[] = [
   {
@@ -14,7 +14,7 @@ const recipeLibrary: RecipeConfig[] = [
     waterAmount: 200,
     waterTemp: 212,
     coffeeAmount: 11,
-    coffeeGrind: 'Fine',
+    grind: 'Fine',
     ratio: 18,
     steps: [
       {
@@ -73,11 +73,11 @@ const recipeLibrary: RecipeConfig[] = [
     author: 'Nathan Reyes',
     notes: `Learn how to brew coffee using the Stagg X from Fellow with Dylan Siemens, the 2017 US Brewer's Cup Champion and Head Trainer for Onyx Coffee Lab.`,
     url: 'https://www.youtube.com/watch?v=5tuFYrlsbD4',
-    roast: 'light',
+    roast: 'Light',
     waterAmount: 350,
     waterTemp: 200,
     coffeeAmount: 22,
-    coffeeGrind: 'Medium',
+    grind: 'Medium',
     ratio: 16,
     steps: [
       {
@@ -132,4 +132,4 @@ const recipeLibrary: RecipeConfig[] = [
   },
 ];
 
-export default recipeLibrary.map((r) => deserializeRecipe(r));
+export default recipeLibrary.map((r) => useRecipe(r));

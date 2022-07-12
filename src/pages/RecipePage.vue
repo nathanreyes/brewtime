@@ -3,7 +3,7 @@ import { computed, ref, watch } from 'vue';
 import { useAppState } from '@/use/appState';
 import { formatDuration } from '@/util/duration';
 import { useScrollPosition } from '@/use/scrollPosition';
-import type { Recipe, RecipeField } from '@/use/recipe';
+import type { RecipeField } from '@/use/recipe';
 
 const { brewer } = useAppState();
 const { recipe, brew, inProcess, hasCompleted, running, duration, toggleRunning, reset } = brewer;
@@ -23,25 +23,25 @@ function updateDuration(current: number) {
 }
 
 const currentPosition = computed(() => {
-  return recipe.value.steps.findIndex((s) => duration.value >= s.start && duration.value <= s.end);
+  return recipe.steps.findIndex((s) => duration.value >= s.start && duration.value <= s.end);
 });
 
 function stepPrev(fromPosition: number = currentPosition.value) {
-  const steps = recipe.value.steps;
+  const steps = recipe.steps;
   if (fromPosition <= 0 || fromPosition >= steps.length) return;
   const step = steps[fromPosition - 1];
   duration.value = step.start + 1;
 }
 
 function stepNext(fromPosition: number = currentPosition.value) {
-  const steps = recipe.value.steps;
+  const steps = recipe.steps;
   if (fromPosition >= steps.length - 1) return;
-  const step = recipe.value.steps[fromPosition + 1];
+  const step = recipe.steps[fromPosition + 1];
   duration.value = step.start + 1;
 }
 
 function stepReset(fromPosition: number = currentPosition.value) {
-  const step = recipe.value.steps[fromPosition];
+  const step = recipe.steps[fromPosition];
   duration.value = step.start + 1;
 }
 
@@ -50,38 +50,38 @@ const dataFields = computed(() => ({
   waterAmount: {
     id: 'waterAmount',
     label: 'Water Amt',
-    data: recipe.value.waterAmount,
-    dataLabel: recipe.value.waterAmountLabel,
+    data: recipe.waterAmount,
+    dataLabel: recipe.waterAmountLabel,
   },
   waterTemp: {
     id: 'waterTemp',
     label: 'Water Temp',
-    data: recipe.value.waterTemp,
-    dataLabel: recipe.value.waterTempLabel,
+    data: recipe.waterTemp,
+    dataLabel: recipe.waterTempLabel,
   },
   coffeeAmount: {
     id: 'coffeeAmount',
     label: 'Coffee Amt',
-    data: recipe.value.coffeeAmount,
-    dataLabel: recipe.value.coffeeAmountLabel,
+    data: recipe.coffeeAmount,
+    dataLabel: recipe.coffeeAmountLabel,
   },
-  coffeeGrind: {
-    id: 'coffeeGrind',
+  grind: {
+    id: 'grind',
     label: 'Grind',
-    data: recipe.value.coffeeGrind,
-    dataLabel: recipe.value.coffeeGrindLabel,
+    data: recipe.grind,
+    dataLabel: recipe.grindLabel,
   },
   ratio: {
     id: 'ratio',
     label: 'Ratio',
-    data: recipe.value.ratio,
-    dataLabel: recipe.value.ratioLabel,
+    data: recipe.ratio,
+    dataLabel: recipe.ratioLabel,
   },
   roast: {
     id: 'roast',
     label: 'Roast',
-    data: recipe.value.roast,
-    dataLabel: recipe.value.roastLabel,
+    data: recipe.roast,
+    dataLabel: recipe.roastLabel,
   },
 }));
 </script>
@@ -130,7 +130,7 @@ const dataFields = computed(() => ({
                     </div>
                     <div class="flex divide-x">
                       <DataDisplay class="w-1/2" v-bind="dataFields.coffeeAmount" v-model="editField" />
-                      <DataDisplay class="w-1/2" v-bind="dataFields.coffeeGrind" v-model="editField" />
+                      <DataDisplay class="w-1/2" v-bind="dataFields.grind" v-model="editField" />
                     </div>
                     <div class="flex divide-x">
                       <DataDisplay class="w-1/2" v-bind="dataFields.ratio" v-model="editField" />
@@ -145,7 +145,7 @@ const dataFields = computed(() => ({
                     </div>
                     <div class="flex divide-x">
                       <DataDisplay class="w-1/3" v-bind="dataFields.waterTemp" v-model="editField" />
-                      <DataDisplay class="w-1/3" v-bind="dataFields.coffeeGrind" v-model="editField" />
+                      <DataDisplay class="w-1/3" v-bind="dataFields.grind" v-model="editField" />
                       <DataDisplay class="w-1/3" v-bind="dataFields.roast" v-model="editField" />
                     </div>
                   </div>

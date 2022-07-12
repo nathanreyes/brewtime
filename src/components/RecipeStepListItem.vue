@@ -30,6 +30,7 @@ const totalDurationLabel = computed(() => formatDuration(totalDuration.value));
 const started = computed(() => props.current > props.step.start);
 const completed = computed(() => props.current > props.step.end);
 const inProcess = computed(() => started.value && !completed.value);
+const isPrepOrComplete = computed(() => props.step.type === 'setup' || props.step.type === 'complete');
 
 const active = computed(() => {
   if (inProcess.value) return true;
@@ -65,7 +66,7 @@ watch([inProcess, toRef(props, 'running')], () => {
       <div v-if="completed">
         <IconCheckCircle />
       </div>
-      <div v-else-if="!inProcess" class="select-none">
+      <div v-else-if="!inProcess && !isPrepOrComplete" class="select-none">
         {{ totalDurationLabel }}
       </div>
     </div>

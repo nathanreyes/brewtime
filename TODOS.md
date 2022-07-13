@@ -6,6 +6,6 @@
 - [*] Mouse/touch drag with progress bar
 - [*] Save recipe parameters to local storage
 - [*] Hide durations for prepare and completed steps
-- [] Show select options for non-listed values (make them disabled)
+- [*] Show select options for non-listed values (make them disabled)
 - [] Fix scroll to step when active
 - [] Add favicon

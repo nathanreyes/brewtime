@@ -1,9 +1,16 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
+import { computed, watch } from 'vue';
 import { useAppState } from '@/use/appState';
 import { useProtected } from '@/use/protected';
+import { roundTenth } from '@/util/math';
 import type { Brew } from '@/use/brewer';
 import type { Recipe, RecipeField } from '@/use/recipe';
+
+interface Option<T> {
+  label: string;
+  value: T;
+  disabled?: boolean;
+}
 
 const props = defineProps<{ recipe: Recipe; brew: Brew; editField: RecipeField }>();
 defineEmits(['close']);
@@ -34,10 +41,6 @@ const celciusRange = {
   max: 104,
   step: 1,
 };
-
-const selectClass = ref(
-  'block h-10 appearance-none bg-white dark:bg-black border-black dark:border-gray-500 text-black dark:text-white'
-);
 
 function updateWaterAmount() {
   const { recipe } = props;
@@ -84,6 +87,20 @@ watch(
   }
 );
 
+function insertOption(value: any, options: Option<any>[]) {
+  const idx = options.findIndex((opt) => value <= opt.value);
+  const label = typeof value === 'string' ? value : roundTenth(value).toString();
+  const option = { label, value, disabled: true };
+  if (idx >= 0) {
+    if (options[idx].value.toString() !== value.toString()) {
+      options.splice(idx, 0, option);
+    }
+  } else {
+    options.push(option);
+  }
+  return options;
+}
+
 // Water amounts
 const waterAmountOptions = computed(() => {
   const options = [];
@@ -91,7 +108,7 @@ const waterAmountOptions = computed(() => {
   for (let i = min; i <= max; i += step) {
     options.push({ label: i.toString(), value: i });
   }
-  return options;
+  return insertOption(props.recipe.waterAmount, options);
 });
 
 // Water temps
@@ -101,7 +118,7 @@ const waterTempOptions = computed(() => {
   for (let i = min; i <= max; i += step) {
     options.push({ label: i.toString(), value: i });
   }
-  return options;
+  return insertOption(props.recipe.waterTemp, options);
 });
 
 // Coffee amounts
@@ -111,15 +128,17 @@ const coffeeAmountOptions = computed(() => {
   for (let i = min; i <= max; i += step) {
     options.push({ label: i.toString(), value: i });
   }
-  return options;
+  return insertOption(props.recipe.coffeeAmount, options);
 });
 
 // Grinds
 const grindOptions = computed(() => {
-  return ['Fine', 'Med Fine', 'Medium', 'Med Coarse', 'Coarse'].map((g) => ({
+  const options: Option<string>[] = ['Fine', 'Med Fine', 'Medium', 'Med Coarse', 'Coarse'].map((g) => ({
     label: g,
     value: g,
   }));
+
+  return insertOption(props.recipe.grind, options);
 });
 
 // Ratios
@@ -128,15 +147,16 @@ const ratioOptions = computed(() => {
   for (let i = 1; i <= 40; i += 1) {
     options.push({ label: i.toString(), value: i });
   }
-  return options;
+  return insertOption(props.recipe.ratio, options);
 });
 
 // Roasts
 const roastOptions = computed(() => {
-  return ['Light', 'Medium', 'Dark', 'Extra Dark'].map((r) => ({
+  const options = ['Light', 'Medium', 'Dark', 'Extra Dark'].map((r) => ({
     label: r,
     value: r,
   }));
+  return insertOption(props.recipe.roast, options);
 });
 </script>
 
@@ -147,11 +167,7 @@ const roastOptions = computed(() => {
       <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Water Amount:</label>
         <div class="flex items-baseline space-x-2">
-          <select :class="selectClass" v-model="recipe.waterAmount">
-            <option v-for="option in waterAmountOptions" :key="option.value" :value="option.value">
-              {{ option.label }}
-            </option>
-          </select>
+          <BaseSelect v-model="recipe.waterAmount" :options="waterAmountOptions" />
           <label>g</label>
         </div>
       </div>
@@ -170,11 +186,7 @@ const roastOptions = computed(() => {
       <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Water Temp:</label>
         <div class="flex items-baseline space-x-2">
-          <select :class="selectClass" v-model="recipe.waterTemp">
-            <option v-for="option in waterTempOptions" :key="option.value" :value="option.value">
-              {{ option.label }}
-            </option>
-          </select>
+          <BaseSelect v-model="recipe.waterTemp" :options="waterTempOptions" />
           <label>&#176;F</label>
         </div>
       </div>
@@ -184,11 +196,7 @@ const roastOptions = computed(() => {
       <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Coffee Amount:</label>
         <div class="flex items-baseline space-x-2">
-          <select :class="selectClass" v-model="recipe.coffeeAmount">
-            <option v-for="option in coffeeAmountOptions" :key="option.value" :value="option.value">
-              {{ option.label }}
-            </option>
-          </select>
+          <BaseSelect v-model="recipe.coffeeAmount" :options="coffeeAmountOptions" />
           <label>g</label>
         </div>
       </div>
@@ -206,11 +214,7 @@ const roastOptions = computed(() => {
     <template v-else-if="editField === 'grind'">
       <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Grind:</label>
-        <select :class="selectClass" v-model="recipe.grind">
-          <option v-for="option in grindOptions" :key="option.value" :value="option.value">
-            {{ option.label }}
-          </option>
-        </select>
+        <BaseSelect v-model="recipe.grind" :options="grindOptions" />
       </div>
     </template>
     <!--Ratio-->
@@ -218,11 +222,7 @@ const roastOptions = computed(() => {
       <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Ratio:</label>
         <div class="flex items-baseline space-x-2">
-          <select :class="selectClass" v-model="recipe.ratio">
-            <option v-for="option in ratioOptions" :key="option.value" :value="option.value">
-              {{ option.label }}
-            </option>
-          </select>
+          <BaseSelect v-model="recipe.ratio" :options="ratioOptions" />
           <label>:1</label>
         </div>
       </div>
@@ -240,11 +240,7 @@ const roastOptions = computed(() => {
     <template v-else-if="editField === 'roast'">
       <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Roast:</label>
-        <select :class="selectClass" v-model="recipe.roast">
-          <option v-for="option in roastOptions" :key="option.value" :value="option.value">
-            {{ option.label }}
-          </option>
-        </select>
+        <BaseSelect v-model="recipe.roast" :options="roastOptions" />
       </div>
     </template>
     <!--Close button-->

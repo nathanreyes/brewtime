@@ -107,7 +107,7 @@ const dataFields = computed(() => ({
                 <div class="flex items-stretch mt-2 space-x-4 px-4 sm:px-0">
                   <img v-if="brew" :src="brew.imgUrl" class="flex-shrink-0 flex-grow-0 h-20" :img-url="brew.imgUrl" />
                   <div class="relative flex-grow min-h-full">
-                    <p v-if="recipe.notes" class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                    <p v-if="recipe.notes" class="text-sm text-gray-600 dark:text-gray-300">
                       {{ recipe.notes }}
                     </p>
                     <p v-else class="text-xs text-gray-400 dark:text-gray-600">No notes provided</p>
@@ -115,7 +115,7 @@ const dataFields = computed(() => ({
                 </div>
                 <!--Brew buy/external link-->
                 <div
-                  class="flex justify-center items-center my-2 px-4 sm:px-0 space-x-6 text-gray-600 dark:text-gray-400"
+                  class="flex justify-center items-center mb-2 mt-4 sm:mt-2 px-4 space-x-6 text-gray-600 dark:text-gray-400"
                 >
                   <!--Buy button-->
                   <button class="flex text-xs space-x-2 hover:underline" @click="toggleBrewLinksHidden">
@@ -133,12 +133,12 @@ const dataFields = computed(() => ({
                     <span class="hover:underline">{{ recipe.urlHostname }}</span>
                   </a>
                 </div>
-                <!--Brew links-->
-                <div
-                  v-if="brew && brew.links.length && showBrewLinks"
-                  class="flex items-start flex-wrap border-t space-x-4 py-4"
-                >
-                  <BrewLink v-for="link in brew.links" :key="link.url" v-bind="link" />
+                <!--Buy links-->
+                <div v-if="brew && brew.links.length && showBrewLinks" class="border-t py-4 px-2">
+                  <p class="text-gray-500 text-xs px-2">Using the affiliate links below is appreciated. :)</p>
+                  <div class="flex items-start flex-wrap">
+                    <BrewLink v-for="link in brew.links" :key="link.url" v-bind="link" class="mt-4 mx-2" />
+                  </div>
                 </div>
                 <!--Recipe metadata-->
                 <div class="border-y text-sm">

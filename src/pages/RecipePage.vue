@@ -135,7 +135,9 @@ const dataFields = computed(() => ({
                 </div>
                 <!--Buy links-->
                 <div v-if="brew && brew.links.length && showBrewLinks" class="border-t py-4 px-2">
-                  <p class="text-gray-500 text-xs px-2">Using the affiliate links below is appreciated. :)</p>
+                  <p class="text-gray-500 text-xs text-center px-2">
+                    Using the affiliate links below is appreciated. :)
+                  </p>
                   <div class="flex items-start flex-wrap">
                     <BrewLink v-for="link in brew.links" :key="link.url" v-bind="link" class="mt-4 mx-2" />
                   </div>

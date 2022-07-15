@@ -6,5 +6,5 @@ const { menuVisible } = useAppState();
 
 <template>
   <BrewPage v-if="menuVisible" />
-  <router-view v-else />
+  <RouterView v-else />
 </template>

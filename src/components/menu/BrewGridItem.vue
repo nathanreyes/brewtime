@@ -9,7 +9,7 @@ defineProps<{ brew: Brew }>();
 <template>
   <RouterLink
     :to="`/${brew.id}`"
-    class="flex flex-col items-stretch w-full h-44 border cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg"
+    class="flex flex-col items-stretch w-full h-44 border shadow cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg"
     active-class="pointer-events-none opacity-50"
   >
     <div class="flex-grow">

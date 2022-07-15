@@ -104,33 +104,34 @@ const dataFields = computed(() => ({
             <div class="w-full sm:max-w-xl mx-auto">
               <div v-if="!inProcess">
                 <!--Recipe image/notes/brew time-->
-                <div class="flex items-stretch mb-4 mt-2 space-x-4 px-4 sm:px-0">
+                <div class="flex items-stretch mt-2 space-x-4 px-4 sm:px-0">
                   <img v-if="brew" :src="brew.imgUrl" class="flex-shrink-0 flex-grow-0 h-20" :img-url="brew.imgUrl" />
                   <div class="relative flex-grow min-h-full">
                     <p v-if="recipe.notes" class="text-sm text-gray-600 dark:text-gray-300 mb-3">
                       {{ recipe.notes }}
                     </p>
                     <p v-else class="text-xs text-gray-400 dark:text-gray-600">No notes provided</p>
-                    <div
-                      class="absolute bottom-0 w-full flex justify-end items-end -mb-2 space-x-6 text-gray-400 dark:text-gray-400"
-                    >
-                      <!--Buy button-->
-                      <button class="flex text-xs space-x-2 hover:underline" @click="toggleBrewLinksHidden">
-                        <IconShoppingBag class="w-4 h-4" />
-                        <span>Buy & Support</span>
-                      </button>
-                      <!--External link-->
-                      <a
-                        v-if="recipe.urlHostname"
-                        :href="recipe.url"
-                        target="_blank"
-                        class="flex items-center text-xs space-x-1"
-                      >
-                        <IconExternalLink class="w-4 h-4" />
-                        <span class="hover:underline">{{ recipe.urlHostname }}</span>
-                      </a>
-                    </div>
                   </div>
+                </div>
+                <!--Brew buy/external link-->
+                <div
+                  class="flex justify-center items-center my-2 px-4 sm:px-0 space-x-6 text-gray-600 dark:text-gray-400"
+                >
+                  <!--Buy button-->
+                  <button class="flex text-xs space-x-2 hover:underline" @click="toggleBrewLinksHidden">
+                    <IconShoppingBag class="w-4 h-4" />
+                    <span>Buy & Support</span>
+                  </button>
+                  <!--External link-->
+                  <a
+                    v-if="recipe.urlHostname"
+                    :href="recipe.url"
+                    target="_blank"
+                    class="flex items-center text-xs space-x-1"
+                  >
+                    <IconExternalLink class="w-4 h-4" />
+                    <span class="hover:underline">{{ recipe.urlHostname }}</span>
+                  </a>
                 </div>
                 <!--Brew links-->
                 <div

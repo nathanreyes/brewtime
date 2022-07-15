@@ -45,6 +45,12 @@ function stepReset(fromPosition: number = currentPosition.value) {
   duration.value = step.start + 1;
 }
 
+const brewLinksHidden = ref(true);
+const showBrewLinks = computed(() => !brewLinksHidden.value && brew.value && brew.value.links.length);
+function toggleBrewLinksHidden() {
+  brewLinksHidden.value = !brewLinksHidden.value;
+}
+
 const editField = ref<RecipeField | null>(null);
 const dataFields = computed(() => ({
   waterAmount: {
@@ -108,6 +114,11 @@ const dataFields = computed(() => ({
                     <div
                       class="absolute bottom-0 w-full flex justify-end items-end -mb-2 space-x-6 text-gray-400 dark:text-gray-400"
                     >
+                      <!--Buy button-->
+                      <button class="flex text-xs space-x-2 hover:underline" @click="toggleBrewLinksHidden">
+                        <IconShoppingBag class="w-4 h-4" />
+                        <span>Buy & Support</span>
+                      </button>
                       <!--External link-->
                       <a
                         v-if="recipe.urlHostname"
@@ -120,6 +131,13 @@ const dataFields = computed(() => ({
                       </a>
                     </div>
                   </div>
+                </div>
+                <!--Brew links-->
+                <div
+                  v-if="brew && brew.links.length && showBrewLinks"
+                  class="flex items-start flex-wrap border-t space-x-4 py-4"
+                >
+                  <BrewLink v-for="link in brew.links" :key="link.url" v-bind="link" />
                 </div>
                 <!--Recipe metadata-->
                 <div class="border-y text-sm">
@@ -159,7 +177,7 @@ const dataFields = computed(() => ({
                   @close="editField = null"
                 />
                 <!--Recipe brew time-->
-                <div class="mt-2 px-4 sm:px-0">
+                <div class="mt-2 px-4">
                   <p class="text-xs text-right" :class="[running ? 'text-white' : 'text-gray-400 dark:text-gray-400']">
                     Brew Time: {{ formatDuration(recipe.duration) }}
                   </p>

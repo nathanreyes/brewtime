@@ -1,5 +1,53 @@
 [
   {
+    "id": "aeropress",
+    "name": "AeroPress",
+    "category": "immersion",
+    "imgUrl": "https://media.giphy.com/media/nAphi5srQfHvSCUsi7/giphy.gif",
+    "capacity": 250,
+    "links": [
+      {
+        "name": "AeroPress Coffee and Espresso Maker",
+        "url": "https://amzn.to/3ccG6AE",
+        "imgUrl": "//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B000GXZ2GS&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=gifmycoffee-20&language=en_US"
+      },
+      {
+        "name": "Replacement Filter Packs, 700 Count",
+        "url": "https://amzn.to/3uOeYhT",
+        "imgUrl": "//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B005UPSLX8&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=gifmycoffee-20&language=en_US"
+      },
+      {
+        "name": "The MESH: Reusable Metal Filter",
+        "url": "https://amzn.to/3PLwwDx",
+        "imgUrl": "//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B00JVTQHVC&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=gifmycoffee-20&language=en_US"
+      }
+    ]
+  },
+  {
+    "id": "hario-v60",
+    "name": "Hario V60",
+    "category": "percolation",
+    "imgUrl": "/brew-methods/hario-v60.webp",
+    "capacity": 250,
+    "links": [
+      {
+        "name": "Hario V60 Ceramic Coffee Dripper",
+        "url": "https://amzn.to/3PvEWPc",
+        "imgUrl": "//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B000P4D5HG&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=gifmycoffee-20&language=en_US"
+      },
+      {
+        "name": "Paper Coffee Filters, 40 Count",
+        "url": "https://amzn.to/3o8mQae",
+        "imgUrl": "//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B000P4D5AS&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=gifmycoffee-20&language=en_US"
+      },
+      {
+        "name": "Hario V60 Drip Coffee Scale and Timer",
+        "url": "https://amzn.to/3PeWWgR",
+        "imgUrl": "//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B009GPJMOU&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=gifmycoffee-20&language=en_US"
+      }
+    ]
+  },
+  {
     "id": "stagg-x",
     "name": "Stagg X",
     "category": "percolation",
@@ -30,30 +78,6 @@
         "name": "Fellow Stagg EKG Electric Gooseneck Kettle",
         "url": "https://amzn.to/3aFN3K8",
         "imgUrl": "//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B083F459H1&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=gifmycoffee-20&language=en_US"
-      }
-    ]
-  },
-  {
-    "id": "aeropress",
-    "name": "AeroPress",
-    "category": "immersion",
-    "imgUrl": "https://media.giphy.com/media/nAphi5srQfHvSCUsi7/giphy.gif",
-    "capacity": 250,
-    "links": [
-      {
-        "name": "AeroPress Coffee and Espresso Maker",
-        "url": "https://amzn.to/3ccG6AE",
-        "imgUrl": "//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B000GXZ2GS&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=gifmycoffee-20&language=en_US"
-      },
-      {
-        "name": "Replacement Filter Packs, 700 Count",
-        "url": "https://amzn.to/3uOeYhT",
-        "imgUrl": "//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B005UPSLX8&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=gifmycoffee-20&language=en_US"
-      },
-      {
-        "name": "The MESH: Reusable Metal Filter",
-        "url": "https://amzn.to/3PLwwDx",
-        "imgUrl": "//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B00JVTQHVC&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=gifmycoffee-20&language=en_US"
       }
     ]
   }

@@ -7,5 +7,6 @@
 - [*] Save recipe parameters to local storage
 - [*] Hide durations for prepare and completed steps
 - [*] Show select options for non-listed values (make them disabled)
+- [*] Add favicon
+- [] Change water and coffee amounts to input elements
 - [] Fix scroll to step when active
-- [] Add favicon

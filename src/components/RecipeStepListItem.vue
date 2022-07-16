@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, watch, ref, toRef } from 'vue';
 import VRuntimeTemplate from 'vue3-runtime-template';
-
+import { roundTenth, roundInt } from '@/util/math';
 import { formatDuration } from '@/util/duration';
 import { useAppState } from '@/use/appState';
 import type { Recipe } from '@/use/recipe';
@@ -10,7 +10,7 @@ interface RecipeStep {
   summary: string;
   type: string;
   description?: string;
-  imgUrl?: string;
+  imgUrls?: string;
   start: number;
   end: number;
 }
@@ -70,12 +70,15 @@ watch([inProcess, toRef(props, 'running')], () => {
         {{ totalDurationLabel }}
       </div>
     </div>
-    <img
-      v-if="step.imgUrl && active"
-      :src="step.imgUrl"
-      :alt="step.summary"
-      class="block w-full mt-3 shadow-lg rounded"
-    />
+    <div v-if="active">
+      <img
+        v-for="url in step.imgUrls"
+        :key="url"
+        :src="url"
+        :alt="step.summary"
+        class="block w-full mt-3 shadow-lg rounded"
+      />
+    </div>
     <template v-if="inProcess">
       <slot></slot>
     </template>

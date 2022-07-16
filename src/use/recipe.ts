@@ -7,7 +7,7 @@ interface RecipeStepConfig {
   summary: string;
   type: string;
   description?: string;
-  imgUrl?: string;
+  imgUrls?: string[];
   seconds?: number;
   minutes?: number;
 }

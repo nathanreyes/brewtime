@@ -34,11 +34,8 @@ useDragState(
 
 <template>
   <div class="relative w-full h-full">
-    <div class="h-1.5 bg-gray-200 dark:bg-gray-800 rounded-full shadow-inner" />
-    <div
-      class="absolute inset-0 h-1.5 bg-black dark:bg-white pointer-events-none rounded-full"
-      :style="progressStyle"
-    />
+    <div class="bg-gray-200 dark:bg-gray-800 rounded-full shadow-inner" style="height: 5px" />
+    <div class="absolute inset-0 bg-black dark:bg-white pointer-events-none rounded-full" :style="progressStyle" />
     <button class="absolute w-full -top-2 -bottom-2" ref="progressRef" />
   </div>
 </template>

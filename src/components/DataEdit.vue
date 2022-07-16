@@ -104,7 +104,7 @@ const roastOptions = computed(() => {
       <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Water Amount:</label>
         <div class="flex items-baseline space-x-2">
-          <BaseInput v-model.number="recipe.waterAmount" type="number" class="w-24" v-select v-focus />
+          <BaseInput v-model.number="recipe.waterAmount" type="number" class="w-24" v-focus />
           <label>g</label>
         </div>
       </div>
@@ -123,7 +123,7 @@ const roastOptions = computed(() => {
       <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Water Temp:</label>
         <div class="flex items-baseline space-x-2">
-          <BaseInput v-model.number="recipe.waterTemp" type="number" class="w-24" v-select v-focus />
+          <BaseInput v-model.number="recipe.waterTemp" type="number" class="w-24" v-focus />
           <label>&#176;F</label>
         </div>
       </div>
@@ -133,7 +133,7 @@ const roastOptions = computed(() => {
       <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Coffee Amount:</label>
         <div class="flex items-baseline space-x-2">
-          <BaseInput v-model.number="recipe.coffeeAmount" type="number" class="w-24" v-select v-focus />
+          <BaseInput v-model.number="recipe.coffeeAmount" type="number" class="w-24" v-focus />
           <label>g</label>
         </div>
       </div>
@@ -159,7 +159,7 @@ const roastOptions = computed(() => {
       <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Ratio:</label>
         <div class="flex items-baseline space-x-2">
-          <BaseInput v-model.number="recipe.ratio" type="number" step="0.1" min="0" class="w-24" v-select v-focus />
+          <BaseInput v-model.number="recipe.ratio" type="number" step="0.1" min="0" class="w-24" v-focus />
           <label>:1</label>
         </div>
       </div>

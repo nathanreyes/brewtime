@@ -5,11 +5,14 @@
     <main class="flex-grow relative">
       <div class="absolute inset-0 flex flex-col w-full sm:max-w-xl mx-auto">
         <div class="px-4 sm:px-0">
-          <p class="mt-4">GifMyCoffee is a free coffee timer app that helps people brew coffee with gifs.</p>
-          <p class="my-4">That's it! Select a brew method to get started.</p>
+          <p class="mt-4">GifMyCoffee is a free coffee timer app that helps people brew coffee with gifs. That's it!</p>
+          <p class="my-4">Select a brew method to get started.</p>
         </div>
         <BrewGrid />
       </div>
     </main>
+    <footer class="flex-shrink-0 flex justify-center items-center h-10">
+      <div class="text-sm text-gray-300 dark:text-gray-600">&copy; Nathan Reyes 2022</div>
+    </footer>
   </div>
 </template>

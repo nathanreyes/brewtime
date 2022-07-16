@@ -10,7 +10,7 @@ defineProps<{
 }>();
 const emit = defineEmits(['update:modelValue']);
 const selectClass =
-  'block h-10 appearance-none bg-white dark:bg-black border-black dark:border-gray-500 text-black dark:text-white';
+  'block appearance-none bg-white dark:bg-black border-black dark:border-gray-500 text-black dark:text-white rounded';
 
 function onChange(evt: Event) {
   emit('update:modelValue', (evt.target as HTMLSelectElement).value);

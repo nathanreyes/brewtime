@@ -18,30 +18,6 @@ defineEmits(['close']);
 const { isFahrenheit, waterAmountUpdate, coffeeAmountUpdate, ratioUpdate } = useAppState();
 const { protect } = useProtected();
 
-const waterAmountRange = {
-  min: 150,
-  max: 450,
-  step: 5,
-};
-
-const coffeeAmountRange = {
-  min: 5,
-  max: 100,
-  step: 1,
-};
-
-const fahrenheightRange = {
-  min: 175,
-  max: 220,
-  step: 1,
-};
-
-const celciusRange = {
-  min: 79,
-  max: 104,
-  step: 1,
-};
-
 function updateWaterAmount() {
   const { recipe } = props;
   recipe.waterAmount = recipe.coffeeAmount * recipe.ratio;
@@ -101,36 +77,6 @@ function insertOption(value: any, options: Option<any>[]) {
   return options;
 }
 
-// Water amounts
-const waterAmountOptions = computed(() => {
-  const options = [];
-  const { min, max, step } = waterAmountRange;
-  for (let i = min; i <= max; i += step) {
-    options.push({ label: i.toString(), value: i });
-  }
-  return insertOption(props.recipe.waterAmount, options);
-});
-
-// Water temps
-const waterTempOptions = computed(() => {
-  const options = [];
-  const { min, max, step } = isFahrenheit.value ? fahrenheightRange : celciusRange;
-  for (let i = min; i <= max; i += step) {
-    options.push({ label: i.toString(), value: i });
-  }
-  return insertOption(props.recipe.waterTemp, options);
-});
-
-// Coffee amounts
-const coffeeAmountOptions = computed(() => {
-  const options = [];
-  const { min, max, step } = coffeeAmountRange;
-  for (let i = min; i <= max; i += step) {
-    options.push({ label: i.toString(), value: i });
-  }
-  return insertOption(props.recipe.coffeeAmount, options);
-});
-
 // Grinds
 const grindOptions = computed(() => {
   const options: Option<string>[] = ['Fine', 'Med Fine', 'Medium', 'Med Coarse', 'Coarse'].map((g) => ({
@@ -139,15 +85,6 @@ const grindOptions = computed(() => {
   }));
 
   return insertOption(props.recipe.grind, options);
-});
-
-// Ratios
-const ratioOptions = computed(() => {
-  const options = [];
-  for (let i = 1; i <= 40; i += 1) {
-    options.push({ label: i.toString(), value: i });
-  }
-  return insertOption(props.recipe.ratio, options);
 });
 
 // Roasts
@@ -167,7 +104,7 @@ const roastOptions = computed(() => {
       <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Water Amount:</label>
         <div class="flex items-baseline space-x-2">
-          <BaseSelect v-model="recipe.waterAmount" :options="waterAmountOptions" />
+          <BaseInput v-model.number="recipe.waterAmount" type="number" class="w-24" v-select v-focus />
           <label>g</label>
         </div>
       </div>
@@ -186,7 +123,7 @@ const roastOptions = computed(() => {
       <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Water Temp:</label>
         <div class="flex items-baseline space-x-2">
-          <BaseSelect v-model="recipe.waterTemp" :options="waterTempOptions" />
+          <BaseInput v-model.number="recipe.waterTemp" type="number" class="w-24" v-select v-focus />
           <label>&#176;F</label>
         </div>
       </div>
@@ -196,7 +133,7 @@ const roastOptions = computed(() => {
       <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Coffee Amount:</label>
         <div class="flex items-baseline space-x-2">
-          <BaseSelect v-model="recipe.coffeeAmount" :options="coffeeAmountOptions" />
+          <BaseInput v-model.number="recipe.coffeeAmount" type="number" class="w-24" v-select v-focus />
           <label>g</label>
         </div>
       </div>
@@ -222,7 +159,7 @@ const roastOptions = computed(() => {
       <div class="flex justify-center items-baseline space-x-4 px-4 sm:px-0 py-4">
         <label>Ratio:</label>
         <div class="flex items-baseline space-x-2">
-          <BaseSelect v-model="recipe.ratio" :options="ratioOptions" />
+          <BaseInput v-model.number="recipe.ratio" type="number" step="0.1" min="0" class="w-24" v-select v-focus />
           <label>:1</label>
         </div>
       </div>

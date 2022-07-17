@@ -22,6 +22,8 @@ const props = defineProps<{
   running: boolean;
 }>();
 
+const emit = defineEmits(['activated']);
+
 const { brewer } = useAppState();
 
 const totalDuration = computed(() => props.step.end - props.step.start);
@@ -30,7 +32,9 @@ const totalDurationLabel = computed(() => formatDuration(totalDuration.value));
 const started = computed(() => props.current > props.step.start);
 const completed = computed(() => props.current > props.step.end);
 const inProcess = computed(() => started.value && !completed.value);
-const isPrepOrComplete = computed(() => props.step.type === 'setup' || props.step.type === 'complete');
+const isPrepStep = computed(() => props.step.type === 'setup');
+const isCompleteStep = computed(() => props.step.type === 'complete');
+const isPrepOrComplete = computed(() => isPrepStep.value || isCompleteStep.value);
 
 const active = computed(() => {
   if (inProcess.value) return true;
@@ -40,17 +44,9 @@ const active = computed(() => {
 });
 
 const listItem = ref<HTMLElement | null>(null);
-function scrollToView() {
-  setTimeout(() => {
-    if (!listItem.value) return;
-    const el = listItem.value;
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  }, 20);
-}
-
-watch([inProcess, toRef(props, 'running')], () => {
-  if (inProcess.value && props.running) {
-    scrollToView();
+watch([active], () => {
+  if (active.value && brewer.hasStarted.value) {
+    emit('activated', listItem.value);
   }
 });
 </script>
@@ -70,7 +66,7 @@ watch([inProcess, toRef(props, 'running')], () => {
         {{ totalDurationLabel }}
       </div>
     </div>
-    <div v-if="active">
+    <div v-show="active">
       <img
         v-for="url in step.imgUrls"
         :key="url"

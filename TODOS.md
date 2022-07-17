@@ -10,5 +10,5 @@
 - [*] Add favicon
 - [*] Change water and coffee amounts to input elements
 - [*] Fix product images
+- [*] Fix scroll to step when active
 - [] Add reset reset button
-- [] Fix scroll to step when active

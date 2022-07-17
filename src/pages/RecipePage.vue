@@ -6,17 +6,10 @@ import { useScrollPosition } from '@/use/scrollPosition';
 import type { RecipeField } from '@/use/recipe';
 
 const { brewer } = useAppState();
-const { recipe, brew, inProcess, hasCompleted, running, duration, toggleRunning, reset } = brewer;
+const { recipe, brew, inProcess, hasStarted, hasCompleted, running, duration, toggleRunning, reset } = brewer;
 
 const contentEl = ref<HTMLElement | null>(null);
 const { isTop, isBottom, scrollVisible } = useScrollPosition(contentEl);
-
-function resetBrew() {
-  reset();
-  if (contentEl.value) {
-    contentEl.value.scrollTop = 0;
-  }
-}
 
 function updateDuration(current: number) {
   duration.value = current;
@@ -49,6 +42,24 @@ const brewLinksHidden = ref(true);
 const showBrewLinks = computed(() => !brewLinksHidden.value && brew.value && brew.value.links.length);
 function toggleBrewLinksHidden() {
   brewLinksHidden.value = !brewLinksHidden.value;
+}
+
+const paddingStyle = computed(() => {
+  let height = contentEl.value ? contentEl.value.clientHeight : 0;
+  return { height: `${height}px` };
+});
+
+function scrollToListItem(el: HTMLElement) {
+  setTimeout(() => {
+    if (!contentEl.value) return;
+    contentEl.value.scrollTop = el.offsetTop;
+  }, 50);
+}
+
+function resetBrew() {
+  reset();
+  if (!contentEl.value) return;
+  contentEl.value.scrollTop = 0;
 }
 
 const editField = ref<RecipeField | null>(null);
@@ -99,7 +110,7 @@ const dataFields = computed(() => ({
     <main class="flex-grow relative">
       <div class="absolute inset-0 flex flex-col w-full">
         <!--Recipe content-->
-        <div class="flex-grow flex-shrink overflow-y-auto" ref="contentEl">
+        <div class="flex-grow flex-shrink overflow-y-auto scroll-smooth" ref="contentEl">
           <div :class="{ 'sm:ml-4': scrollVisible }">
             <div class="w-full sm:max-w-xl mx-auto">
               <div v-if="!inProcess">
@@ -195,6 +206,7 @@ const dataFields = computed(() => ({
                   :recipe="recipe"
                   :current="duration"
                   :running="running"
+                  @activated="scrollToListItem"
                 >
                   <PlaybackControls
                     class="mt-3"
@@ -208,6 +220,7 @@ const dataFields = computed(() => ({
                     @reset="stepReset(i)"
                   />
                 </RecipeStepListItem>
+                <div v-if="hasStarted" class="w-full" :style="paddingStyle" />
               </div>
             </div>
           </div>

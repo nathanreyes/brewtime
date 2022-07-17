@@ -27,23 +27,23 @@
     "id": "hario-v60",
     "name": "Hario V60",
     "category": "percolation",
-    "imgUrl": "/_brew_methods/hario-v60.webp",
+    "imgUrl": "/_brew_methods/hario-v60/hario-v60.webp",
     "capacity": 250,
     "links": [
       {
         "name": "Hario V60 Ceramic Coffee Dripper",
         "url": "https://amzn.to/3PvEWPc",
-        "imgUrl": "//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B000P4D5HG&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=gifmycoffee-20&language=en_US"
+        "imgUrl": "/_brew_methods/hario-v60/buy_device.webp"
       },
       {
         "name": "Paper Coffee Filters, 40 Count",
         "url": "https://amzn.to/3o8mQae",
-        "imgUrl": "//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B000P4D5AS&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=gifmycoffee-20&language=en_US"
+        "imgUrl": "/_brew_methods/hario-v60/buy_filters.jpg"
       },
       {
         "name": "Hario V60 Drip Coffee Scale and Timer",
         "url": "https://amzn.to/3PeWWgR",
-        "imgUrl": "//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B009GPJMOU&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=gifmycoffee-20&language=en_US"
+        "imgUrl": "/_brew_methods/hario-v60/buy_scale.webp"
       }
     ]
   },

@@ -25,9 +25,9 @@ const recipeLibrary: RecipeConfig[] = [
         imgUrls: ['7fea1fb7-2c56-448a-9ea1-43e3eb48af95/prep.gif'],
       },
       {
-        summary: 'Pour water',
+        summary: 'Pour {{ recipe.waterAmount }}g water',
         type: 'pour',
-        description: 'Pour water evenly into AeroPress.',
+        description: 'Pour {{ recipe.waterAmount }}g water evenly into AeroPress.',
         imgUrls: ['7fea1fb7-2c56-448a-9ea1-43e3eb48af95/pour.gif'],
         seconds: 15,
       },

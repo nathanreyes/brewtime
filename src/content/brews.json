@@ -51,33 +51,33 @@
     "id": "stagg-x",
     "name": "Stagg X",
     "category": "percolation",
-    "imgUrl": "/_brew_methods/stagg-x.gif",
+    "imgUrl": "/_brew_methods/stagg-x/stagg-x.gif",
     "capacity": 350,
     "links": [
       {
         "name": "Fellow Stagg [X] Pour Over Coffee Dripper",
         "url": "https://amzn.to/3yzem0E",
-        "imgUrl": "//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B073C75LGB&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=gifmycoffee-20&language=en_US"
+        "imgUrl": "/_brew_methods/stagg-x/buy_device.jpg"
       },
       {
         "name": "Fellow Stagg [X] Pour-Over Coffee Maker Set",
         "url": "https://amzn.to/3PrroEf",
-        "imgUrl": "//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B0764XLSLS&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=gifmycoffee-20&language=en_US"
+        "imgUrl": "/_brew_methods/stagg-x/buy_device_set.jpg"
       },
       {
         "name": "Hario V60 Paper Coffee Filters",
         "url": "https://amzn.to/3yJ32Pr",
-        "imgUrl": "//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B000P4D5AS&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=gifmycoffee-20&language=en_US"
+        "imgUrl": "/_brew_methods/hario-v60/buy_filters.jpg"
       },
       {
         "name": "Fellow Ode Brew Grinder",
         "url": "https://amzn.to/3PqtcgP",
-        "imgUrl": "//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B08V3VFXCN&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=gifmycoffee-20&language=en_US"
+        "imgUrl": "/_brew_methods/stagg-x/buy_grinder.jpg"
       },
       {
         "name": "Fellow Stagg EKG Electric Gooseneck Kettle",
         "url": "https://amzn.to/3aFN3K8",
-        "imgUrl": "//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B083F459H1&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=gifmycoffee-20&language=en_US"
+        "imgUrl": "/_brew_methods/stagg-x/buy_kettle.jpg"
       }
     ]
   }

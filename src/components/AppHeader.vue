@@ -15,8 +15,8 @@ function toggleMenu() {
 </script>
 <template>
   <header class="flex-shrink-0 z-10">
-    <div class="w-full sm:max-w-xl mx-auto pb-2">
-      <div class="flex items-center h-16 px-2 sm:px-0 sm:-mx-2 mx-auto">
+    <div class="w-full sm:max-w-xl mx-auto">
+      <div class="flex items-center h-14 px-2 sm:px-0 sm:-mx-2 mx-auto">
         <!--Left slot-->
         <slot name="left">
           <!--Menu button-->

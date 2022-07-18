@@ -11,4 +11,4 @@
 - [*] Change water and coffee amounts to input elements
 - [*] Fix product images
 - [*] Fix scroll to step when active
-- [] Add reset reset button
+- [] Add brew reset button

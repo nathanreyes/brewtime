@@ -147,7 +147,7 @@ const dataFields = computed(() => ({
                 <!--Buy links-->
                 <div v-if="brew && brew.links.length && showBrewLinks" class="border-t py-4 px-2">
                   <p class="text-gray-500 text-xs text-center px-2">
-                    Using the affiliate links below is appreciated. :)
+                    Support by using the affiliate links below. &#10084;&#65039;
                   </p>
                   <div class="flex items-start flex-wrap">
                     <BrewLink v-for="link in brew.links" :key="link.url" v-bind="link" class="mt-4 mx-2" />
@@ -220,8 +220,8 @@ const dataFields = computed(() => ({
                     @reset="stepReset(i)"
                   />
                 </RecipeStepListItem>
-                <div v-if="hasStarted" class="w-full" :style="paddingStyle" />
               </div>
+              <div v-if="hasStarted" class="w-full" :style="paddingStyle" />
             </div>
           </div>
         </div>

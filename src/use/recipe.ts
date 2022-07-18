@@ -82,6 +82,7 @@ export function useRecipe(recipeConfig: RecipeConfig) {
   const grindLabel = computed(() => recipe.grind);
   const ratioLabel = computed(() => roundTenth(recipe.ratio).toString());
   const roastLabel = computed(() => recipe.roast);
+  const bloomAmount = computed(() => recipe.coffeeAmount * 2);
   const urlHostname = computed(() => {
     if (!recipe.url) return '';
     const url = new URL(recipe.url);
@@ -96,6 +97,7 @@ export function useRecipe(recipeConfig: RecipeConfig) {
     grindLabel,
     ratioLabel,
     roastLabel,
+    bloomAmount,
     urlHostname,
   };
   return reactive(result);

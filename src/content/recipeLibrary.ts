@@ -169,7 +169,7 @@ const recipeLibrary: RecipeConfig[] = [
         seconds: 10,
       },
       {
-        summary: 'Rest',
+        summary: 'Wait for the first pour',
         type: 'wait',
         description: 'Let the coffee rest for up to 30 to 45 seconds.',
         seconds: 35,
@@ -211,6 +211,107 @@ const recipeLibrary: RecipeConfig[] = [
         description:
           'Allow the brew to draw down. There should be a flat bed of coffee remaining. Pour your cup and enjoy!',
         imgUrls: ['/c71e06b3-7b07-4043-b1dd-9e59da272cff/enjoy.gif'],
+      },
+    ],
+  },
+  {
+    id: 'b46e352e-f560-49a8-9cde-c3b4850d1a69',
+    name: 'Chemex',
+    brewId: 'chemex',
+    author: 'Nathan Reyes',
+    notes: `Learn how to brew coffee using the Chemex Coffeemaker from Dylan Siemens, the 2017 US Brewer's Cup Champion and Head Trainer for Onyx Coffee Lab.`,
+    url: 'https://www.youtube.com/watch?v=N3rwdIV4-MM',
+    roast: 'Light',
+    waterAmount: 900,
+    waterTemp: 215,
+    coffeeAmount: 55,
+    grind: 'Course',
+    ratio: 16.4,
+    steps: [
+      {
+        summary: 'Prepare brew',
+        type: 'setup',
+        description:
+          'Gather a spoon or stir stick. Fold the filter and place 3 sides of the paper near the pour funnel. Use hot water to wet filter and heat the Chemex. Remember to pour out the pre-heat water.',
+        imgUrls: [
+          '/b46e352e-f560-49a8-9cde-c3b4850d1a69/prep_fold_filter.gif',
+          '/b46e352e-f560-49a8-9cde-c3b4850d1a69/prep_wet_filter.gif',
+        ],
+      },
+      {
+        summary: 'Bloom pour',
+        type: 'pour',
+        description:
+          'Pour {{ recipe.bloomAmount }}g of water for the bloom phase. Circle from the inside, to the outside, back to the inside and back to the outside',
+        imgUrls: ['/b46e352e-f560-49a8-9cde-c3b4850d1a69/bloom.gif'],
+        seconds: 15,
+      },
+      {
+        summary: 'Stir & Wait',
+        type: 'stir',
+        description:
+          'Place a spoon or a stir stick as deep into the center of the bed as you can, and lean the coffee in at different directions to get the water to seep into every corner of the bed. Then, wait until the next pour.',
+        imgUrls: ['/b46e352e-f560-49a8-9cde-c3b4850d1a69/stir.gif'],
+        seconds: 30,
+      },
+      {
+        summary: 'First pour to {{ recipe.bloomAmount + 200 }}g',
+        type: 'pour',
+        description:
+          'Make your first 200g pour up to {{ recipe.bloomAmount + 200}}g. Touch the center and circle outwards. Come back to the center of the bed and pour pretty heavy into the center again.',
+        imgUrls: ['/b46e352e-f560-49a8-9cde-c3b4850d1a69/pour_1.gif'],
+        seconds: 25,
+      },
+      {
+        summary: 'Wait for 2nd pour',
+        type: 'wait',
+        description: `Wait for the 2nd pour, where we'll lift the bed from a little higher.`,
+        seconds: 20,
+      },
+      {
+        summary: 'Second pour to {{ recipe.bloomAmount + 400 }}g',
+        type: 'pour',
+        description:
+          'Make your second 200g pour up to {{ recipe.bloomAmount + 400 }}g. Just stay in the center of the bed to carve out the grounds and move them up the side walls. You want to see bubbling happening in the center of your bed.',
+        imgUrls: ['/b46e352e-f560-49a8-9cde-c3b4850d1a69/pour_2.gif'],
+        seconds: 25,
+      },
+      {
+        summary: 'Wait for 3rd pour',
+        type: 'wait',
+        seconds: 35,
+      },
+      {
+        summary: 'Third pour to {{ recipe.bloomAmount + 600 }}g',
+        type: 'pour',
+        description: `Make your third 200g pour up to {{ recipe.bloomAmount + 600 }}g. Again, just stay in the center. Look for that bubbling to happen. This pour should get you up to the top of the Chemex.`,
+        imgUrls: ['/b46e352e-f560-49a8-9cde-c3b4850d1a69/pour_3.gif'],
+        seconds: 25,
+      },
+      {
+        summary: 'Wait for 4th pour',
+        type: 'wait',
+        seconds: 35,
+      },
+      {
+        summary: `Fourth pour to {{ recipe.bloomAmount + 800 }}g`,
+        type: 'pour',
+        description: `Start the fourth 200g pour in the center again. Right when you hit 850g, slowly start to circle out, washing the everthing back down. Top it of in the center until you reach {{ recipe.bloomAmount + 800 }}g.`,
+        imgUrls: ['/b46e352e-f560-49a8-9cde-c3b4850d1a69/pour_4.gif'],
+        seconds: 20,
+      },
+      {
+        summary: `Wait for drain to finish`,
+        type: 'wait',
+        description: `Wait up to 6 minutes for the coffee to drain. Some coffees might take longer, up to 6 1/2 or 7 minutes. If it takes longer than 7 minutes, consider making your grind size even more course.`,
+        minutes: 2,
+        seconds: 10,
+      },
+      {
+        summary: `Swirl and Pour`,
+        type: 'complete',
+        description: 'Give the Chemex a good swirl and pour a glass. Good work!',
+        imgUrls: ['/b46e352e-f560-49a8-9cde-c3b4850d1a69/complete.gif'],
       },
     ],
   },

@@ -38,12 +38,55 @@
       {
         "name": "Paper Coffee Filters, 40 Count",
         "url": "https://amzn.to/3o8mQae",
-        "imgUrl": "/_brew_methods/hario-v60/buy_filters.jpg"
+        "imgUrl": "/_brew_methods/hario-v60/buy_filters].jpg"
       },
       {
         "name": "Hario V60 Drip Coffee Scale and Timer",
         "url": "https://amzn.to/3PeWWgR",
         "imgUrl": "/_brew_methods/hario-v60/buy_scale.webp"
+      }
+    ]
+  },
+  {
+    "id": "chemex",
+    "name": "Chemex",
+    "category": "percolation",
+    "imgUrl": "/_brew_methods/chemex/chemex.webp",
+    "links": [
+      {
+        "name": "Chemex Bonded Filters, Natural Square, 100 Count",
+        "url": "https://amzn.to/3ASSXlU",
+        "imgUrl": "/_brew_methods/chemex/buy_filters_bonded.jpg"
+      },
+      {
+        "name": "Chemex Filters, Natural Square, 2 x 100 Count",
+        "url": "https://amzn.to/3yKxJnz",
+        "imgUrl": "/_brew_methods/chemex/buy_filters_natural.jpg"
+      },
+      {
+        "name": "Chemex Filters, Classic, 100 Count",
+        "url": "https://amzn.to/3PxDvjd",
+        "imgUrl": "/_brew_methods/chemex/buy_filters_classic.jpg"
+      },
+      {
+        "name": "Chemex Brewer, 3-cup",
+        "url": "https://amzn.to/3yKxOHT",
+        "imgUrl": "/_brew_methods/chemex/buy_device_3.jpg"
+      },
+      {
+        "name": "Chemex Brewer, 6-cup",
+        "url": "https://amzn.to/3cj1cgL",
+        "imgUrl": "/_brew_methods/chemex/buy_device_6.jpg"
+      },
+      {
+        "name": "Chemex Brewer, 8-cup",
+        "url": "https://amzn.to/3aODDvZ",
+        "imgUrl": "/_brew_methods/chemex/buy_device_8.jpg"
+      },
+      {
+        "name": "Chemex Brewer, 10-cup",
+        "url": "https://amzn.to/3OfJxDO",
+        "imgUrl": "/_brew_methods/chemex/buy_device_10.jpg"
       }
     ]
   },

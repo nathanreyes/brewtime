@@ -1,5 +1,5 @@
 import { ref, computed, watch } from 'vue';
-import brews from '@/content/brews.json';
+import brewMethods from '@/content/brewMethods.json';
 import { useStopwatch } from './stopwatch';
 import type { Recipe } from './recipe';
 
@@ -18,7 +18,7 @@ export function useBrewer(recipe: Recipe) {
   const { hasStarted, running, duration, startRunning, stopRunning, toggleRunning, durationLabel, reset } = stopwatch;
   const hasCompleted = computed(() => duration.value >= _recipe.value.duration + 10);
   const inProcess = computed(() => hasStarted.value && !hasCompleted.value);
-  const brew = computed(() => brews.find((b) => b.id === _recipe.value.brewId));
+  const brew = computed(() => brewMethods.find((b) => b.id === _recipe.value.brewId));
 
   function loadRecipe(recipe: Recipe) {
     if (!recipe) return;

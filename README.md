@@ -1,6 +1,6 @@
 # brewtime
 
-A simple coffee timer app using gifs. Uses Vite, Vue 3 and Tailwind.
+A simple coffee timer app using gifs. Build with Vite, Vue 3, Vue Router and TailwindCSS.
 
 ## Recipe settings
 

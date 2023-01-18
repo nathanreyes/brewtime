@@ -1,5 +1,4 @@
 import { ref, watchEffect, computed, watch } from 'vue';
-import type { Ref } from 'vue';
 import recipeLibrary from '@/content/recipeLibrary';
 import { useDisplayMode } from '@/use/displayMode';
 import { useBrewer } from '@/use/brewer';

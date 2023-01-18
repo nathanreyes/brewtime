@@ -1,6 +1,7 @@
 {
   "name": "brewtime",
   "version": "0.0.0",
+  "homepage": "https://gifmycoffee.com",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
